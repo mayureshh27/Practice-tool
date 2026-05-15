@@ -180,8 +180,8 @@
       ],
       "explanation": "Exercise 1.3 is about strings, join, test, benchmark. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Investigate to measure the difference in running time between our potentially inefficient versions and the one that uses strings.Join.",
       "starterCode": "package main\n\n// Book exercise 1.3\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 1.3\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 1.3.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 1.3: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 1.3: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 1.3:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 1.3",
@@ -263,8 +263,8 @@
       ],
       "explanation": "Exercise 1.5 is about lissajous. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Change the Lissajous program’s color palette to green on black, for added authenticity.",
       "starterCode": "package main\n\n// Book exercise 1.5\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 1.5\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 1.5.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 1.5: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 1.5: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 1.5:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 1.5",
@@ -304,8 +304,8 @@
       ],
       "explanation": "Exercise 1.6 is about lissajous. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Adapt the Lissajous program to produce images in multiple colors by adding more values to palette and then displaying them by changing the third argument of Set- ColorIndex in some interesting way.",
       "starterCode": "package main\n\n// Book exercise 1.6\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 1.6\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 1.6.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 1.6: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 1.6: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 1.6:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 1.6",
@@ -345,8 +345,8 @@
       ],
       "explanation": "Exercise 1.7 is about tutorial. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: The function call io.Copy(dst, src) reads from src and writes to dst.",
       "starterCode": "package main\n\n// Book exercise 1.7\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 1.7\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 1.7.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 1.7: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 1.7: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 1.7:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 1.7",
@@ -428,8 +428,8 @@
       ],
       "explanation": "Exercise 1.9 is about http. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Adapt fetch to also print the HTTP status code, found in resp.Status.",
       "starterCode": "package main\n\n// Book exercise 1.9\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 1.9\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 1.9.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 1.9: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 1.9: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 1.9:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 1.9",
@@ -470,8 +470,8 @@
       ],
       "explanation": "Exercise 1.10 is about file, server. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Find a web site that produces a large amount of data.",
       "starterCode": "package main\n\n// Book exercise 1.10\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 1.10\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 1.10.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 1.10: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 1.10: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 1.10:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 1.10",
@@ -511,8 +511,8 @@
       ],
       "explanation": "Exercise 1.11 is about tutorial. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Try fetchall with longer argument lists, such as samples from the top million web sites available at alexa.com.",
       "starterCode": "package main\n\n// Book exercise 1.11\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 1.11\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 1.11.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 1.11: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 1.11: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 1.11:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 1.11",
@@ -637,8 +637,8 @@
       ],
       "explanation": "Exercise 2.2 is about program. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a general-purpose unit-conversion program analogous to cf that reads numbers from its command-line arguments or from the standard input if there are no argu- ments, and converts each number into units like temperature in Celsius an...",
       "starterCode": "package main\n\n// Book exercise 2.2\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 2.2\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 2.2.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 2.2: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 2.2: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 2.2:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 2.2",
@@ -801,8 +801,8 @@
       ],
       "explanation": "Exercise 3.1 is about file. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: If the function f returns a non-finite float64 value, the SVG file will contain invalid <polygon> elements (although many SVG renderers handle this gracefully).",
       "starterCode": "package main\n\n// Book exercise 3.1\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 3.1\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 3.1.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 3.1: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 3.1: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 3.1:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 3.1",
@@ -842,8 +842,8 @@
       ],
       "explanation": "Exercise 3.2 is about basic. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Investigate with visualizations of other functions from the math package.",
       "starterCode": "package main\n\n// Book exercise 3.2\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 3.2\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 3.2.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 3.2: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 3.2: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 3.2:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 3.2",
@@ -883,8 +883,8 @@
       ],
       "explanation": "Exercise 3.3 is about basic. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Color each polygon based on its height, so that the peaks are colored red (#ff0000) and the valleys blue (#0000ff).",
       "starterCode": "package main\n\n// Book exercise 3.3\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 3.3\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 3.3.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 3.3: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 3.3: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 3.3:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 3.3",
@@ -927,8 +927,8 @@
       ],
       "explanation": "Exercise 3.4 is about http, server, lissajous, xml. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Following the approach of the Lissajous example in Section 1.7, construct a web server that computes surfaces and writes SVG data to the client.",
       "starterCode": "package main\n\n// Book exercise 3.4\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 3.4\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 3.4.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 3.4: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 3.4: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 3.4:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 3.4",
@@ -968,8 +968,8 @@
       ],
       "explanation": "Exercise 3.5 is about basic. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Implement a full-color Mandelbrot set using the function image.NewRGBA and the type color.RGBA or color.YCbCr.",
       "starterCode": "package main\n\n// Book exercise 3.5\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 3.5\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 3.5.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 3.5: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 3.5: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 3.5:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 3.5",
@@ -1009,8 +1009,8 @@
       ],
       "explanation": "Exercise 3.6 is about basic. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Supersampling is a technique to reduce the effect of pixelation by computing the color value at several points within each pixel and taking the average.",
       "starterCode": "package main\n\n// Book exercise 3.6\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 3.6\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 3.6.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 3.6: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 3.6: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 3.6:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 3.6",
@@ -1050,8 +1050,8 @@
       ],
       "explanation": "Exercise 3.7 is about basic. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Another simple fractal uses Newton’s method to find complex solutions to a function such as z4−1 = 0.",
       "starterCode": "package main\n\n// Book exercise 3.7\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 3.7\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 3.7.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 3.7: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 3.7: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 3.7:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 3.7",
@@ -1091,8 +1091,8 @@
       ],
       "explanation": "Exercise 3.8 is about basic. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Rendering fractals at high zoom levels demands great arithmetic precision.",
       "starterCode": "package main\n\n// Book exercise 3.8\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 3.8\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 3.8.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 3.8: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 3.8: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 3.8:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 3.8",
@@ -1133,8 +1133,8 @@
       ],
       "explanation": "Exercise 3.9 is about http, server. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a web server that renders fractals and writes the image data to the client.",
       "starterCode": "package main\n\n// Book exercise 3.9\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 3.9\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 3.9.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 3.9: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 3.9: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 3.9:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 3.9",
@@ -1383,8 +1383,8 @@
       ],
       "explanation": "Exercise 4.2 is about composite. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a program that prints the SHA256 hash of its standard input by default but supports a command-line flag to print the SHA384 or SHA512 hash instead.",
       "starterCode": "package main\n\n// Book exercise 4.2\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 4.2\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 4.2.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 4.2: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 4.2: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 4.2:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 4.2",
@@ -1465,8 +1465,8 @@
       ],
       "explanation": "Exercise 4.4 is about composite. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a version of rotate that operates in a single pass.",
       "starterCode": "package main\n\n// Book exercise 4.4\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 4.4\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 4.4.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 4.4: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 4.4: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 4.4:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 4.4",
@@ -1715,8 +1715,8 @@
       ],
       "explanation": "Exercise 4.10 is about composite. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Adapt issues to report the results in age categories, say less than a month old, less than a year old, and more than a year old.",
       "starterCode": "package main\n\n// Book exercise 4.10\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 4.10\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 4.10.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 4.10: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 4.10: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 4.10:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 4.10",
@@ -1756,8 +1756,8 @@
       ],
       "explanation": "Exercise 4.11 is about html. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a tool that lets users create, read, update, and delete GitHub issues from the command line, invoking their preferred text editor when substantial text input is required.",
       "starterCode": "package main\n\n// Book exercise 4.11\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 4.11\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 4.11.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 4.11: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 4.11: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 4.11:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 4.11",
@@ -1799,8 +1799,8 @@
       ],
       "explanation": "Exercise 4.12 is about http, json, interface. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: The popular web comic xkcd has a JSON interface.",
       "starterCode": "package main\n\n// Book exercise 4.12\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 4.12\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 4.12.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 4.12: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 4.12: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 4.12:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 4.12",
@@ -1841,8 +1841,8 @@
       ],
       "explanation": "Exercise 4.13 is about http, json. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: The JSON-based web service of the Open Movie Database lets you search https://omdbapi.com/ for a movie by name and download its poster image.",
       "starterCode": "package main\n\n// Book exercise 4.13\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 4.13\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 4.13.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 4.13: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 4.13: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 4.13:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 4.13",
@@ -1882,8 +1882,8 @@
       ],
       "explanation": "Exercise 4.14 is about server. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Create a web server that queries GitHub once and then allows navigation of the list of bug reports, milestones, and users.",
       "starterCode": "package main\n\n// Book exercise 4.14\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 4.14\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 4.14.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 4.14: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 4.14: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 4.14:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 4.14",
@@ -1923,8 +1923,8 @@
       ],
       "explanation": "Exercise 5.1 is about functions. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Change the findlinks program to traverse the n.FirstChild linked list using recursive calls to visit instead of a loop.",
       "starterCode": "package main\n\n// Book exercise 5.1\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.1\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.1.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.1: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.1: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.1:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.1",
@@ -1965,8 +1965,8 @@
       ],
       "explanation": "Exercise 5.2 is about map, html. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a function to populate a mapping from element names—p, div, span, and so on—to the number of elements with that name in an HTML document tree.",
       "starterCode": "package main\n\n// Book exercise 5.2\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.2\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.2.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.2: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.2: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.2:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.2",
@@ -2006,8 +2006,8 @@
       ],
       "explanation": "Exercise 5.3 is about html. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a function to print the contents of all text nodes in an HTML document tree.",
       "starterCode": "package main\n\n// Book exercise 5.3\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.3\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.3.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.3: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.3: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.3:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.3",
@@ -2047,8 +2047,8 @@
       ],
       "explanation": "Exercise 5.4 is about functions. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Extend the visit function so that it extracts other kinds of links from the doc- ument, such as images, scripts, and style sheets.",
       "starterCode": "package main\n\n// Book exercise 5.4\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.4\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.4.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.4: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.4: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.4:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.4",
@@ -2088,8 +2088,8 @@
       ],
       "explanation": "Exercise 5.5 is about functions. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Implement countWordsAndImages. (See Exercise 4.9 for word-splitting.)",
       "starterCode": "package main\n\n// Book exercise 5.5\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.5\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.5.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.5: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.5: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.5:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.5",
@@ -2129,8 +2129,8 @@
       ],
       "explanation": "Exercise 5.6 is about functions. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Adapt the corner function in gopl.io/ch3/surface (§3.2) to use named results and a bare return statement.",
       "starterCode": "package main\n\n// Book exercise 5.6\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.6\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.6.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.6: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.6: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.6:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.6",
@@ -2171,8 +2171,8 @@
       ],
       "explanation": "Exercise 5.7 is about test, html. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Develop startElement and endElement into a general HTML pretty-printer.",
       "starterCode": "package main\n\n// Book exercise 5.7\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.7\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.7.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.7: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.7: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.7:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.7",
@@ -2212,8 +2212,8 @@
       ],
       "explanation": "Exercise 5.8 is about html. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Adapt forEachNode so that the pre and post functions return a boolean result indicating whether to continue the traversal.",
       "starterCode": "package main\n\n// Book exercise 5.8\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.8\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.8.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.8: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.8: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.8:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.8",
@@ -2338,8 +2338,8 @@
       ],
       "explanation": "Exercise 5.11 is about sort. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: The instructor of the linear algebra course decides that calculus is now a prerequisite.",
       "starterCode": "package main\n\n// Book exercise 5.11\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.11\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.11.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.11: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.11: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.11:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.11",
@@ -2379,8 +2379,8 @@
       ],
       "explanation": "Exercise 5.12 is about functions. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: The startElement and endElement functions in gopl.io/ch5/outline2 (§5.5) share a global variable, depth.",
       "starterCode": "package main\n\n// Book exercise 5.12\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.12\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.12.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.12: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.12: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.12:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.12",
@@ -2420,8 +2420,8 @@
       ],
       "explanation": "Exercise 5.13 is about file. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Adapt crawl to make local copies of the pages it finds, creating directories as necessary.",
       "starterCode": "package main\n\n// Book exercise 5.13\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.13\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.13.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.13: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.13: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.13:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.13",
@@ -2462,8 +2462,8 @@
       ],
       "explanation": "Exercise 5.14 is about file, sort. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Practice using the breadthFirst function to explore a different structure.",
       "starterCode": "package main\n\n// Book exercise 5.14\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.14\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.14.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.14: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.14: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.14:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.14",
@@ -2587,8 +2587,8 @@
       ],
       "explanation": "Exercise 5.17 is about html. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a variadic function ElementsByTagName that, given an HTML node tree and zero or more names, returns all the elements that match one of those names.",
       "starterCode": "package main\n\n// Book exercise 5.17\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.17\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.17.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.17: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.17: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.17:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.17",
@@ -2629,8 +2629,8 @@
       ],
       "explanation": "Exercise 5.18 is about file, defer. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Without changing its behavior, rewrite the fetch function to use defer to close the writable file.",
       "starterCode": "package main\n\n// Book exercise 5.18\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.18\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.18.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.18: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.18: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.18:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.18",
@@ -2670,8 +2670,8 @@
       ],
       "explanation": "Exercise 5.19 is about panic. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Practice using panic and recover to write a function that contains no return statement yet returns a non-zero value.",
       "starterCode": "package main\n\n// Book exercise 5.19\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 5.19\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 5.19.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 5.19: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 5.19: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 5.19:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 5.19",
@@ -2879,8 +2879,8 @@
       ],
       "explanation": "Exercise 6.5 is about methods. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: The type of each word used by IntSet is uint64, but 64-bit arithmetic may be inefficient on a 32-bit platform.",
       "starterCode": "package main\n\n// Book exercise 6.5\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 6.5\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 6.5.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 6.5: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 6.5: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 6.5:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 6.5",
@@ -3004,8 +3004,8 @@
       ],
       "explanation": "Exercise 7.3 is about sort. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a String method for the *tree type in gopl.io/ch4/treesort (§4.4) that reveals the sequence of values in the tree.",
       "starterCode": "package main\n\n// Book exercise 7.3\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.3\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.3.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.3: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.3: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.3:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.3",
@@ -3129,8 +3129,8 @@
       ],
       "explanation": "Exercise 7.6 is about interfaces. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Extend support for Kelvin temperatures to tempflag.",
       "starterCode": "package main\n\n// Book exercise 7.6\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.6\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.6.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.6: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.6: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.6:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.6",
@@ -3170,8 +3170,8 @@
       ],
       "explanation": "Exercise 7.7 is about interfaces. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Explain why the help message contains °C when the default value of 20.0 does not.",
       "starterCode": "package main\n\n// Book exercise 7.7\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.7\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.7.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.7: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.7: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.7:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.7",
@@ -3212,8 +3212,8 @@
       ],
       "explanation": "Exercise 7.8 is about sort, interface. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Many GUIs provide a table widget with a stateful multi-tier sort: the primary sort key is the most recently clicked column head, the secondary sort key is the second-most recently clicked column head, and so on.",
       "starterCode": "package main\n\n// Book exercise 7.8\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.8\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.8.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.8: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.8: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.8:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.8",
@@ -3255,8 +3255,8 @@
       ],
       "explanation": "Exercise 7.9 is about http, sort, html. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Practice using the html/template package (§4.6) to replace printTracks with a function that displays the tracks as an HTML table.",
       "starterCode": "package main\n\n// Book exercise 7.9\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.9\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.9.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.9: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.9: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.9:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.9",
@@ -3338,8 +3338,8 @@
       ],
       "explanation": "Exercise 7.11 is about interfaces. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Extend additional handlers so that clients can create, read, update, and delete database entries.",
       "starterCode": "package main\n\n// Book exercise 7.11\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.11\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.11.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.11: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.11: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.11:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.11",
@@ -3380,8 +3380,8 @@
       ],
       "explanation": "Exercise 7.12 is about interface, html. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Change the handler for /list to print its output as an HTML table, not text.",
       "starterCode": "package main\n\n// Book exercise 7.12\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.12\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.12.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.12: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.12: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.12:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.12",
@@ -3421,8 +3421,8 @@
       ],
       "explanation": "Exercise 7.13 is about interfaces. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Extend a String method to Expr to pretty-print the syntax tree.",
       "starterCode": "package main\n\n// Book exercise 7.13\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.13\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.13.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.13: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.13: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.13:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.13",
@@ -3462,8 +3462,8 @@
       ],
       "explanation": "Exercise 7.14 is about interface. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Define a new concrete type that satisfies the Expr interface and provides a new operation such as computing the minimum value of its operands.",
       "starterCode": "package main\n\n// Book exercise 7.14\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.14\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.14.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.14: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.14: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.14:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.14",
@@ -3503,8 +3503,8 @@
       ],
       "explanation": "Exercise 7.15 is about interfaces. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a program that reads a single expression from the standard input, prompts the user to provide values for any variables, then evaluates the expression in the resulting environment.",
       "starterCode": "package main\n\n// Book exercise 7.15\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.15\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.15.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.15: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.15: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.15:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.15",
@@ -3544,8 +3544,8 @@
       ],
       "explanation": "Exercise 7.16 is about interfaces. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a web-based calculator program.",
       "starterCode": "package main\n\n// Book exercise 7.16\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.16\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.16.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.16: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.16: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.16:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.16",
@@ -3585,8 +3585,8 @@
       ],
       "explanation": "Exercise 7.17 is about xml. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Extend xmlselect so that elements may be selected not just by name, but by their attributes too, in the manner of CSS, so that, for instance, an element like <div id=\"page\" class=\"wide\"> could be selected by a matching id or class as wel...",
       "starterCode": "package main\n\n// Book exercise 7.17\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.17\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.17.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.17: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.17: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.17:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.17",
@@ -3629,8 +3629,8 @@
       ],
       "explanation": "Exercise 7.18 is about strings, slice, interface, xml. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Using the token-based decoder API, write a program that will read an arbitrary XML document and construct a tree of generic nodes that represents it.",
       "starterCode": "package main\n\n// Book exercise 7.18\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 7.18\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 7.18.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 7.18: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 7.18: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 7.18:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 7.18",
@@ -3713,8 +3713,8 @@
       ],
       "explanation": "Exercise 8.2 is about file, server. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Implement a concurrent File Transfer Protocol (FTP) server.",
       "starterCode": "package main\n\n// Book exercise 8.2\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.2\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.2.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.2: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.2: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.2:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.2",
@@ -3757,8 +3757,8 @@
       ],
       "explanation": "Exercise 8.3 is about echo, server, interface, goroutine. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: In netcat3, the interface value conn has the concrete type *net.TCPConn, which represents a TCP connection.",
       "starterCode": "package main\n\n// Book exercise 8.3\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.3\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.3.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.3: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.3: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.3:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.3",
@@ -3882,8 +3882,8 @@
       ],
       "explanation": "Exercise 8.6 is about goroutines. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Extend depth-limiting to the concurrent crawler.",
       "starterCode": "package main\n\n// Book exercise 8.6\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.6\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.6.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.6: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.6: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.6:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.6",
@@ -3924,8 +3924,8 @@
       ],
       "explanation": "Exercise 8.7 is about goroutine, channel. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a concurrent program that creates a local mirror of a web site, fetching each reachable page and writing it to a directory on the local disk.",
       "starterCode": "package main\n\n// Book exercise 8.7\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.7\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.7.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.7: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.7: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.7:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.7",
@@ -3966,8 +3966,8 @@
       ],
       "explanation": "Exercise 8.8 is about echo, server. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Using a select statement, add a timeout to the echo server from Section 8.3 so that it disconnects any client that shouts nothing within 10 seconds.",
       "starterCode": "package main\n\n// Book exercise 8.8\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.8\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.8.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.8: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.8: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.8:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.8",
@@ -4007,8 +4007,8 @@
       ],
       "explanation": "Exercise 8.9 is about goroutines. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a version of du that computes and periodically displays separate totals for each of the root directories.",
       "starterCode": "package main\n\n// Book exercise 8.9\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.9\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.9.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.9: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.9: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.9:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.9",
@@ -4049,8 +4049,8 @@
       ],
       "explanation": "Exercise 8.10 is about http, channel. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: HTTP requests may be cancelled by closing the optional Cancel channel in the http.Request struct.",
       "starterCode": "package main\n\n// Book exercise 8.10\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.10\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.10.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.10: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.10: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.10:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.10",
@@ -4090,8 +4090,8 @@
       ],
       "explanation": "Exercise 8.11 is about goroutines. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Following the approach of mirroredQuery in Section 8.4.4, implement a vari- ant of fetch that requests several URLs concurrently.",
       "starterCode": "package main\n\n// Book exercise 8.11\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.11\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.11.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.11: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.11: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.11:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.11",
@@ -4131,8 +4131,8 @@
       ],
       "explanation": "Exercise 8.12 is about channel. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Make the broadcaster announce the current set of clients to each new arrival.",
       "starterCode": "package main\n\n// Book exercise 8.12\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.12\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.12.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.12: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.12: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.12:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.12",
@@ -4173,8 +4173,8 @@
       ],
       "explanation": "Exercise 8.13 is about server, goroutine. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Make the chat server disconnect idle clients, such as those that have sent no messages in the last five minutes.",
       "starterCode": "package main\n\n// Book exercise 8.13\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.13\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.13.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.13: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.13: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.13:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.13",
@@ -4214,8 +4214,8 @@
       ],
       "explanation": "Exercise 8.14 is about server. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Change the chat server’s network protocol so that each client provides its name on entering.",
       "starterCode": "package main\n\n// Book exercise 8.14\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.14\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.14.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.14: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.14: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.14:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.14",
@@ -4257,8 +4257,8 @@
       ],
       "explanation": "Exercise 8.15 is about writer, goroutine, channel. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Failure of any client program to read data in a timely manner ultimately causes all clients to get stuck.",
       "starterCode": "package main\n\n// Book exercise 8.15\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 8.15\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 8.15.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 8.15: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 8.15: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 8.15:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 8.15",
@@ -4424,8 +4424,8 @@
       ],
       "explanation": "Exercise 9.4 is about goroutine. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Construct a pipeline that connects an arbitrary number of goroutines with chan- nels.",
       "starterCode": "package main\n\n// Book exercise 9.4\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 9.4\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 9.4.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 9.4: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 9.4: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 9.4:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 9.4",
@@ -4466,8 +4466,8 @@
       ],
       "explanation": "Exercise 9.5 is about goroutine, channel. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a program with two goroutines that send messages back and forth over two unbuffered channels in ping-pong fashion.",
       "starterCode": "package main\n\n// Book exercise 9.5\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 9.5\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 9.5.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 9.5: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 9.5: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 9.5:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 9.5",
@@ -4507,8 +4507,8 @@
       ],
       "explanation": "Exercise 9.6 is about shared. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Measure how the performance of a compute-bound parallel program (see Exer- cise 8.5) varies with GOMAXPROCS.",
       "starterCode": "package main\n\n// Book exercise 9.6\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 9.6\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 9.6.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 9.6: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 9.6: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 9.6:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 9.6",
@@ -4633,8 +4633,8 @@
       ],
       "explanation": "Exercise 10.3 is about http, server. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Using fetch http://gopl.io/ch1/helloworld?go-get=1, find out which service hosts the code samples for this book.",
       "starterCode": "package main\n\n// Book exercise 10.3\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 10.3\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 10.3.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 10.3: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 10.3: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 10.3:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 10.3",
@@ -4675,8 +4675,8 @@
       ],
       "explanation": "Exercise 10.4 is about json, test. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Construct a tool that reports the set of all packages in the workspace that tran- sitively depend on the packages specified by the arguments.",
       "starterCode": "package main\n\n// Book exercise 10.4\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 10.4\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 10.4.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 10.4: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 10.4: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 10.4:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 10.4",
@@ -4842,8 +4842,8 @@
       ],
       "explanation": "Exercise 11.4 is about testing. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Adapt randomPalindrome to exercise IsPalindrome’s handling of punc- tuation and spaces.",
       "starterCode": "package main\n\n// Book exercise 11.4\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 11.4\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 11.4.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 11.4: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 11.4: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 11.4:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 11.4",
@@ -4883,8 +4883,8 @@
       ],
       "explanation": "Exercise 11.5 is about test. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Extend TestSplit to use a table of inputs and expected outputs.",
       "starterCode": "package main\n\n// Book exercise 11.5\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 11.5\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 11.5.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 11.5: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 11.5: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 11.5:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 11.5",
@@ -4924,8 +4924,8 @@
       ],
       "explanation": "Exercise 11.6 is about benchmark. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build benchmarks to compare the PopCount implementation in Section 2.6.2 with your solutions to Exercise 2.4 and Exercise 2.5.",
       "starterCode": "package main\n\n// Book exercise 11.6\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 11.6\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 11.6.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 11.6: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 11.6: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 11.6:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 11.6",
@@ -4966,8 +4966,8 @@
       ],
       "explanation": "Exercise 11.7 is about map, benchmark. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build benchmarks for Extend, UnionWith, and other methods of *IntSet (§6.5) using large pseudo-random inputs.",
       "starterCode": "package main\n\n// Book exercise 11.7\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 11.7\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 11.7.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 11.7: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 11.7: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 11.7:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 11.7",
@@ -5090,8 +5090,8 @@
       ],
       "explanation": "Exercise 12.3 is about interface, reflect. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Implement the missing cases of the encode function.",
       "starterCode": "package main\n\n// Book exercise 12.3\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 12.3\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 12.3.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 12.3: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 12.3: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 12.3:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 12.3",
@@ -5131,8 +5131,8 @@
       ],
       "explanation": "Exercise 12.4 is about reflection. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Adapt encode to pretty-print the S-expression in the style shown above.",
       "starterCode": "package main\n\n// Book exercise 12.4\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 12.4\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 12.4.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 12.4: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 12.4: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 12.4:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 12.4",
@@ -5173,8 +5173,8 @@
       ],
       "explanation": "Exercise 12.5 is about json, test. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Adapt encode to emit JSON instead of S-expressions.",
       "starterCode": "package main\n\n// Book exercise 12.5\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 12.5\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 12.5.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 12.5: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 12.5: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 12.5:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 12.5",
@@ -5256,8 +5256,8 @@
       ],
       "explanation": "Exercise 12.7 is about json. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Create a streaming API for the S-expression decoder, following the style of json.Decoder (§4.5).",
       "starterCode": "package main\n\n// Book exercise 12.7\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 12.7\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 12.7.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 12.7: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 12.7: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 12.7:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 12.7",
@@ -5299,8 +5299,8 @@
       ],
       "explanation": "Exercise 12.8 is about json, slice, reader. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: The sexpr.Unmarshal function, like json.Marshal, requires the complete input in a byte slice before it can begin decoding.",
       "starterCode": "package main\n\n// Book exercise 12.8\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 12.8\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 12.8.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 12.8: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 12.8: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 12.8:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 12.8",
@@ -5340,8 +5340,8 @@
       ],
       "explanation": "Exercise 12.9 is about xml. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build a token-based API for decoding S-expressions, following the style of xml.Decoder (§7.14).",
       "starterCode": "package main\n\n// Book exercise 12.9\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 12.9\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 12.9.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 12.9: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 12.9: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 12.9:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 12.9",
@@ -5383,8 +5383,8 @@
       ],
       "explanation": "Exercise 12.10 is about map, interface, reflect. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Extend sexpr.Unmarshal to handle the booleans, floating-point numbers, and interfaces encoded by your solution to Exercise 12.3.",
       "starterCode": "package main\n\n// Book exercise 12.10\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 12.10\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 12.10.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 12.10: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 12.10: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 12.10:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 12.10",
@@ -5424,8 +5424,8 @@
       ],
       "explanation": "Exercise 12.11 is about reflection. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Build the corresponding Pack function. Given a struct value, Pack should return a URL incorporating the parameter values from the struct.",
       "starterCode": "package main\n\n// Book exercise 12.11\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 12.11\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 12.11.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 12.11: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 12.11: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 12.11:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 12.11",
@@ -5465,8 +5465,8 @@
       ],
       "explanation": "Exercise 12.12 is about reflection. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Extend the field tag notation to express parameter validity requirements.",
       "starterCode": "package main\n\n// Book exercise 12.12\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 12.12\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 12.12.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 12.12: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 12.12: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 12.12:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 12.12",
@@ -5506,8 +5506,8 @@
       ],
       "explanation": "Exercise 12.13 is about json. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Adapt the S-expression encoder (§12.4) and decoder (§12.6) so that they honor the sexpr:\"...\" field tag in a similar manner to encoding/json (§4.5).",
       "starterCode": "package main\n\n// Book exercise 12.13\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 12.13\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 12.13.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 12.13: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 12.13: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 12.13:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 12.13",
@@ -5633,8 +5633,8 @@
       ],
       "explanation": "Exercise 13.3 is about writer, goroutine, mutex. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Practice using sync.Mutex to make bzip2.writer safe for concurrent use by multiple goroutines.",
       "starterCode": "package main\n\n// Book exercise 13.3\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 13.3\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 13.3.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 13.3: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 13.3: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 13.3:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 13.3",
@@ -5674,8 +5674,8 @@
       ],
       "explanation": "Exercise 13.4 is about writer. Instead of memorizing a finished answer, read the required behavior, identify the input and output values, and build the smallest Go implementation that proves this specific task: Depending on C libraries has its drawbacks.",
       "starterCode": "package main\n\n// Book exercise 13.4\n// Read the Study and Problem tabs, then replace this sketch with your implementation.\n// For command-line/server/image exercises, build the full program locally.\nfunc Solve() string {\n    return \"TODO: implement exercise 13.4\"\n}\n",
-      "solutionCode": "package main\n\n// Reference placeholder for exercise 13.4.\n// This course entry is intentionally project-style: implement the full program described\n// in the Study/Problem tab, then use Run mode to execute your version locally.\nfunc Solve() string {\n    return \"exercise 13.4: implementation is project-specific\"\n}\n",
-      "testCode": "func main(){ assertEqual(Solve(), \"exercise 13.4: implementation is project-specific\") }",
+      "solutionCode": "Manual project guidance for exercise 13.4:\n\n- Build the full program described in the Study and Problem tabs.\n- Run it with a small reproducible input or command.\n- Record the command, any sample files, and the observed output.\n- Mark the project complete only after the proof matches the exercise goal.\n",
+      "testCode": "",
       "examples": [
         {
           "input": "Book Exercise 13.4",
