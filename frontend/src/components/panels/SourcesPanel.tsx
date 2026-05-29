@@ -44,7 +44,7 @@ function SourcesPanel() {
       </div>
 
       <div style={{position: 'relative'}}>
-        <Search size={12} style={{position: 'absolute', left: 8, top: 9, color: "#71717a"}} />
+        <Search size={12} style={{position: 'absolute', left: 8, top: 9, color: "var(--ws-muted)"}} />
         <input
           type="text"
           className="flex-1 bg-ws-surface border border-ws-line rounded px-3 py-2 text-ws-ink outline-none focus:border-ws-success transition-colors"
@@ -62,7 +62,7 @@ function SourcesPanel() {
               <button
                 type="button"
                 onClick={() => toggleExpand(source.id)}
-                style={{background: 'none', border: 'none', padding: 0, color: "#71717a", cursor: 'pointer', display: 'flex'}}
+                style={{background: 'none', border: 'none', padding: 0, color: "var(--ws-muted)", cursor: 'pointer', display: 'flex'}}
               >
                 {expandedId === source.id ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
               </button>
@@ -71,7 +71,7 @@ function SourcesPanel() {
               <button
                 type="button"
                 onClick={() => toggleContext(source.id)}
-                style={{background: 'none', border: 'none', padding: 0, cursor: 'pointer', marginLeft: 'auto', display: 'flex', color: source.inContext ? "#10b981" : "#71717a"}}
+                style={{background: 'none', border: 'none', padding: 0, cursor: 'pointer', marginLeft: 'auto', display: 'flex', color: source.inContext ? "var(--ws-accent)" : "var(--ws-muted)"}}
                 title={source.inContext ? 'Remove from context' : 'Add to context'}
               >
                 {source.inContext ? <ToggleRight size={18} /> : <ToggleLeft size={18} />}
@@ -86,11 +86,11 @@ function SourcesPanel() {
                 {source.chunks.map(chunk => (
                   <div key={chunk.id} style={{
                     padding: '6px 8px',
-                    background: "#0a0a0b",
+                    background: "var(--ws-bg)",
                     borderRadius: "4px",
                     border: '1px solid var(--ws-edge-soft)',
                     fontSize: 'var(--ws-type-xs)',
-                    color: "#a1a1aa",
+                    color: "var(--ws-soft)",
                     lineHeight: 1.4,
                   }}>
                     {chunk.text}
@@ -101,7 +101,7 @@ function SourcesPanel() {
           </div>
         ))}
         {filtered.length === 0 && (
-          <div style={{color: "#71717a", fontSize: '11px', textAlign: 'center', padding: 'var(--ws-sp-6) 0'}}>
+          <div style={{color: "var(--ws-muted)", fontSize: '11px', textAlign: 'center', padding: 'var(--ws-sp-6) 0'}}>
             No sources match "{filter}"
           </div>
         )}

@@ -25,9 +25,9 @@ const EDGES: ConceptEdge[] = [
 ];
 
 const MASTERY_COLORS: Record<string, string> = {
-  mastered: "#10b981",
+  mastered: "var(--ws-accent)",
   practiced: "#f59e0b",
-  unseen: "#71717a",
+  unseen: "var(--ws-muted)",
 };
 
 function GraphPanel() {
@@ -46,7 +46,7 @@ function GraphPanel() {
       <div style={{
         position: 'relative',
         height: 300,
-        background: "#0a0a0b",
+        background: "var(--ws-bg)",
         border: '1px solid var(--ws-edge-soft)',
         borderRadius: "6px",
         overflow: 'hidden',
@@ -59,7 +59,7 @@ function GraphPanel() {
               <line
                 key={`${edge.from}-${edge.to}`}
                 x1={from.x} y1={from.y} x2={to.x} y2={to.y}
-                stroke="#18181b" strokeWidth={1.5}
+                stroke="var(--ws-line)" strokeWidth={1.5}
               />
             );
           })}
@@ -73,10 +73,10 @@ function GraphPanel() {
               position: 'absolute',
               left: node.x, top: node.y,
               width: 80, height: 24,
-              background: selectedNode === node.id ? "rgba(16,185,129,0.1)" : "#09090b",
-              border: `1.5px solid ${selectedNode === node.id ? "#10b981" : MASTERY_COLORS[node.mastery]}`,
+              background: selectedNode === node.id ? "rgba(16,185,129,0.1)" : "var(--ws-bg)",
+              border: `1.5px solid ${selectedNode === node.id ? "var(--ws-accent)" : MASTERY_COLORS[node.mastery]}`,
               borderRadius: "4px",
-              color: "#f4f4f5",
+              color: "var(--ws-ink)",
               fontSize: 10,
               fontWeight: 600,
               cursor: 'pointer',
@@ -98,12 +98,12 @@ function GraphPanel() {
           <div className="flex items-center justify-between text-ws-muted text-sm">
             <span className={`ws-tag mastery-${selected.mastery}`} style={{textTransform: 'capitalize'}}>{selected.mastery}</span>
           </div>
-          <div style={{fontSize: '11px', color: "#a1a1aa", marginTop: 4}}>
+          <div style={{fontSize: '11px', color: "var(--ws-soft)", marginTop: 4}}>
             {selected.mastery === 'mastered' && 'You have demonstrated consistent understanding of this concept.'}
             {selected.mastery === 'practiced' && 'You have practiced this concept but may still have gaps.'}
             {selected.mastery === 'unseen' && 'You have not yet encountered exercises on this concept.'}
           </div>
-          <div style={{fontSize: 'var(--ws-type-xs)', color: "#71717a", marginTop: 4}}>
+          <div style={{fontSize: 'var(--ws-type-xs)', color: "var(--ws-muted)", marginTop: 4}}>
             Prerequisites: {EDGES.filter(e => e.to === selected.id).map(e => NODES.find(n => n.id === e.from)?.label).filter(Boolean).join(', ') || 'None'}
           </div>
         </div>

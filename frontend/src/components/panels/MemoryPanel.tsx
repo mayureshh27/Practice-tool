@@ -42,7 +42,7 @@ function MemoryPanel() {
           onClick={() => setShowAdd(!showAdd)}
           style={{
             background: 'none', border: '1px solid var(--ws-edge-soft)', borderRadius: "4px",
-            padding: '3px 8px', cursor: 'pointer', color: "#71717a", display: 'flex', alignItems: 'center', gap: 4,
+            padding: '3px 8px', cursor: 'pointer', color: "var(--ws-muted)", display: 'flex', alignItems: 'center', gap: 4,
             fontSize: 'var(--ws-type-xs)',
           }}
         >
@@ -66,7 +66,7 @@ function MemoryPanel() {
             type="button"
             className="bg-transparent border-none text-ws-muted cursor-pointer p-1 rounded hover:text-ws-soft"
             onClick={handleAddNote}
-            style={{color: noteInput.trim() ? "#10b981" : "#71717a"}}
+            style={{color: noteInput.trim() ? "var(--ws-accent)" : "var(--ws-muted)"}}
           >
             <Send size={14} />
           </button>
@@ -91,7 +91,7 @@ function MemoryPanel() {
               onClick={() => handleDismiss(event.id)}
               style={{
                 background: 'none', border: 'none', cursor: 'pointer', padding: 2,
-                color: "#71717a", opacity: 0.5, flexShrink: 0, alignSelf: 'flex-start',
+                color: "var(--ws-muted)", opacity: 0.5, flexShrink: 0, alignSelf: 'flex-start',
               }}
               title="Dismiss"
             >
@@ -100,7 +100,7 @@ function MemoryPanel() {
           </div>
         ))}
         {events.length === 0 && (
-          <div style={{color: "#71717a", fontSize: '11px', textAlign: 'center', padding: 'var(--ws-sp-6) 0'}}>
+          <div style={{color: "var(--ws-muted)", fontSize: '11px', textAlign: 'center', padding: 'var(--ws-sp-6) 0'}}>
             No memory events. Add a note to get started.
           </div>
         )}

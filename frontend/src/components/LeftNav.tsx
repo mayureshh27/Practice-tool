@@ -18,9 +18,15 @@ function LeftNav() {
   const collapsed = useUIStore(s => s.leftCollapsed);
   const onSearchTrigger = () => useUIStore.getState().setSearchModalOpen(true);
   
-  // Note: create modal logic should ideally be moved to store or root layout.
-  // For now, we'll keep it as a stub or move the state here if needed.
-  const onOpenCreateModal = (_type: string, _domainId?: string, _subjectId?: string) => {}; // TODO: Wire to UI store
+  const setCreationModal = useUIStore(s => s.setCreationModal);
+  const onOpenCreateModal = (type: any, domainId?: string, subjectId?: string) => {
+    setCreationModal({
+      open: true,
+      type,
+      domainId,
+      subjectId
+    });
+  };
   
   const routerState = useRouterState();
   const location = routerState.location;
@@ -113,18 +119,18 @@ function LeftNav() {
           textDecoration: 'none',
           display: 'flex', alignItems: 'center', gap: 8, width: '100%',
           padding: `5px 8px 5px ${paddingLeft}px`, background: 'none', border: 'none', borderRadius: "4px",
-          color: "#a1a1aa", fontSize: 12, cursor: 'pointer', textAlign: 'left',
+          color: "var(--ws-soft)", fontSize: 12, cursor: 'pointer', textAlign: 'left',
           textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap',
           transition: 'background 100ms ease'
         }}
-        onMouseEnter={e => (e.currentTarget.style.background = "#27272a")}
+        onMouseEnter={e => (e.currentTarget.style.background = "var(--ws-surface-2)")}
         onMouseLeave={e => (e.currentTarget.style.background = 'none')}
       >
         <span className="text-sm font-medium" style={{overflow: 'hidden', textOverflow: 'ellipsis', flex: 1}}>
           {item.label}
         </span>
         <span style={{
-          fontSize: 9, opacity: 0.6, color: "#10b981",
+          fontSize: 9, opacity: 0.6, color: "var(--ws-accent)",
           padding: '1px 4px', background: "rgba(16,185,129,0.1)", border: '1px solid rgba(16, 185, 129, 0.25)',
           borderRadius: 3, textTransform: 'capitalize', flexShrink: 0
         }}>
@@ -159,7 +165,7 @@ function LeftNav() {
           if (groups[g].length === 0) return null;
           return (
             <div key={g}>
-              <div style={{fontSize: 10, color: "#71717a", marginBottom: 4, paddingLeft: 8}}>{g}</div>
+              <div style={{fontSize: 10, color: "var(--ws-muted)", marginBottom: 4, paddingLeft: 8}}>{g}</div>
               {groups[g].map(item => renderRecentItem(item))}
             </div>
           );
@@ -203,15 +209,15 @@ function LeftNav() {
 
           return (
             <div key={dId}>
-              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 8px', color: "#a1a1aa", fontSize: 11, fontWeight: 500}}>
+              <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 8px', color: "var(--ws-soft)", fontSize: 11, fontWeight: 500}}>
                 <div style={{display: 'flex', alignItems: 'center', gap: 6, overflow: 'hidden'}}>
                   <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{domain.name}</span>
                   <Link 
                     to="/domain/$domainId"
                     params={{ domainId: domain.id }}
-                    style={{background: 'none', border: 'none', cursor: 'pointer', padding: 2, display: 'flex', color: "#71717a"}}
-                    onMouseEnter={e => e.currentTarget.style.color = "#10b981"}
-                    onMouseLeave={e => e.currentTarget.style.color = "#71717a"}
+                    style={{background: 'none', border: 'none', cursor: 'pointer', padding: 2, display: 'flex', color: "var(--ws-muted)"}}
+                    onMouseEnter={e => e.currentTarget.style.color = "var(--ws-accent)"}
+                    onMouseLeave={e => e.currentTarget.style.color = "var(--ws-muted)"}
                     title="Go to domain"
                   >
                     <ArrowUpRight size={10} />
@@ -238,14 +244,14 @@ function LeftNav() {
 
                 return (
                   <div key={sId} style={{marginLeft: 8, marginTop: 4}}>
-                    <div style={{display: 'flex', alignItems: 'center', gap: 6, padding: '2px 8px', color: "#71717a", fontSize: 11}}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: 6, padding: '2px 8px', color: "var(--ws-muted)", fontSize: 11}}>
                       <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{subject.name}</span>
                       <Link 
                         to="/subject/$domainId/$subjectId"
                         params={{ domainId: domain.id, subjectId: subject.id }}
-                        style={{background: 'none', border: 'none', cursor: 'pointer', padding: 2, display: 'flex', color: "#71717a"}}
-                        onMouseEnter={e => e.currentTarget.style.color = "#10b981"}
-                        onMouseLeave={e => e.currentTarget.style.color = "#71717a"}
+                        style={{background: 'none', border: 'none', cursor: 'pointer', padding: 2, display: 'flex', color: "var(--ws-muted)"}}
+                        onMouseEnter={e => e.currentTarget.style.color = "var(--ws-accent)"}
+                        onMouseLeave={e => e.currentTarget.style.color = "var(--ws-muted)"}
                         title="Go to subject"
                       >
                         <ArrowUpRight size={10} />
@@ -257,14 +263,14 @@ function LeftNav() {
                        if (!chapter) return null;
                        return (
                          <div key={cId} style={{marginLeft: 8, marginTop: 4}}>
-                           <div style={{display: 'flex', alignItems: 'center', gap: 6, padding: '2px 8px', color: "#71717a", fontSize: 10}}>
+                           <div style={{display: 'flex', alignItems: 'center', gap: 6, padding: '2px 8px', color: "var(--ws-muted)", fontSize: 10}}>
                              <span style={{overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>{chapter.name}</span>
                              <Link 
                                to="/chapter/$domainId/$subjectId/$chapterId"
                                params={{ domainId: domain.id, subjectId: subject.id, chapterId: chapter.id }}
-                               style={{background: 'none', border: 'none', cursor: 'pointer', padding: 2, display: 'flex', color: "#71717a"}}
-                               onMouseEnter={e => e.currentTarget.style.color = "#10b981"}
-                               onMouseLeave={e => e.currentTarget.style.color = "#71717a"}
+                               style={{background: 'none', border: 'none', cursor: 'pointer', padding: 2, display: 'flex', color: "var(--ws-muted)"}}
+                               onMouseEnter={e => e.currentTarget.style.color = "var(--ws-accent)"}
+                               onMouseLeave={e => e.currentTarget.style.color = "var(--ws-muted)"}
                                title="Go to chapter"
                              >
                                <ArrowUpRight size={10} />
@@ -282,7 +288,7 @@ function LeftNav() {
         })}
         {noDomainItems.length > 0 && (
           <div>
-            <div style={{fontSize: 10, color: "#71717a", marginBottom: 4, paddingLeft: 8}}>Other</div>
+            <div style={{fontSize: 10, color: "var(--ws-muted)", marginBottom: 4, paddingLeft: 8}}>Other</div>
             {noDomainItems.map(item => renderRecentItem(item))}
           </div>
         )}
@@ -356,11 +362,11 @@ function LeftNav() {
                     background: isDomainsActive ? "rgba(16,185,129,0.1)" : 'transparent',
                     marginBottom: 6
                   }}
-                  onMouseEnter={e => { if (!isDomainsActive) e.currentTarget.style.background = "#27272a"; }}
+                  onMouseEnter={e => { if (!isDomainsActive) e.currentTarget.style.background = "var(--ws-surface-2)"; }}
                   onMouseLeave={e => { if (!isDomainsActive) e.currentTarget.style.background = 'transparent'; }}
                   title="All Domains"
                 >
-                  <Folder size={18} style={{color: isDomainsActive ? "#10b981" : "#a1a1aa"}} />
+                  <Folder size={18} style={{color: isDomainsActive ? "var(--ws-accent)" : "var(--ws-soft)"}} />
                 </Link>
 
                 {/* Global search launcher icon */}
@@ -374,17 +380,17 @@ function LeftNav() {
                     paddingBottom: 14
                   }}
                   onClick={() => onSearchTrigger?.()}
-                  onMouseEnter={e => e.currentTarget.style.background = "#27272a"}
+                  onMouseEnter={e => e.currentTarget.style.background = "var(--ws-surface-2)"}
                   onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                   title="Search specializations and concepts (Ctrl+K)"
                 >
-                  <Search size={18} style={{color: "#a1a1aa"}} />
+                  <Search size={18} style={{color: "var(--ws-soft)"}} />
                 </div>
               </>
             );
           })()
         ) : isLoadingDomains ? (
-          <div style={{padding: '16px 8px', textAlign: 'center', color: "#71717a", fontSize: 11}}>
+          <div style={{padding: '16px 8px', textAlign: 'center', color: "var(--ws-muted)", fontSize: 11}}>
             Loading...
           </div>
         ) : (
@@ -407,11 +413,11 @@ function LeftNav() {
                 onClick={() => { toggleExpand(domain.id); navigate({to: '/domain/$domainId', params: { domainId: domain.id }}); }}
                 onContextMenu={e => handleContextMenu(e, domain.id)}
               >
-                <span style={{color: "#71717a", display: 'flex', flexShrink: 0, width: 14, justifyContent: 'center'}}>
+                <span style={{color: "var(--ws-muted)", display: 'flex', flexShrink: 0, width: 14, justifyContent: 'center'}}>
                   {isDomainExpanded ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
                 </span>
-                <span style={{color: "#71717a", display: 'flex', flexShrink: 0}}>
-                  {isDomainExpanded ? <FolderOpen size={14} style={{color: "#10b981"}} /> : <Folder size={14} />}
+                <span style={{color: "var(--ws-muted)", display: 'flex', flexShrink: 0}}>
+                  {isDomainExpanded ? <FolderOpen size={14} style={{color: "var(--ws-accent)"}} /> : <Folder size={14} />}
                 </span>
                 {renaming === domain.id ? (
                   <input
@@ -423,31 +429,31 @@ function LeftNav() {
                     onClick={e => e.stopPropagation()}
                     autoFocus
                     style={{
-                      flex: 1, padding: '1px 4px', background: "#0a0a0b",
+                      flex: 1, padding: '1px 4px', background: "var(--ws-bg)",
                       border: '1px solid var(--ws-glow)', borderRadius: 2,
-                      color: "#f4f4f5", fontSize: 12, outline: 'none', minWidth: 0,
+                      color: "var(--ws-ink)", fontSize: 12, outline: 'none', minWidth: 0,
                     }}
                   />
                 ) : (
-                  <span style={{fontSize: 12, fontWeight: 600, color: "#f4f4f5", flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0}}>
+                  <span style={{fontSize: 12, fontWeight: 600, color: "var(--ws-ink)", flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0}}>
                     {domain.name}
                   </span>
                 )}
-                {domain.pinned && <Pin size={10} style={{color: "#10b981", flexShrink: 0}} />}
+                {domain.pinned && <Pin size={10} style={{color: "var(--ws-accent)", flexShrink: 0}} />}
                 <button
                   type="button"
                   onClick={e => { e.stopPropagation(); onOpenCreateModal('subject', domain.id); }}
                   title="Add subject"
-                  style={{background: 'none', border: 'none', cursor: 'pointer', color: "#71717a", display: 'flex', flexShrink: 0, padding: 2, marginRight: 2, opacity: 0.6}}
-                  onMouseEnter={e => e.currentTarget.style.color = "#10b981"}
-                  onMouseLeave={e => e.currentTarget.style.color = "#71717a"}
+                  style={{background: 'none', border: 'none', cursor: 'pointer', color: "var(--ws-muted)", display: 'flex', flexShrink: 0, padding: 2, marginRight: 2, opacity: 0.6}}
+                  onMouseEnter={e => e.currentTarget.style.color = "var(--ws-accent)"}
+                  onMouseLeave={e => e.currentTarget.style.color = "var(--ws-muted)"}
                 >
                   <Plus size={12} />
                 </button>
                 <button
                   type="button"
                   onClick={e => handleContextMenu(e, domain.id)}
-                  style={{background: 'none', border: 'none', cursor: 'pointer', color: "#71717a", display: 'flex', flexShrink: 0, padding: 0, opacity: 0.6}}
+                  style={{background: 'none', border: 'none', cursor: 'pointer', color: "var(--ws-muted)", display: 'flex', flexShrink: 0, padding: 0, opacity: 0.6}}
                 >
                   <MoreHorizontal size={12} />
                 </button>
@@ -469,25 +475,25 @@ function LeftNav() {
                         color: 'inherit'
                       }}
                       onClick={() => { toggleExpand(subject.id); navigate({to: '/subject/$domainId/$subjectId', params: { domainId: domain.id, subjectId: subject.id }}); }}
-                      onMouseEnter={e => { if (!isSubActive) e.currentTarget.style.background = "#27272a"; }}
+                      onMouseEnter={e => { if (!isSubActive) e.currentTarget.style.background = "var(--ws-surface-2)"; }}
                       onMouseLeave={e => { if (!isSubActive) e.currentTarget.style.background = 'transparent'; }}
                     >
-                      <span style={{color: "#71717a", display: 'flex', flexShrink: 0, width: 14, justifyContent: 'center'}}>
+                      <span style={{color: "var(--ws-muted)", display: 'flex', flexShrink: 0, width: 14, justifyContent: 'center'}}>
                         {isSubExpanded ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
                       </span>
-                      <span style={{color: "#71717a", display: 'flex', flexShrink: 0}}>
-                        <BookOpen size={14} style={{color: isSubActive ? "#10b981" : "#71717a"}} />
+                      <span style={{color: "var(--ws-muted)", display: 'flex', flexShrink: 0}}>
+                        <BookOpen size={14} style={{color: isSubActive ? "var(--ws-accent)" : "var(--ws-muted)"}} />
                       </span>
-                      <span style={{fontSize: 12, fontWeight: 500, color: isSubActive ? "#f4f4f5" : "#a1a1aa", flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0}}>
+                      <span style={{fontSize: 12, fontWeight: 500, color: isSubActive ? "var(--ws-ink)" : "var(--ws-soft)", flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0}}>
                         {subject.name}
                       </span>
                       <button
                         type="button"
                         onClick={e => { e.stopPropagation(); onOpenCreateModal('chapter', domain.id, subject.id); }}
                         title="Add chapter"
-                        style={{background: 'none', border: 'none', cursor: 'pointer', color: "#71717a", display: 'flex', flexShrink: 0, padding: 2, opacity: 0.6}}
-                        onMouseEnter={e => e.currentTarget.style.color = "#10b981"}
-                        onMouseLeave={e => e.currentTarget.style.color = "#71717a"}
+                        style={{background: 'none', border: 'none', cursor: 'pointer', color: "var(--ws-muted)", display: 'flex', flexShrink: 0, padding: 2, opacity: 0.6}}
+                        onMouseEnter={e => e.currentTarget.style.color = "var(--ws-accent)"}
+                        onMouseLeave={e => e.currentTarget.style.color = "var(--ws-muted)"}
                       >
                         <Plus size={11} />
                       </button>
@@ -508,16 +514,16 @@ function LeftNav() {
                               textDecoration: 'none', color: 'inherit'
                             }}
                             onClick={() => { toggleExpand(chapter.id); navigate({to: '/chapter/$domainId/$subjectId/$chapterId', params: { domainId: domain.id, subjectId: subject.id, chapterId: chapter.id }}); }}
-                            onMouseEnter={e => { if (!isChActive) e.currentTarget.style.background = "#27272a"; }}
+                            onMouseEnter={e => { if (!isChActive) e.currentTarget.style.background = "var(--ws-surface-2)"; }}
                             onMouseLeave={e => { if (!isChActive) e.currentTarget.style.background = 'transparent'; }}
                           >
-                            <span style={{color: "#71717a", display: 'flex', flexShrink: 0, width: 14, justifyContent: 'center'}}>
+                            <span style={{color: "var(--ws-muted)", display: 'flex', flexShrink: 0, width: 14, justifyContent: 'center'}}>
                               {isChExpanded ? <ChevronDown size={13} /> : <ChevronRight size={13} />}
                             </span>
-                            <span style={{color: "#71717a", display: 'flex', flexShrink: 0}}>
-                              <Layers size={14} style={{color: isChActive ? "#10b981" : "#71717a"}} />
+                            <span style={{color: "var(--ws-muted)", display: 'flex', flexShrink: 0}}>
+                              <Layers size={14} style={{color: isChActive ? "var(--ws-accent)" : "var(--ws-muted)"}} />
                             </span>
-                            <span style={{fontSize: 12, fontWeight: 500, color: isChActive ? "#f4f4f5" : "#a1a1aa", flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0}}>
+                            <span style={{fontSize: 12, fontWeight: 500, color: isChActive ? "var(--ws-ink)" : "var(--ws-soft)", flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0}}>
                               {chapter.name}
                             </span>
                           </div>
@@ -536,14 +542,14 @@ function LeftNav() {
                                   textDecoration: 'none', color: 'inherit'
                                 }}
                                 onClick={() => navigate({to: '/topic/$domainId/$subjectId/$chapterId/$topicId', params: { domainId: domain.id, subjectId: subject.id, chapterId: chapter.id, topicId: topic.id }})}
-                                onMouseEnter={e => { if (!isTopicActive) e.currentTarget.style.background = "#27272a"; }}
+                                onMouseEnter={e => { if (!isTopicActive) e.currentTarget.style.background = "var(--ws-surface-2)"; }}
                                 onMouseLeave={e => { if (!isTopicActive) e.currentTarget.style.background = 'transparent'; }}
                               >
                                 <span style={{display: 'flex', flexShrink: 0, width: 14}} />
-                                <span style={{color: "#71717a", display: 'flex', flexShrink: 0}}>
-                                  <FileCode size={14} style={{color: isTopicActive ? "#10b981" : "#71717a"}} />
+                                <span style={{color: "var(--ws-muted)", display: 'flex', flexShrink: 0}}>
+                                  <FileCode size={14} style={{color: isTopicActive ? "var(--ws-accent)" : "var(--ws-muted)"}} />
                                 </span>
-                                <span style={{fontSize: 12, fontWeight: 400, color: isTopicActive ? "#f4f4f5" : "#71717a", flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0}}>
+                                <span style={{fontSize: 12, fontWeight: 400, color: isTopicActive ? "var(--ws-ink)" : "var(--ws-muted)", flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', minWidth: 0}}>
                                   {topic.name}
                                 </span>
                               </div>
@@ -560,7 +566,7 @@ function LeftNav() {
         }))}
 
         {filteredDomains.length === 0 && (
-          <div style={{padding: '16px 8px', textAlign: 'center', color: "#71717a", fontSize: 11}}>
+          <div style={{padding: '16px 8px', textAlign: 'center', color: "var(--ws-muted)", fontSize: 11}}>
             {search ? 'No results' : 'No domains yet'}
           </div>
         )}
@@ -619,9 +625,9 @@ function LeftNav() {
                   type="button"
                   className="bg-transparent border-none text-ws-muted cursor-pointer p-1 rounded hover:text-ws-soft" 
                   onClick={(e) => { e.stopPropagation(); setShowRecentMenu(!showRecentMenu); }}
-                  style={{width: 20, height: 20, background: 'none', border: 'none', cursor: 'pointer', color: "#71717a", display: 'flex', alignItems: 'center', justifyContent: 'center'}}
-                  onMouseEnter={e => e.currentTarget.style.color = "#10b981"}
-                  onMouseLeave={e => e.currentTarget.style.color = "#71717a"}
+                  style={{width: 20, height: 20, background: 'none', border: 'none', cursor: 'pointer', color: "var(--ws-muted)", display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+                  onMouseEnter={e => e.currentTarget.style.color = "var(--ws-accent)"}
+                  onMouseLeave={e => e.currentTarget.style.color = "var(--ws-muted)"}
                 >
                   <Settings2 size={12} />
                 </button>
@@ -631,11 +637,11 @@ function LeftNav() {
                     <div style={{position: 'fixed', inset: 0, zIndex: 999}} onClick={(e) => { e.stopPropagation(); setShowRecentMenu(false); }} />
                     <div style={{
                       position: 'absolute', right: 0, top: 22, zIndex: 1000,
-                      background: "#09090b", border: '1px solid var(--ws-edge)',
+                      background: "var(--ws-bg)", border: '1px solid var(--ws-edge)',
                       borderRadius: "6px", padding: 4, minWidth: 120,
                       boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
                     }} onClick={e => e.stopPropagation()}>
-                      <div style={{padding: '4px 8px', fontSize: 10, color: "#71717a", textTransform: 'uppercase', letterSpacing: 0.5}}>Group by</div>
+                      <div style={{padding: '4px 8px', fontSize: 10, color: "var(--ws-muted)", textTransform: 'uppercase', letterSpacing: 0.5}}>Group by</div>
                       {['None', 'Date', 'Project'].map(g => (
                          <button
                            key={g}
@@ -644,13 +650,13 @@ function LeftNav() {
                            style={{
                              display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%',
                              padding: '6px 10px', background: 'none', border: 'none', borderRadius: "4px",
-                             color: "#a1a1aa", fontSize: 12, cursor: 'pointer', textAlign: 'left',
+                             color: "var(--ws-soft)", fontSize: 12, cursor: 'pointer', textAlign: 'left',
                            }}
-                           onMouseEnter={e => (e.currentTarget.style.background = "#27272a")}
+                           onMouseEnter={e => (e.currentTarget.style.background = "var(--ws-surface-2)")}
                            onMouseLeave={e => (e.currentTarget.style.background = 'none')}
                          >
                            {g}
-                           {recentGroupBy === g && <Check size={12} style={{color: "#10b981"}} />}
+                           {recentGroupBy === g && <Check size={12} style={{color: "var(--ws-accent)"}} />}
                          </button>
                       ))}
                     </div>
@@ -676,7 +682,7 @@ function LeftNav() {
           <div style={{position: 'fixed', inset: 0, zIndex: 999}} onClick={closeContext} />
           <div style={{
             position: 'fixed', left: contextMenu.x, top: contextMenu.y, zIndex: 1000,
-            background: "#09090b", border: '1px solid var(--ws-edge)',
+            background: "var(--ws-bg)", border: '1px solid var(--ws-edge)',
             borderRadius: "6px", padding: 4, minWidth: 140,
             boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
           }}>
@@ -693,10 +699,10 @@ function LeftNav() {
                 style={{
                   display: 'flex', alignItems: 'center', gap: 8, width: '100%',
                   padding: '6px 10px', background: 'none', border: 'none', borderRadius: "4px",
-                  color: (item as {danger?: boolean}).danger ? "#ef4444" : "#a1a1aa",
+                  color: (item as {danger?: boolean}).danger ? "#ef4444" : "var(--ws-soft)",
                   fontSize: 12, cursor: 'pointer', textAlign: 'left',
                 }}
-                onMouseEnter={e => (e.currentTarget.style.background = "#27272a")}
+                onMouseEnter={e => (e.currentTarget.style.background = "var(--ws-surface-2)")}
                 onMouseLeave={e => (e.currentTarget.style.background = 'none')}
               >
                 <item.icon size={12} /> {item.label}

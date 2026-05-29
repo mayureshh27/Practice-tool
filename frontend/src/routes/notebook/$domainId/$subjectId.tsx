@@ -17,7 +17,7 @@ function NotebookRoute() {
   const subject = domain?.subjects.find(s => s.id === subjectId)
 
   if (!domain || !subject) {
-    return <div style={{padding: 40, textAlign: 'center', color: '#71717a'}}>Notebook target not found.</div>
+    return <div style={{padding: 40, textAlign: 'center', color: 'var(--ws-muted)'}}>Notebook target not found.</div>
   }
 
   return (

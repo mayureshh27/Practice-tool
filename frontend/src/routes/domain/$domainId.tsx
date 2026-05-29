@@ -20,11 +20,11 @@ function DomainRoute() {
   const deleteSubject = useWorkspaceStore(s => s.deleteSubject)
 
   if (isLoading) {
-    return <div style={{padding: 40, textAlign: 'center', color: "#71717a"}}>Loading...</div>
+    return <div style={{padding: 40, textAlign: 'center', color: "var(--ws-muted)"}}>Loading...</div>
   }
 
   if (!domain) {
-    return <div style={{padding: 40, textAlign: 'center', color: "#71717a"}}>Domain not found.</div>
+    return <div style={{padding: 40, textAlign: 'center', color: "var(--ws-muted)"}}>Domain not found.</div>
   }
 
   return (

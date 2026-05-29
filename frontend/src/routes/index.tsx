@@ -20,7 +20,7 @@ function IndexScreen() {
   const navigate = useNavigate();
 
   if (isLoading) {
-    return <div style={{padding: 40, textAlign: 'center', color: "#71717a"}}>Loading domains...</div>
+    return <div style={{padding: 40, textAlign: 'center', color: "var(--ws-muted)"}}>Loading domains...</div>
   }
 
   return (

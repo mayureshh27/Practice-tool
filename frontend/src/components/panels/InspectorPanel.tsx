@@ -52,7 +52,7 @@ function InspectorPanel() {
     }, 2000);
   };
 
-  const statusColor = (s: string) => s === 'pass' ? "#10b981" : s === 'warn' ? "#f59e0b" : "#ef4444";
+  const statusColor = (s: string) => s === 'pass' ? "var(--ws-accent)" : s === 'warn' ? "#f59e0b" : "#ef4444";
 
   return (
     <div className="flex flex-col h-full p-4 gap-4">
@@ -65,7 +65,7 @@ function InspectorPanel() {
           style={{
             display: 'flex', alignItems: 'center', gap: 4, padding: '3px 8px',
             background: 'none', border: '1px solid var(--ws-edge-soft)', borderRadius: "4px",
-            color: rerunning ? "#71717a" : "#10b981", cursor: rerunning ? 'wait' : 'pointer',
+            color: rerunning ? "var(--ws-muted)" : "var(--ws-accent)", cursor: rerunning ? 'wait' : 'pointer',
             fontSize: 'var(--ws-type-xs)', fontWeight: 600,
           }}
         >
@@ -78,19 +78,19 @@ function InspectorPanel() {
         <div className="text-ws-ink font-medium">Workflow Run</div>
         <div className="flex items-center justify-between py-1">
           <span style={{color: 'var(--ws-muted)'}}>ID</span>
-          <span style={{fontFamily: 'var(--ws-font-mono)', color: "#71717a"}}>{run.id}</span>
+          <span style={{fontFamily: 'var(--ws-font-mono)', color: "var(--ws-muted)"}}>{run.id}</span>
         </div>
         <div className="flex items-center justify-between py-1">
           <span style={{color: 'var(--ws-muted)'}}>Template</span>
-          <span style={{color: "#71717a"}}>{run.template}</span>
+          <span style={{color: "var(--ws-muted)"}}>{run.template}</span>
         </div>
         <div className="flex items-center justify-between py-1">
           <span style={{color: 'var(--ws-muted)'}}>Latency</span>
-          <span style={{color: "#71717a"}}>{run.latency}</span>
+          <span style={{color: "var(--ws-muted)"}}>{run.latency}</span>
         </div>
         <div className="flex items-center justify-between py-1">
           <span style={{color: 'var(--ws-muted)'}}>Ran at</span>
-          <span style={{color: "#71717a", display: 'flex', alignItems: 'center', gap: 4}}>
+          <span style={{color: "var(--ws-muted)", display: 'flex', alignItems: 'center', gap: 4}}>
             <Clock size={10} /> {run.timestamp}
           </span>
         </div>
@@ -106,7 +106,7 @@ function InspectorPanel() {
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%',
                 padding: '6px 0', background: 'none', border: 'none', borderBottom: '1px solid var(--ws-edge-soft)',
-                cursor: 'pointer', color: "#a1a1aa",
+                cursor: 'pointer', color: "var(--ws-soft)",
               }}
             >
               <span style={{display: 'flex', alignItems: 'center', gap: 6}}>
@@ -114,16 +114,16 @@ function InspectorPanel() {
                 <span style={{fontSize: '11px'}}>{check.name}</span>
               </span>
               <span style={{display: 'flex', alignItems: 'center', gap: 6}}>
-                <span style={{fontSize: 'var(--ws-type-xs)', color: "#71717a"}}>{check.latency}</span>
+                <span style={{fontSize: 'var(--ws-type-xs)', color: "var(--ws-muted)"}}>{check.latency}</span>
                 <span className={`px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider ${check.status}`} style={{textTransform: 'uppercase', fontSize: 10}}>{check.status}</span>
               </span>
             </button>
             {expandedCheck === check.id && (
               <pre style={{
                 margin: '4px 0 8px 18px', padding: 8,
-                background: "#0a0a0b", border: '1px solid var(--ws-edge-soft)',
+                background: "var(--ws-bg)", border: '1px solid var(--ws-edge-soft)',
                 borderRadius: "4px", fontSize: 'var(--ws-type-xs)',
-                color: "#a1a1aa", lineHeight: 1.6,
+                color: "var(--ws-soft)", lineHeight: 1.6,
                 whiteSpace: 'pre-wrap', fontFamily: 'var(--ws-font-mono)',
                 borderLeft: `2px solid ${statusColor(check.status)}`,
               }}>

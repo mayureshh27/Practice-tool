@@ -7,6 +7,9 @@ import type { FlowTab } from '../../../../../types'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '../../../../../api/workspaceApi'
 
+import { useEffect } from 'react'
+import { useWorkspaceStore } from '../../../../../stores/workspaceStore'
+
 export const Route = createFileRoute('/topic/$domainId/$subjectId/$chapterId/$topicId')({
   component: TopicRoute,
 })
@@ -21,16 +24,24 @@ function TopicRoute() {
     queryFn: () => api.getTopic(domainId, subjectId, chapterId, topicId)
   })
 
+  const addToRecents = useWorkspaceStore(s => s.addToRecents)
+
+  useEffect(() => {
+    if (topic) {
+      addToRecents(topic.name, 'topic', { level: 'topic', domainId, subjectId, chapterId, topicId })
+    }
+  }, [topic, domainId, subjectId, chapterId, topicId, addToRecents])
+
   const store = { chapters: [], problems: [] }
   const filtered: any[] = []
   const pid = ''
 
   if (isLoading) {
-    return <div style={{ padding: 40, textAlign: 'center', color: '#71717a' }}>Loading topic...</div>
+    return <div style={{ padding: 40, textAlign: 'center', color: 'var(--ws-muted)' }}>Loading topic...</div>
   }
 
   if (!topic) {
-    return <div style={{ padding: 40, textAlign: 'center', color: '#71717a' }}>Topic not found.</div>
+    return <div style={{ padding: 40, textAlign: 'center', color: 'var(--ws-muted)' }}>Topic not found.</div>
   }
 
   // Build a stub Problem that satisfies the Problem type for LearningPanel

@@ -62,10 +62,10 @@ function GraphScreen() {
           height: 8px;
           border-radius: 50%;
         }
-        .ws-graph-node.mastered { border-color: #10b981; }
-        .ws-graph-node.mastered::before { background: #10b981; }
-        .ws-graph-node.practiced { border-color: #10b981; box-shadow: 0 0 0 2px rgba(16,185,129,0.3); }
-        .ws-graph-node.practiced::before { background: #10b981; }
+        .ws-graph-node.mastered { border-color: var(--ws-accent); }
+        .ws-graph-node.mastered::before { background: var(--ws-accent); }
+        .ws-graph-node.practiced { border-color: var(--ws-accent); box-shadow: 0 0 0 2px rgba(16,185,129,0.3); }
+        .ws-graph-node.practiced::before { background: var(--ws-accent); }
         .ws-graph-node.unseen { opacity: 0.7; }
         .ws-graph-node.unseen::before { background: #a1a1aa; }
         .ws-graph-node.blind-spot { border-color: #eab308; }

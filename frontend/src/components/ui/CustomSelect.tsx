@@ -59,14 +59,14 @@ export function CustomSelect({ value, onChange, options, style, className, disab
         <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', flex: 1, textAlign: 'left' }}>
           {selectedOption ? selectedOption.label : 'Select...'}
         </span>
-        <ChevronDown size={14} style={{ flexShrink: 0, color: "#71717a" }} />
+        <ChevronDown size={14} style={{ flexShrink: 0, color: "var(--ws-muted)" }} />
       </button>
 
       {isOpen && !disabled && (
         <div style={{
           position: 'absolute', top: 'calc(100% + 4px)', left: 0, zIndex: 1000,
           minWidth: '100%', width: 'max-content',
-          background: "#09090b", border: '1px solid var(--ws-edge)',
+          background: "var(--ws-bg)", border: '1px solid var(--ws-edge)',
           borderRadius: "6px", padding: 4,
           boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
           maxHeight: 300, overflowY: 'auto',
@@ -84,19 +84,19 @@ export function CustomSelect({ value, onChange, options, style, className, disab
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                 width: '100%', padding: '8px 12px',
                 background: 'none', border: 'none', borderRadius: "4px",
-                color: value === opt.value ? "#10b981" : "#f4f4f5", 
+                color: value === opt.value ? "var(--ws-accent)" : "var(--ws-ink)", 
                 fontSize: 13, cursor: 'pointer', textAlign: 'left',
                 whiteSpace: 'nowrap'
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = "#27272a";
+                e.currentTarget.style.background = "var(--ws-surface-2)";
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.background = 'none';
               }}
             >
               {opt.label}
-              {value === opt.value && <Check size={14} style={{ color: "#10b981", marginLeft: 12 }} />}
+              {value === opt.value && <Check size={14} style={{ color: "var(--ws-accent)", marginLeft: 12 }} />}
             </button>
           ))}
         </div>

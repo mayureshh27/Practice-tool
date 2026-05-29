@@ -28,7 +28,7 @@ function ArtifactsPanel() {
   return (
     <div className="flex flex-col h-full p-4 gap-4">
       <div style={{display: 'flex', alignItems: 'center', gap: 8}}>
-        <Filter size={12} style={{color: "#71717a", flexShrink: 0}} />
+        <Filter size={12} style={{color: "var(--ws-muted)", flexShrink: 0}} />
         <div style={{display: 'flex', gap: 4, flex: 1}}>
           {STATUSES.map(s => (
             <button
@@ -40,10 +40,10 @@ function ArtifactsPanel() {
                 fontSize: 'var(--ws-type-xs)',
                 fontWeight: 600,
                 border: '1px solid',
-                borderColor: statusFilter === s ? "#10b981" : "#18181b",
+                borderColor: statusFilter === s ? "var(--ws-accent)" : "var(--ws-line)",
                 borderRadius: "4px",
                 background: statusFilter === s ? "rgba(16,185,129,0.1)" : 'transparent',
-                color: statusFilter === s ? "#10b981" : "#71717a",
+                color: statusFilter === s ? "var(--ws-accent)" : "var(--ws-muted)",
                 cursor: 'pointer',
                 textTransform: 'capitalize',
               }}
@@ -63,7 +63,7 @@ function ArtifactsPanel() {
             className="bg-ws-surface border border-ws-line rounded-md p-3 flex flex-col gap-2"
             style={{
               cursor: 'pointer',
-              borderColor: selectedId === artifact.id ? "#10b981" : undefined,
+              borderColor: selectedId === artifact.id ? "var(--ws-accent)" : undefined,
               background: selectedId === artifact.id ? "rgba(16,185,129,0.1)" : undefined,
             }}
             onClick={() => setSelectedId(selectedId === artifact.id ? null : artifact.id)}
@@ -91,17 +91,17 @@ function ArtifactsPanel() {
               <div style={{
                 marginTop: 4,
                 padding: '8px',
-                background: "#0a0a0b",
+                background: "var(--ws-bg)",
                 borderRadius: "4px",
                 border: '1px solid var(--ws-edge-soft)',
                 fontSize: '11px',
-                color: "#a1a1aa",
+                color: "var(--ws-soft)",
               }}>
                 <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: 4}}>
                   <span>Type: {artifact.type}</span>
                   <span>Status: {artifact.status}</span>
                 </div>
-                <div style={{color: "#71717a", fontSize: 'var(--ws-type-xs)'}}>
+                <div style={{color: "var(--ws-muted)", fontSize: 'var(--ws-type-xs)'}}>
                   Generated {artifact.time} · Click "Artifacts" in left nav to view full content
                 </div>
               </div>
@@ -109,7 +109,7 @@ function ArtifactsPanel() {
           </div>
         ))}
         {filtered.length === 0 && (
-          <div style={{color: "#71717a", fontSize: '11px', textAlign: 'center', padding: 'var(--ws-sp-6) 0'}}>
+          <div style={{color: "var(--ws-muted)", fontSize: '11px', textAlign: 'center', padding: 'var(--ws-sp-6) 0'}}>
             No artifacts match this filter
           </div>
         )}

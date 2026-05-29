@@ -89,13 +89,13 @@ function TerminalTab() {
     <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
       <div ref={scrollRef} style={{flex: 1, overflow: 'auto', fontFamily: "'JetBrains Mono', monospace", fontSize: 12, lineHeight: 1.6}}>
         {history.map((entry, i) => (
-          <div key={i} style={{color: entry.type === 'cmd' ? "#10b981" : "#a1a1aa", whiteSpace: 'pre-wrap'}}>
+          <div key={i} style={{color: entry.type === 'cmd' ? "var(--ws-accent)" : "var(--ws-soft)", whiteSpace: 'pre-wrap'}}>
             {entry.type === 'cmd' ? `$ ${entry.text}` : entry.text}
           </div>
         ))}
       </div>
       <div style={{display: 'flex', gap: 6, alignItems: 'center', marginTop: 8}}>
-        <span style={{color: "#10b981", fontFamily: "'JetBrains Mono', monospace", fontSize: 12}}>$</span>
+        <span style={{color: "var(--ws-accent)", fontFamily: "'JetBrains Mono', monospace", fontSize: 12}}>$</span>
         <input
           type="text"
           value={cmd}
@@ -103,12 +103,12 @@ function TerminalTab() {
           onKeyDown={e => { if (e.key === 'Enter') handleSubmit(); }}
           style={{
             flex: 1, background: 'transparent', border: 'none', outline: 'none',
-            color: "#f4f4f5", fontFamily: "'JetBrains Mono', monospace", fontSize: 12,
+            color: "var(--ws-ink)", fontFamily: "'JetBrains Mono', monospace", fontSize: 12,
           }}
           placeholder="Type a command..."
           autoFocus
         />
-        <button type="button" onClick={handleSubmit} style={{background: 'none', border: 'none', cursor: 'pointer', color: "#10b981", display: 'flex'}}>
+        <button type="button" onClick={handleSubmit} style={{background: 'none', border: 'none', cursor: 'pointer', color: "var(--ws-accent)", display: 'flex'}}>
           <Send size={12} />
         </button>
       </div>
@@ -142,22 +142,22 @@ function SandboxTab() {
           style={{
             display: 'flex', alignItems: 'center', gap: 4, padding: '4px 10px',
             background: running ? 'rgba(239, 68, 68, 0.1)' : 'rgba(16, 185, 129, 0.1)',
-            border: `1px solid ${running ? "#ef4444" : "#10b981"}`,
+            border: `1px solid ${running ? "#ef4444" : "var(--ws-accent)"}`,
             borderRadius: "4px", cursor: 'pointer',
-            color: running ? "#ef4444" : "#10b981",
+            color: running ? "#ef4444" : "var(--ws-accent)",
             fontSize: 11, fontWeight: 600,
           }}
         >
           <Power size={12} /> {running ? 'Stop' : 'Start'}
         </button>
         <span style={{
-          display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, color: "#71717a",
+          display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, color: "var(--ws-muted)",
         }}>
-          <span style={{width: 6, height: 6, borderRadius: '50%', background: running ? "#10b981" : "#71717a"}} />
+          <span style={{width: 6, height: 6, borderRadius: '50%', background: running ? "var(--ws-accent)" : "var(--ws-muted)"}} />
           {running ? 'Running' : 'Stopped'}
         </span>
       </div>
-      <div style={{flex: 1, overflow: 'auto', fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "#a1a1aa", whiteSpace: 'pre-wrap', lineHeight: 1.6}}>
+      <div style={{flex: 1, overflow: 'auto', fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "var(--ws-soft)", whiteSpace: 'pre-wrap', lineHeight: 1.6}}>
         {output.map((line, i) => <div key={i}>{line}</div>)}
       </div>
     </div>
@@ -202,12 +202,12 @@ function BottomDock({outputContent, verdictLabel}: Props) {
 
       <div className="flex-1 overflow-auto p-4 bg-ws-bg">
         {activeTab === 'output' && (
-          <div style={{fontSize: 12, color: "#a1a1aa", fontFamily: "'JetBrains Mono', monospace", whiteSpace: 'pre-wrap', lineHeight: 1.6}}>
+          <div style={{fontSize: 12, color: "var(--ws-soft)", fontFamily: "'JetBrains Mono', monospace", whiteSpace: 'pre-wrap', lineHeight: 1.6}}>
             {verdictLabel && (
               <span style={{
                 display: 'inline-block', marginBottom: 8, padding: '2px 8px', fontSize: 11, fontWeight: 700,
-                color: verdictLabel === 'Accepted' ? "#10b981" : verdictLabel === 'Error' ? "#ef4444" : "#a1a1aa",
-                background: "#09090b", border: '1px solid var(--ws-edge)', borderRadius: "4px",
+                color: verdictLabel === 'Accepted' ? "var(--ws-accent)" : verdictLabel === 'Error' ? "#ef4444" : "var(--ws-soft)",
+                background: "var(--ws-bg)", border: '1px solid var(--ws-edge)', borderRadius: "4px",
               }}>
                 {verdictLabel}
               </span>
@@ -220,7 +220,7 @@ function BottomDock({outputContent, verdictLabel}: Props) {
           <div style={{fontSize: 12}}>
             <table style={{width: '100%', borderCollapse: 'collapse'}}>
               <thead>
-                <tr style={{borderBottom: '1px solid var(--ws-edge-soft)', color: "#71717a", fontSize: 11, textAlign: 'left'}}>
+                <tr style={{borderBottom: '1px solid var(--ws-edge-soft)', color: "var(--ws-muted)", fontSize: 11, textAlign: 'left'}}>
                   <th style={{padding: '4px 8px', fontWeight: 600}}>Test</th>
                   <th style={{padding: '4px 8px', fontWeight: 600}}>Status</th>
                   <th style={{padding: '4px 8px', fontWeight: 600}}>Time</th>
@@ -230,25 +230,25 @@ function BottomDock({outputContent, verdictLabel}: Props) {
               <tbody>
                 {TEST_RESULTS.map(t => (
                   <tr key={t.id} style={{borderBottom: '1px solid var(--ws-edge-soft)'}}>
-                    <td style={{padding: '6px 8px', color: "#a1a1aa", fontFamily: "'JetBrains Mono', monospace"}}>{t.name}</td>
+                    <td style={{padding: '6px 8px', color: "var(--ws-soft)", fontFamily: "'JetBrains Mono', monospace"}}>{t.name}</td>
                     <td style={{padding: '6px 8px'}}>
                       <span style={{
                         padding: '2px 6px', fontSize: 10, fontWeight: 700, borderRadius: "4px",
-                        color: t.status === 'pass' ? "#10b981" : "#ef4444",
+                        color: t.status === 'pass' ? "var(--ws-accent)" : "#ef4444",
                         background: t.status === 'pass' ? 'rgba(16,185,129,0.1)' : 'rgba(239,68,68,0.1)',
-                        border: `1px solid ${t.status === 'pass' ? "#10b981" : "#ef4444"}`,
+                        border: `1px solid ${t.status === 'pass' ? "var(--ws-accent)" : "#ef4444"}`,
                         textTransform: 'uppercase',
                       }}>
                         {t.status}
                       </span>
                     </td>
-                    <td style={{padding: '6px 8px', color: "#71717a", fontFamily: "'JetBrains Mono', monospace"}}>{t.time}</td>
-                    <td style={{padding: '6px 8px', color: "#71717a", fontSize: 11}}>{t.detail}</td>
+                    <td style={{padding: '6px 8px', color: "var(--ws-muted)", fontFamily: "'JetBrains Mono', monospace"}}>{t.time}</td>
+                    <td style={{padding: '6px 8px', color: "var(--ws-muted)", fontSize: 11}}>{t.detail}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div style={{marginTop: 8, color: "#71717a", fontSize: 11}}>
+            <div style={{marginTop: 8, color: "var(--ws-muted)", fontSize: 11}}>
               {TEST_RESULTS.filter(t => t.status === 'pass').length}/{TEST_RESULTS.length} tests passing
             </div>
           </div>
@@ -262,19 +262,19 @@ function BottomDock({outputContent, verdictLabel}: Props) {
             {EVAL_RESULTS.map(ev => (
               <div key={ev.id} style={{
                 display: 'flex', alignItems: 'center', gap: 8, padding: '6px 8px',
-                background: "#09090b", border: '1px solid var(--ws-edge-soft)', borderRadius: "4px",
+                background: "var(--ws-bg)", border: '1px solid var(--ws-edge-soft)', borderRadius: "4px",
               }}>
-                <span style={{flex: 1, color: "#a1a1aa"}}>{ev.gate}</span>
+                <span style={{flex: 1, color: "var(--ws-soft)"}}>{ev.gate}</span>
                 <span style={{
                   padding: '2px 6px', fontSize: 10, fontWeight: 700, borderRadius: "4px",
                   textTransform: 'uppercase',
-                  color: ev.status === 'pass' ? "#10b981" : ev.status === 'warn' ? "#f59e0b" : "#ef4444",
+                  color: ev.status === 'pass' ? "var(--ws-accent)" : ev.status === 'warn' ? "#f59e0b" : "#ef4444",
                   background: ev.status === 'pass' ? 'rgba(16,185,129,0.1)' : ev.status === 'warn' ? 'rgba(217,119,6,0.1)' : 'rgba(239,68,68,0.1)',
-                  border: `1px solid ${ev.status === 'pass' ? "#10b981" : ev.status === 'warn' ? "#f59e0b" : "#ef4444"}`,
+                  border: `1px solid ${ev.status === 'pass' ? "var(--ws-accent)" : ev.status === 'warn' ? "#f59e0b" : "#ef4444"}`,
                 }}>
                   {ev.status}
                 </span>
-                <span style={{color: "#71717a", fontSize: 11, maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
+                <span style={{color: "var(--ws-muted)", fontSize: 11, maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                   {ev.detail}
                 </span>
               </div>
@@ -283,13 +283,13 @@ function BottomDock({outputContent, verdictLabel}: Props) {
         )}
 
         {activeTab === 'logs' && (
-          <div style={{fontFamily: "'JetBrains Mono', monospace", fontSize: 11, lineHeight: 1.8, color: "#a1a1aa"}}>
+          <div style={{fontFamily: "'JetBrains Mono', monospace", fontSize: 11, lineHeight: 1.8, color: "var(--ws-soft)"}}>
             {logs.map(log => (
               <div key={log.id} style={{display: 'flex', gap: 8}}>
-                <span style={{color: "#71717a", flexShrink: 0}}>{log.time}</span>
+                <span style={{color: "var(--ws-muted)", flexShrink: 0}}>{log.time}</span>
                 <span style={{
                   flexShrink: 0, fontWeight: 700, width: 40,
-                  color: log.level === 'WARN' ? "#f59e0b" : log.level === 'DEBUG' ? "#71717a" : "#10b981",
+                  color: log.level === 'WARN' ? "#f59e0b" : log.level === 'DEBUG' ? "var(--ws-muted)" : "var(--ws-accent)",
                 }}>
                   {log.level}
                 </span>

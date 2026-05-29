@@ -55,7 +55,22 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
   domains: INITIAL_DOMAINS,
   workflows: INITIAL_WORKFLOWS,
   artifacts: INITIAL_ARTIFACTS,
-  recentItems: [],
+  recentItems: [
+    {
+      id: 'recent-1',
+      label: 'Degrees of Freedom',
+      type: 'topic',
+      loc: { level: 'topic', domainId: 'robotics', subjectId: 'modern-robotics', chapterId: 'c2', topicId: 'deg-freedom' },
+      time: '2 hours ago'
+    },
+    {
+      id: 'recent-2',
+      label: 'Modern Robotics',
+      type: 'subject',
+      loc: { level: 'subject', domainId: 'robotics', subjectId: 'modern-robotics' },
+      time: '3 hours ago'
+    }
+  ],
 
   setDomains: (domains) => set({ domains }),
 

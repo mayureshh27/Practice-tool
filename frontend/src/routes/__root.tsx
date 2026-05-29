@@ -9,6 +9,7 @@ import BottomDock from '../components/BottomDock'
 import RightDockPanel from '../components/RightDockPanel'
 import RightDockRail from '../components/RightDockRail'
 import { SearchPalette } from '../components/SearchPalette'
+import { CreationModal } from '../components/CreationModal'
 
 import '../styles.css'
 
@@ -59,6 +60,7 @@ function RootComponent() {
       </div>
       <TanStackRouterDevtools position="bottom-right" />
       <SearchPalette />
+      <CreationModal />
     </HotkeysProvider>
   )
 }

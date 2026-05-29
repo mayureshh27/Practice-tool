@@ -31,13 +31,13 @@ function ContextPanel() {
       <div className="bg-ws-surface border border-ws-line rounded-md p-3 flex flex-col gap-2">
         <div className="text-ws-ink font-medium">Token Budget</div>
         <div className="flex items-center justify-between text-ws-muted text-sm">
-          <span style={{color: overBudget ? "#ef4444" : "#10b981", fontWeight: 600}}>
+          <span style={{color: overBudget ? "#ef4444" : "var(--ws-accent)", fontWeight: 600}}>
             {usedTokens.toLocaleString()} / {budgetMax.toLocaleString()}
           </span>
-          <span style={{color: overBudget ? "#ef4444" : "#71717a"}}>{pct}%</span>
+          <span style={{color: overBudget ? "#ef4444" : "var(--ws-muted)"}}>{pct}%</span>
         </div>
         <div style={{
-          height: 6, borderRadius: 999, background: "#27272a", overflow: 'hidden', marginTop: 6,
+          height: 6, borderRadius: 999, background: "var(--ws-surface-2)", overflow: 'hidden', marginTop: 6,
         }}>
           <div style={{
             height: '100%', width: pct + '%', borderRadius: 'inherit',
@@ -46,7 +46,7 @@ function ContextPanel() {
           }} />
         </div>
         <div style={{marginTop: 8}}>
-          <label style={{display: 'flex', alignItems: 'center', gap: 8, fontSize: 'var(--ws-type-xs)', color: "#71717a"}}>
+          <label style={{display: 'flex', alignItems: 'center', gap: 8, fontSize: 'var(--ws-type-xs)', color: "var(--ws-muted)"}}>
             Max budget:
             <input
               type="range"
@@ -55,9 +55,9 @@ function ContextPanel() {
               step={500}
               value={budgetMax}
               onChange={e => setBudgetMax(Number(e.target.value))}
-              style={{flex: 1, accentColor: "#10b981"}}
+              style={{flex: 1, accentColor: "var(--ws-accent)"}}
             />
-            <span style={{minWidth: 48, textAlign: 'right', fontFamily: 'var(--ws-font-mono)', color: "#a1a1aa"}}>{budgetMax.toLocaleString()}</span>
+            <span style={{minWidth: 48, textAlign: 'right', fontFamily: 'var(--ws-font-mono)', color: "var(--ws-soft)"}}>{budgetMax.toLocaleString()}</span>
           </label>
         </div>
       </div>
@@ -77,17 +77,17 @@ function ContextPanel() {
                 type="checkbox"
                 checked={slot.enabled}
                 onChange={() => toggleSlot(slot.id)}
-                style={{accentColor: "#10b981"}}
+                style={{accentColor: "var(--ws-accent)"}}
               />
               <span style={{
-                flex: 1, color: slot.enabled ? "#a1a1aa" : "#71717a",
+                flex: 1, color: slot.enabled ? "var(--ws-soft)" : "var(--ws-muted)",
                 fontFamily: 'var(--ws-font-mono)', fontSize: '11px',
                 textDecoration: slot.enabled ? 'none' : 'line-through',
               }}>
                 {slot.name}
               </span>
               <span style={{
-                color: slot.enabled ? "#a1a1aa" : "#71717a",
+                color: slot.enabled ? "var(--ws-soft)" : "var(--ws-muted)",
                 fontFamily: 'var(--ws-font-mono)', fontSize: 'var(--ws-type-xs)',
               }}>
                 {slot.tokens}t

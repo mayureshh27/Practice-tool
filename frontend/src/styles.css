@@ -125,30 +125,37 @@ body {
 }
 
 /* ─────────────────────────────────────────────
-   Scrollbar Utilities
+   Scrollbar Utilities (Global & Class-based)
 ──────────────────────────────────────────────── */
-.scrollbar {
+* {
   scrollbar-color: var(--ws-faint) transparent;
   scrollbar-width: thin;
 }
 
-.scrollbar::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-.scrollbar::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
   background: var(--ws-faint);
-  border: 2px solid transparent;
   border-radius: 999px;
-  background-clip: content-box;
+  transition: background 150ms ease;
 }
 
-.scrollbar-none {
-  scrollbar-width: none;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ws-soft);
 }
+
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+.scrollbar-none {
+  scrollbar-width: none;
 }
 
 /* ─────────────────────────────────────────────

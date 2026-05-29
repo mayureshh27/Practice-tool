@@ -48,55 +48,55 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
             style={{
               textDecoration: 'none',
               display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none',
-              color: "#71717a", fontSize: 12, cursor: 'pointer', padding: 0, marginBottom: 12,
+              color: "var(--ws-muted)", fontSize: 12, cursor: 'pointer', padding: 0, marginBottom: 12,
             }}
           >
             <ArrowLeft size={14} /> All Domains
           </Link>
 
           <div style={{display: 'flex', alignItems: 'center', gap: 12}}>
-            <h1 style={{fontSize: 22, fontWeight: 700, color: "#f4f4f5", margin: 0, flex: 1}}>{subject.name}</h1>
+            <h1 style={{fontSize: 22, fontWeight: 700, color: "var(--ws-ink)", margin: 0, flex: 1}}>{subject.name}</h1>
             <button
               type="button"
               onClick={() => setStarred(!starred)}
-              style={{background: 'none', border: 'none', cursor: 'pointer', color: starred ? "#10b981" : "#71717a", display: 'flex'}}
+              style={{background: 'none', border: 'none', cursor: 'pointer', color: starred ? "var(--ws-accent)" : "var(--ws-muted)", display: 'flex'}}
             >
               <Star size={18} fill={starred ? 'currentColor' : 'none'} />
             </button>
             <button
               type="button"
-              style={{background: 'none', border: 'none', cursor: 'pointer', color: "#71717a", display: 'flex'}}
+              style={{background: 'none', border: 'none', cursor: 'pointer', color: "var(--ws-muted)", display: 'flex'}}
             >
               <MoreHorizontal size={18} />
             </button>
           </div>
 
           {subject.description && (
-            <p style={{color: "#a1a1aa", fontSize: 13, marginTop: 6, lineHeight: 1.5}}>{subject.description}</p>
+            <p style={{color: "var(--ws-soft)", fontSize: 13, marginTop: 6, lineHeight: 1.5}}>{subject.description}</p>
           )}
         </div>
 
         {/* Chat input placeholder */}
         <div style={{padding: '0 24px 16px'}}>
           <div style={{
-            background: "#09090b", border: '1px solid var(--ws-edge)',
+            background: "var(--ws-bg)", border: '1px solid var(--ws-edge)',
             borderRadius: 'var(--ws-r-lg)', padding: '12px 16px',
             display: 'flex', alignItems: 'center', gap: 8,
           }}>
-            <MessageCircle size={16} style={{color: "#71717a"}} />
-            <span style={{color: "#71717a", fontSize: 13}}>How can I help you today?</span>
+            <MessageCircle size={16} style={{color: "var(--ws-muted)"}} />
+            <span style={{color: "var(--ws-muted)", fontSize: 13}}>How can I help you today?</span>
           </div>
         </div>
 
         {/* Topics list */}
         <div style={{flex: 1, overflowY: 'auto', padding: '0 12px'}}>
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '4px 12px 10px', borderBottom: '1px solid var(--ws-edge-soft)', marginBottom: 12}}>
-            <span style={{fontSize: 11, fontWeight: 700, color: "#71717a", textTransform: 'uppercase', letterSpacing: '0.05em'}}>Chapters</span>
+            <span style={{fontSize: 11, fontWeight: 700, color: "var(--ws-muted)", textTransform: 'uppercase', letterSpacing: '0.05em'}}>Chapters</span>
             <button
               type="button"
               onClick={() => onOpenCreateModal('chapter', domain.id, subject.id)}
               style={{
-                background: 'none', border: 'none', cursor: 'pointer', color: "#10b981",
+                background: 'none', border: 'none', cursor: 'pointer', color: "var(--ws-accent)",
                 fontSize: 11, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4, padding: '2px 6px',
                 borderRadius: "4px", transition: 'background 100ms ease'
               }}
@@ -112,7 +112,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
               <div
                 key={ch.id}
                 style={{
-                  background: "#09090b",
+                  background: "var(--ws-bg)",
                   border: '1px solid var(--ws-edge-soft)',
                   borderRadius: 'var(--ws-r-lg)',
                   marginBottom: 20,
@@ -120,16 +120,16 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                   transition: 'border-color 150ms ease, background-color 150ms ease',
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = "#27272a";
+                  e.currentTarget.style.borderColor = "var(--ws-surface-2)";
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = "#18181b";
+                  e.currentTarget.style.borderColor = "var(--ws-line)";
                 }}
               >
                 {/* Chapter Header */}
                 <div
                   style={{
-                    background: "#27272a",
+                    background: "var(--ws-surface-2)",
                     padding: '14px 16px',
                     borderBottom: '1px solid var(--ws-edge-soft)',
                     display: 'flex',
@@ -145,9 +145,9 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                         width: 28,
                         height: 28,
                         borderRadius: '50%',
-                        background: "#0a0a0b",
+                        background: "var(--ws-bg)",
                         border: '1px solid var(--ws-edge-soft)',
-                        color: "#f4f4f5",
+                        color: "var(--ws-ink)",
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -167,20 +167,20 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                           textDecoration: 'none',
                           fontSize: 14,
                           fontWeight: 700,
-                          color: "#f4f4f5",
+                          color: "var(--ws-ink)",
                           cursor: 'pointer',
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: 6,
                           transition: 'color 150ms ease'
                         }}
-                        onMouseEnter={e => e.currentTarget.style.color = "#10b981"}
-                        onMouseLeave={e => e.currentTarget.style.color = "#f4f4f5"}
+                        onMouseEnter={e => e.currentTarget.style.color = "var(--ws-accent)"}
+                        onMouseLeave={e => e.currentTarget.style.color = "var(--ws-ink)"}
                       >
                         {ch.name}
                       </Link>
                       {ch.description && (
-                        <div style={{fontSize: 11, color: "#71717a", marginTop: 2, lineHeight: 1.4}}>
+                        <div style={{fontSize: 11, color: "var(--ws-muted)", marginTop: 2, lineHeight: 1.4}}>
                           {ch.description}
                         </div>
                       )}
@@ -196,7 +196,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                         background: 'none',
                         border: '1px solid var(--ws-edge-soft)',
                         borderRadius: "4px",
-                        color: "#10b981",
+                        color: "var(--ws-accent)",
                         fontSize: 11,
                         fontWeight: 600,
                         padding: '4px 8px',
@@ -207,11 +207,11 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                         transition: 'all 150ms ease',
                       }}
                       onMouseEnter={e => {
-                        e.currentTarget.style.borderColor = "#10b981";
+                        e.currentTarget.style.borderColor = "var(--ws-accent)";
                         e.currentTarget.style.background = "rgba(16,185,129,0.1)";
                       }}
                       onMouseLeave={e => {
-                        e.currentTarget.style.borderColor = "#18181b";
+                        e.currentTarget.style.borderColor = "var(--ws-line)";
                         e.currentTarget.style.background = 'none';
                       }}
                     >
@@ -225,14 +225,14 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                         background: 'none',
                         border: '1px solid var(--ws-edge-soft)',
                         borderRadius: "4px",
-                        color: "#a1a1aa",
+                        color: "var(--ws-soft)",
                         fontSize: 11,
                         fontWeight: 600,
                         padding: '4px 8px',
                         cursor: 'pointer',
                         transition: 'all 150ms ease',
                       }}
-                      onMouseEnter={e => e.currentTarget.style.background = "#27272a"}
+                      onMouseEnter={e => e.currentTarget.style.background = "var(--ws-surface-2)"}
                       onMouseLeave={e => e.currentTarget.style.background = 'none'}
                     >
                       Open Chapter
@@ -259,11 +259,11 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                         borderBottom: tIdx < ch.topics.length - 1 ? '1px solid var(--ws-edge-soft)' : 'none',
                         textAlign: 'left',
                         cursor: 'pointer',
-                        color: "#f4f4f5",
+                        color: "var(--ws-ink)",
                         transition: 'background 100ms ease',
                       }}
                       onMouseEnter={e => {
-                        e.currentTarget.style.background = "#27272a";
+                        e.currentTarget.style.background = "var(--ws-surface-2)";
                       }}
                       onMouseLeave={e => {
                         e.currentTarget.style.background = 'none';
@@ -274,28 +274,28 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                           width: 20,
                           height: 20,
                           borderRadius: "4px",
-                          background: "#0a0a0b",
+                          background: "var(--ws-bg)",
                           border: '1px solid var(--ws-edge-soft)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: "#71717a",
+                          color: "var(--ws-muted)",
                           flexShrink: 0
                         }}
                       >
                         <FileCode size={12} />
                       </div>
                       <div style={{flex: 1, minWidth: 0}}>
-                        <div style={{fontSize: 13, fontWeight: 500, color: "#f4f4f5"}}>{topic.name}</div>
+                        <div style={{fontSize: 13, fontWeight: 500, color: "var(--ws-ink)"}}>{topic.name}</div>
                         {topic.lastMessage && (
-                          <div style={{fontSize: 10, color: "#71717a", marginTop: 2}}>{topic.lastMessage}</div>
+                          <div style={{fontSize: 10, color: "var(--ws-muted)", marginTop: 2}}>{topic.lastMessage}</div>
                         )}
                       </div>
                       <span style={{
                         fontSize: 10,
                         padding: '2px 6px',
-                        background: "#0a0a0b",
-                        color: "#71717a",
+                        background: "var(--ws-bg)",
+                        color: "var(--ws-muted)",
                         border: '1px solid var(--ws-edge-soft)',
                         borderRadius: 3,
                         fontWeight: 500
@@ -305,7 +305,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                     </Link>
                   ))}
                   {ch.topics.length === 0 && (
-                    <div style={{padding: '24px 16px', textAlign: 'center', color: "#71717a", fontSize: 12, fontStyle: 'italic'}}>
+                    <div style={{padding: '24px 16px', textAlign: 'center', color: "var(--ws-muted)", fontSize: 12, fontStyle: 'italic'}}>
                       No topics inside this chapter yet. Click "+ Topic" to add one!
                     </div>
                   )}
@@ -328,7 +328,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
               background: 'none',
               border: '1px dashed var(--ws-edge)',
               borderRadius: 'var(--ws-r-lg)',
-              color: "#10b981",
+              color: "var(--ws-accent)",
               cursor: 'pointer',
               fontSize: 13,
               fontWeight: 600,
@@ -337,11 +337,11 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
               transition: 'all 150ms ease',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.borderColor = "#10b981";
+              e.currentTarget.style.borderColor = "var(--ws-accent)";
               e.currentTarget.style.background = "rgba(16,185,129,0.1)";
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.borderColor = "#27272a";
+              e.currentTarget.style.borderColor = "var(--ws-surface-2)";
               e.currentTarget.style.background = 'none';
             }}
           >
@@ -354,14 +354,14 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
       <div style={{flex: '1 1 40%', overflowY: 'auto', padding: 20, display: 'flex', flexDirection: 'column', gap: 16}}>
         {/* Memory card */}
         <div style={{
-          background: "#09090b", border: '1px solid var(--ws-edge-soft)',
+          background: "var(--ws-bg)", border: '1px solid var(--ws-edge-soft)',
           borderRadius: 'var(--ws-r-lg)', padding: 16,
         }}>
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10}}>
             <div style={{display: 'flex', alignItems: 'center', gap: 6}}>
-              <span style={{fontWeight: 600, color: "#f4f4f5", fontSize: 13}}>Memory</span>
+              <span style={{fontWeight: 600, color: "var(--ws-ink)", fontSize: 13}}>Memory</span>
               <span style={{
-                fontSize: 10, color: "#71717a", background: "#0a0a0b",
+                fontSize: 10, color: "var(--ws-muted)", background: "var(--ws-bg)",
                 border: '1px solid var(--ws-edge-soft)', padding: '1px 6px', borderRadius: "4px",
                 display: 'flex', alignItems: 'center', gap: 3
               }}>
@@ -372,7 +372,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
               <button
                 type="button"
                 onClick={() => setIsEditingMemory(true)}
-                style={{background: 'none', border: 'none', cursor: 'pointer', color: "#71717a", display: 'flex', padding: 2}}
+                style={{background: 'none', border: 'none', cursor: 'pointer', color: "var(--ws-muted)", display: 'flex', padding: 2}}
                 title="Edit Memory"
               >
                 <Pencil size={13} />
@@ -386,9 +386,9 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                 value={memoryText}
                 onChange={e => setMemoryText(e.target.value)}
                 style={{
-                  width: '100%', minHeight: 80, padding: 8, background: "#0a0a0b",
+                  width: '100%', minHeight: 80, padding: 8, background: "var(--ws-bg)",
                   border: '1px solid var(--ws-glow)', borderRadius: "6px",
-                  color: "#f4f4f5", fontSize: 12, outline: 'none', fontFamily: 'inherit',
+                  color: "var(--ws-ink)", fontSize: 12, outline: 'none', fontFamily: 'inherit',
                   resize: 'vertical'
                 }}
                 autoFocus
@@ -398,7 +398,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                   type="button"
                   onClick={handleSaveMemory}
                   style={{
-                    padding: '4px 10px', background: "#10b981", color: "#0a0a0b",
+                    padding: '4px 10px', background: "var(--ws-accent)", color: "var(--ws-bg)",
                     fontWeight: 600, border: 'none', borderRadius: "4px", cursor: 'pointer',
                     fontSize: 11, display: 'flex', alignItems: 'center', gap: 4
                   }}
@@ -410,7 +410,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                   onClick={() => { setMemoryText(subject.memory || ''); setIsEditingMemory(false); }}
                   style={{
                     padding: '4px 10px', background: 'none', border: '1px solid var(--ws-edge-soft)',
-                    color: "#a1a1aa", borderRadius: "4px", cursor: 'pointer',
+                    color: "var(--ws-soft)", borderRadius: "4px", cursor: 'pointer',
                     fontSize: 11, display: 'flex', alignItems: 'center', gap: 4
                   }}
                 >
@@ -419,7 +419,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
               </div>
             </div>
           ) : (
-            <p style={{fontSize: 12, color: "#a1a1aa", lineHeight: 1.5, margin: 0, whiteSpace: 'pre-wrap'}}>
+            <p style={{fontSize: 12, color: "var(--ws-soft)", lineHeight: 1.5, margin: 0, whiteSpace: 'pre-wrap'}}>
               {subject.memory || 'No memory recorded. Click the pencil icon to align the learning tutor.'}
             </p>
           )}
@@ -427,16 +427,16 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
 
         {/* Instructions card */}
         <div style={{
-          background: "#09090b", border: '1px solid var(--ws-edge-soft)',
+          background: "var(--ws-bg)", border: '1px solid var(--ws-edge-soft)',
           borderRadius: 'var(--ws-r-lg)', padding: 16,
         }}>
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10}}>
-            <span style={{fontWeight: 600, color: "#f4f4f5", fontSize: 13}}>Instructions</span>
+            <span style={{fontWeight: 600, color: "var(--ws-ink)", fontSize: 13}}>Instructions</span>
             {!isEditingInst && (
               <button
                 type="button"
                 onClick={() => setIsEditingInst(true)}
-                style={{background: 'none', border: 'none', cursor: 'pointer', color: "#71717a", display: 'flex', padding: 2}}
+                style={{background: 'none', border: 'none', cursor: 'pointer', color: "var(--ws-muted)", display: 'flex', padding: 2}}
                 title="Edit Instructions"
               >
                 <Pencil size={13} />
@@ -450,9 +450,9 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                 value={instText}
                 onChange={e => setInstText(e.target.value)}
                 style={{
-                  width: '100%', minHeight: 80, padding: 8, background: "#0a0a0b",
+                  width: '100%', minHeight: 80, padding: 8, background: "var(--ws-bg)",
                   border: '1px solid var(--ws-glow)', borderRadius: "6px",
-                  color: "#f4f4f5", fontSize: 12, outline: 'none', fontFamily: 'inherit',
+                  color: "var(--ws-ink)", fontSize: 12, outline: 'none', fontFamily: 'inherit',
                   resize: 'vertical'
                 }}
                 autoFocus
@@ -462,7 +462,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                   type="button"
                   onClick={handleSaveInst}
                   style={{
-                    padding: '4px 10px', background: "#10b981", color: "#0a0a0b",
+                    padding: '4px 10px', background: "var(--ws-accent)", color: "var(--ws-bg)",
                     fontWeight: 600, border: 'none', borderRadius: "4px", cursor: 'pointer',
                     fontSize: 11, display: 'flex', alignItems: 'center', gap: 4
                   }}
@@ -474,7 +474,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
                   onClick={() => { setInstText(subject.instructions || ''); setIsEditingInst(false); }}
                   style={{
                     padding: '4px 10px', background: 'none', border: '1px solid var(--ws-edge-soft)',
-                    color: "#a1a1aa", borderRadius: "4px", cursor: 'pointer',
+                    color: "var(--ws-soft)", borderRadius: "4px", cursor: 'pointer',
                     fontSize: 11, display: 'flex', alignItems: 'center', gap: 4
                   }}
                 >
@@ -483,7 +483,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
               </div>
             </div>
           ) : (
-            <p style={{fontSize: 12, color: "#a1a1aa", lineHeight: 1.5, margin: 0, whiteSpace: 'pre-wrap'}}>
+            <p style={{fontSize: 12, color: "var(--ws-soft)", lineHeight: 1.5, margin: 0, whiteSpace: 'pre-wrap'}}>
               {subject.instructions || 'Define study focus and workspace constraints here.'}
             </p>
           )}
@@ -492,11 +492,11 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
         {/* Files grid */}
         <div>
           <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12}}>
-            <span style={{fontWeight: 600, color: "#f4f4f5"}}>Files</span>
+            <span style={{fontWeight: 600, color: "var(--ws-ink)"}}>Files</span>
             <Link
               to="/notebook/$domainId/$subjectId"
               params={{ domainId: domain.id, subjectId: subject.id }}
-              style={{background: 'none', border: 'none', cursor: 'pointer', color: "#71717a", display: 'flex'}}
+              style={{background: 'none', border: 'none', cursor: 'pointer', color: "var(--ws-muted)", display: 'flex'}}
               title="Add files"
             >
               <Plus size={16} />
@@ -507,7 +507,7 @@ function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubjec
               <ResourceCard key={res.id} resource={res} onRemove={() => onRemoveResource(domain.id, subject.id, res.id)} />
             ))}
             {subject.resources.length === 0 && (
-              <div style={{gridColumn: '1 / -1', padding: 24, textAlign: 'center', color: "#71717a", fontSize: 12}}>
+              <div style={{gridColumn: '1 / -1', padding: 24, textAlign: 'center', color: "var(--ws-muted)", fontSize: 12}}>
                 No files yet. Click + to add resources.
               </div>
             )}
@@ -524,13 +524,13 @@ function ResourceCard({resource, onRemove}: {resource: Resource, onRemove: () =>
     HTML: 'hsl(25, 80%, 55%)',
     JS: 'hsl(50, 75%, 50%)',
     MD: 'hsl(210, 50%, 55%)',
-    TXT: "#71717a",
+    TXT: "var(--ws-muted)",
   };
-  const color = typeColors[resource.fileType] || "#71717a";
+  const color = typeColors[resource.fileType] || "var(--ws-muted)";
 
   return (
     <div style={{
-      background: "#09090b", border: '1px solid var(--ws-edge-soft)',
+      background: "var(--ws-bg)", border: '1px solid var(--ws-edge-soft)',
       borderRadius: "6px", padding: 12,
       display: 'flex', flexDirection: 'column', gap: 6,
       position: 'relative', transition: 'border-color 150ms ease',
@@ -541,20 +541,20 @@ function ResourceCard({resource, onRemove}: {resource: Resource, onRemove: () =>
         onClick={e => { e.stopPropagation(); onRemove(); }}
         style={{
           position: 'absolute', top: 4, right: 4, background: 'none', border: 'none',
-          color: "#71717a", cursor: 'pointer', display: 'flex', padding: 2,
+          color: "var(--ws-muted)", cursor: 'pointer', display: 'flex', padding: 2,
           transition: 'color 100ms ease'
         }}
         onMouseEnter={e => e.currentTarget.style.color = "#ef4444"}
-        onMouseLeave={e => e.currentTarget.style.color = "#71717a"}
+        onMouseLeave={e => e.currentTarget.style.color = "var(--ws-muted)"}
         title="Remove resource"
       >
         <X size={11} />
       </button>
 
-      <div style={{fontSize: 12, fontWeight: 500, color: "#f4f4f5", wordBreak: 'break-all', lineHeight: 1.3, paddingRight: 12}}>
+      <div style={{fontSize: 12, fontWeight: 500, color: "var(--ws-ink)", wordBreak: 'break-all', lineHeight: 1.3, paddingRight: 12}}>
         {resource.name}
       </div>
-      <div style={{fontSize: 10, color: "#71717a"}}>
+      <div style={{fontSize: 10, color: "var(--ws-muted)"}}>
         {resource.lines.toLocaleString()} lines
       </div>
       <span style={{

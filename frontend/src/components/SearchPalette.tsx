@@ -45,7 +45,7 @@ export function SearchPalette() {
         style={{
           width: '100%',
           maxWidth: 600,
-          backgroundColor: "#09090b",
+          backgroundColor: "var(--ws-bg)",
           borderRadius: 'var(--ws-r-lg)',
           boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
           overflow: 'hidden',
@@ -54,7 +54,7 @@ export function SearchPalette() {
         onClick={(e) => e.stopPropagation()}
       >
         <div style={{ display: 'flex', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--ws-edge-soft)' }}>
-          <Search size={20} style={{ color: "#71717a", marginRight: 12 }} />
+          <Search size={20} style={{ color: "var(--ws-muted)", marginRight: 12 }} />
           <input
             ref={inputRef}
             type="text"
@@ -67,16 +67,16 @@ export function SearchPalette() {
               border: 'none',
               outline: 'none',
               fontSize: 16,
-              color: "#f4f4f5",
+              color: "var(--ws-ink)",
             }}
           />
           <div style={{ display: 'flex', gap: 4 }}>
-            <kbd style={{ fontSize: 12, padding: '2px 6px', background: 'var(--ws-surface)', border: '1px solid var(--ws-edge-soft)', borderRadius: 4, color: "#71717a" }}>ESC</kbd>
+            <kbd style={{ fontSize: 12, padding: '2px 6px', background: 'var(--ws-surface)', border: '1px solid var(--ws-edge-soft)', borderRadius: 4, color: "var(--ws-muted)" }}>ESC</kbd>
           </div>
         </div>
 
         <div style={{ padding: 16 }}>
-          <p style={{ color: "#71717a", fontSize: 13, margin: 0, textAlign: 'center' }}>
+          <p style={{ color: "var(--ws-muted)", fontSize: 13, margin: 0, textAlign: 'center' }}>
             No recent searches. Try searching for "React" or "Design Patterns".
           </p>
         </div>

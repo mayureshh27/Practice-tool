@@ -28,14 +28,14 @@ function OutputPanel({ verdict, output, emptyMessage, comparison }: Props) {
     if (isAccepted) return 'hsl(140, 60%, 45%)';
     if (isError) return 'hsl(0, 75%, 55%)';
     if (verdict) return 'hsl(40, 75%, 50%)'; // Warning/Other
-    return "#71717a";
+    return "var(--ws-muted)";
   };
 
   const getStatusBg = () => {
     if (isAccepted) return 'rgba(16, 185, 129, 0.08)';
     if (isError) return 'rgba(239, 68, 68, 0.08)';
     if (verdict) return 'rgba(217, 119, 6, 0.08)';
-    return "#27272a";
+    return "var(--ws-surface-2)";
   };
 
   return (
