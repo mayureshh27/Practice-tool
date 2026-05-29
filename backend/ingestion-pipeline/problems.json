@@ -1,0 +1,15 @@
+{
+  "chapters": [
+    { "id": "la1", "title": "Vectors and Spaces" },
+    { "id": "la2", "title": "Matrix Operations" },
+    { "id": "la3", "title": "Eigenvalues and Decompositions" },
+    { "id": "pr1", "title": "Probability Foundations" },
+    { "id": "pr2", "title": "Bayesian Thinking" },
+    { "id": "pr3", "title": "Gaussian Distributions" },
+    { "id": "cv1", "title": "Convex Optimization Basics" },
+    { "id": "ro1", "title": "Rigid Body Transforms" },
+    { "id": "ro2", "title": "Kinematics" },
+    { "id": "ro3", "title": "State Estimation" }
+  ],
+  "problems": []
+}

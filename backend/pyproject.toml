@@ -1,0 +1,14 @@
+[project]
+name = "backend"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "chromadb>=1.5.9",
+    "fastapi>=0.136.1",
+    "litellm>=1.85.1",
+    "networkx>=3.6.1",
+    "pydantic>=2.13.4",
+    "pypdf>=6.12.1",
+    "python-dotenv>=1.2.2",
+    "uvicorn>=0.47.0",
+]

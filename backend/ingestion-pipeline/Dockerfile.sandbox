@@ -1,0 +1,35 @@
+# Dockerfile.sandbox
+# ====================
+# Sandboxed Python execution environment for the learning platform.
+# Built once, referenced by GOPRAC_SANDBOX_IMAGE=learning-platform:python
+#
+# Security layers applied at build time:
+#   - Non-root user (uid 65532) — matches --user flag in Go sandbox runner
+#   - Only essential scientific packages — no network clients, no subprocess
+#   - Read-only filesystem enforced at docker run time (not here)
+#   - No shell — ENTRYPOINT not set, python3 invoked directly
+#
+# Build:
+#   docker build -f Dockerfile.sandbox -t learning-platform:python .
+#
+# Test:
+#   echo "print('hello')" > /tmp/test.py
+#   docker run --rm --network none -v /tmp:/workspace:ro \
+#     -w /workspace learning-platform:python python3 test.py
+
+FROM python:3.12-slim
+
+# Install scientific stack only — no pip after this layer in production
+RUN pip install --no-cache-dir \
+    numpy==1.26.4 \
+    scipy==1.13.1 \
+    sympy==1.13.1 \
+    matplotlib==3.9.2 \
+    networkx==3.3 \
+    && pip cache purge
+
+# Create non-root user matching the uid used in docker run --user
+RUN useradd --uid 65532 --no-create-home --shell /usr/sbin/nologin sandbox
+
+# No CMD or ENTRYPOINT — invoked explicitly as:
+#   python3 /workspace/solution.py

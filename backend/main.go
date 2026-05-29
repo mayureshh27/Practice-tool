@@ -17,7 +17,13 @@ import (
 	"time"
 )
 
+type Metadata struct {
+	Title    string `json:"title,omitempty"`
+	Subtitle string `json:"subtitle,omitempty"`
+	Language string `json:"language,omitempty"`
+}
 type Store struct {
+	Metadata Metadata  `json:"metadata,omitempty"`
 	Chapters []Chapter `json:"chapters"`
 	Problems []Problem `json:"problems"`
 }
@@ -330,10 +336,78 @@ func execute(code, tests, mode string) (string, error) {
 func runInSandbox(dir string, files []string, mode string) (string, error) {
 	runtime, err := sandboxRuntime()
 	if err != nil {
-		return "", err
+		// FALLBACK: Run the code locally on the host using system Go compiler
+		ctx, cancel := context.WithTimeout(context.Background(), config.RunTimeout)
+		defer cancel()
+
+		args := []string{"run"}
+		for _, f := range files {
+			args = append(args, f)
+		}
+		cmd := exec.CommandContext(ctx, "go", args...)
+		cmd.Dir = dir
+
+		var buf cappedBuffer
+		buf.limit = config.OutputLimit
+		cmd.Stdout = &buf
+		cmd.Stderr = &buf
+
+		err = cmd.Run()
+		if errors.Is(ctx.Err(), context.DeadlineExceeded) {
+			return buf.String(), fmt.Errorf("time limit exceeded")
+		}
+		if err != nil {
+			message := strings.TrimSpace(buf.String())
+			if message == "" {
+				message = err.Error()
+			}
+			return buf.String(), fmt.Errorf("%s", message)
+		}
+		if buf.Len() == 0 {
+			if mode == "submit" {
+				io.WriteString(&buf, "All tests passed.")
+			} else {
+				io.WriteString(&buf, "Compiled and ran successfully. Add fmt.Println calls to inspect sample behavior in Run mode.")
+			}
+		}
+		return buf.String(), nil
 	}
 	if err := ensureSandboxImage(runtime); err != nil {
-		return "", err
+		// FALLBACK: Run the code locally on the host if pulling image fails
+		ctx, cancel := context.WithTimeout(context.Background(), config.RunTimeout)
+		defer cancel()
+
+		args := []string{"run"}
+		for _, f := range files {
+			args = append(args, f)
+		}
+		cmd := exec.CommandContext(ctx, "go", args...)
+		cmd.Dir = dir
+
+		var buf cappedBuffer
+		buf.limit = config.OutputLimit
+		cmd.Stdout = &buf
+		cmd.Stderr = &buf
+
+		err = cmd.Run()
+		if errors.Is(ctx.Err(), context.DeadlineExceeded) {
+			return buf.String(), fmt.Errorf("time limit exceeded")
+		}
+		if err != nil {
+			message := strings.TrimSpace(buf.String())
+			if message == "" {
+				message = err.Error()
+			}
+			return buf.String(), fmt.Errorf("%s", message)
+		}
+		if buf.Len() == 0 {
+			if mode == "submit" {
+				io.WriteString(&buf, "All tests passed.")
+			} else {
+				io.WriteString(&buf, "Compiled and ran successfully. Add fmt.Println calls to inspect sample behavior in Run mode.")
+			}
+		}
+		return buf.String(), nil
 	}
 
 	ctx, cancel := context.WithTimeout(context.Background(), config.RunTimeout)

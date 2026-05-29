@@ -1,0 +1,264 @@
+--- Page 5 ---
+Contents iii
+6.2 Numerical Inverse Kinematics . . . . . . . . . . . . . . . . . . . . 226
+6.2.1 Newton–Raphson Method . . . . . . . . . . . . . . . . . . 227
+6.2.2 Numerical Inverse Kinematics Algorithm . . . . . . . . . 227
+6.3 Inverse Velocity Kinematics . . . . . . . . . . . . . . . . . . . . . 232
+6.4 A Note on Closed Loops . . . . . . . . . . . . . . . . . . . . . . . 234
+6.5 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 235
+6.6 Software . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 235
+6.7 Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . 236
+6.8 Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 236
+7 Kinematics of Closed Chains 245
+7.1 Inverse and Forward Kinematics . . . . . . . . . . . . . . . . . . 247
+7.1.1 3×RPR Planar Parallel Mechanism . . . . . . . . . . . . . 247
+7.1.2 Stewart–Gough Platform . . . . . . . . . . . . . . . . . . 249
+7.1.3 General Parallel Mechanisms . . . . . . . . . . . . . . . . 251
+7.2 Diﬀerential Kinematics . . . . . . . . . . . . . . . . . . . . . . . . 252
+7.2.1 Stewart–Gough Platform . . . . . . . . . . . . . . . . . . 252
+7.2.2 General Parallel Mechanisms . . . . . . . . . . . . . . . . 254
+7.3 Singularities . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 256
+7.4 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 261
+7.5 Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . 262
+7.6 Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 263
+8 Dynamics of Open Chains 271
+8.1 Lagrangian Formulation . . . . . . . . . . . . . . . . . . . . . . . 272
+8.1.1 Basic Concepts and Motivating Examples . . . . . . . . . 272
+8.1.2 General Formulation . . . . . . . . . . . . . . . . . . . . . 277
+8.1.3 Understanding the Mass Matrix . . . . . . . . . . . . . . 279
+8.1.4 Lagrangian Dynamics vs. Newton–Euler Dynamics . . . . 281
+8.2 Dynamics of a Single Rigid Body . . . . . . . . . . . . . . . . . . 283
+8.2.1 Classical Formulation . . . . . . . . . . . . . . . . . . . . 283
+8.2.2 Twist–Wrench Formulation . . . . . . . . . . . . . . . . . 288
+8.2.3 Dynamics in Other Frames . . . . . . . . . . . . . . . . . 290
+8.3 Newton–Euler Inverse Dynamics . . . . . . . . . . . . . . . . . . 291
+8.3.1 Derivation . . . . . . . . . . . . . . . . . . . . . . . . . . . 291
+8.3.2 Newton-Euler Inverse Dynamics Algorithm . . . . . . . . 294
+8.4 Dynamic Equations in Closed Form . . . . . . . . . . . . . . . . . 294
+8.5 Forward Dynamics of Open Chains . . . . . . . . . . . . . . . . . 298
+8.6 Dynamics in the Task Space . . . . . . . . . . . . . . . . . . . . . 300
+8.7 Constrained Dynamics . . . . . . . . . . . . . . . . . . . . . . . . 301
+May 2017 preprint of Modern Robotics, Lynch and Park, Cambridge U. Press, 2017. http://modernrobotics.org
+--- Page 6 ---
+iv Contents
+8.8 Robot Dynamics in the URDF . . . . . . . . . . . . . . . . . . . 303
+8.9 Actuation, Gearing, and Friction . . . . . . . . . . . . . . . . . . 303
+8.9.1 DC Motors and Gearing . . . . . . . . . . . . . . . . . . . 305
+8.9.2 Apparent Inertia . . . . . . . . . . . . . . . . . . . . . . . 310
+8.9.3 Newton–Euler Inverse Dynamics Algorithm Accounting
+for Motor Inertias and Gearing . . . . . . . . . . . . . . . 312
+8.9.4 Friction . . . . . . . . . . . . . . . . . . . . . . . . . . . . 314
+8.9.5 Joint and Link Flexibility . . . . . . . . . . . . . . . . . . 314
+8.10 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 315
+8.11 Software . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 319
+8.12 Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . 320
+8.13 Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 321
+9 Trajectory Generation 325
+9.1 Deﬁnitions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 325
+9.2 Point-to-Point Trajectories . . . . . . . . . . . . . . . . . . . . . 326
+9.2.1 Straight-Line Paths . . . . . . . . . . . . . . . . . . . . . 326
+9.2.2 Time Scaling a Straight-Line Path . . . . . . . . . . . . . 328
+9.3 Polynomial Via Point Trajectories . . . . . . . . . . . . . . . . . 334
+9.4 Time-Optimal Time Scaling . . . . . . . . . . . . . . . . . . . . . 336
+9.4.1 The ( s, ˙s) Phase Plane . . . . . . . . . . . . . . . . . . . . 339
+9.4.2 The Time-Scaling Algorithm . . . . . . . . . . . . . . . . 341
+9.4.3 A Variation on the Time-Scaling Algorithm . . . . . . . . 342
+9.4.4 Assumptions and Caveats . . . . . . . . . . . . . . . . . . 344
+9.5 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 345
+9.6 Software . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 346
+9.7 Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . 347
+9.8 Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 348
+10 Motion Planning 353
+10.1 Overview of Motion Planning . . . . . . . . . . . . . . . . . . . . 353
+10.1.1 Types of Motion Planning Problems . . . . . . . . . . . . 354
+10.1.2 Properties of Motion Planners . . . . . . . . . . . . . . . 355
+10.1.3 Motion Planning Methods . . . . . . . . . . . . . . . . . . 356
+10.2 Foundations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 358
+10.2.1 Conﬁguration Space Obstacles . . . . . . . . . . . . . . . 358
+10.2.2 Distance to Obstacles and Collision Detection . . . . . . . 362
+10.2.3 Graphs and Trees . . . . . . . . . . . . . . . . . . . . . . . 364
+10.2.4 Graph Search . . . . . . . . . . . . . . . . . . . . . . . . . 365
+10.3 Complete Path Planners . . . . . . . . . . . . . . . . . . . . . . . 368
+May 2017 preprint of Modern Robotics, Lynch and Park, Cambridge U. Press, 2017. http://modernrobotics.org
+--- Page 7 ---
+Contents v
+10.4 Grid Methods . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 369
+10.4.1 Multi-Resolution Grid Representation . . . . . . . . . . . 372
+10.4.2 Grid Methods with Motion Constraints . . . . . . . . . . 373
+10.5 Sampling Methods . . . . . . . . . . . . . . . . . . . . . . . . . . 378
+10.5.1 The RRT Algorithm . . . . . . . . . . . . . . . . . . . . . 379
+10.5.2 The PRM Algorithm . . . . . . . . . . . . . . . . . . . . . 384
+10.6 Virtual Potential Fields . . . . . . . . . . . . . . . . . . . . . . . 386
+10.6.1 A Point in C-space . . . . . . . . . . . . . . . . . . . . . . 386
+10.6.2 Navigation Functions . . . . . . . . . . . . . . . . . . . . . 389
+10.6.3 Workspace Potential . . . . . . . . . . . . . . . . . . . . . 390
+10.6.4 Wheeled Mobile Robots . . . . . . . . . . . . . . . . . . . 391
+10.6.5 Use of Potential Fields in Planners . . . . . . . . . . . . . 392
+10.7 Nonlinear Optimization . . . . . . . . . . . . . . . . . . . . . . . 392
+10.8 Smoothing . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 394
+10.9 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 394
+10.10Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . 397
+10.11Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 398
+11 Robot Control 403
+11.1 Control System Overview . . . . . . . . . . . . . . . . . . . . . . 404
+11.2 Error Dynamics . . . . . . . . . . . . . . . . . . . . . . . . . . . . 405
+11.2.1 Error Response . . . . . . . . . . . . . . . . . . . . . . . . 406
+11.2.2 Linear Error Dynamics . . . . . . . . . . . . . . . . . . . 406
+11.3 Motion Control with Velocity Inputs . . . . . . . . . . . . . . . . 413
+11.3.1 Motion Control of a Single Joint . . . . . . . . . . . . . . 414
+11.3.2 Motion Control of a Multi-joint Robot . . . . . . . . . . . 418
+11.3.3 Task-Space Motion Control . . . . . . . . . . . . . . . . . 419
+11.4 Motion Control with Torque or Force Inputs . . . . . . . . . . . . 420
+11.4.1 Motion Control of a Single Joint . . . . . . . . . . . . . . 421
+11.4.2 Motion Control of a Multi-joint Robot . . . . . . . . . . . 429
+11.4.3 Task-Space Motion Control . . . . . . . . . . . . . . . . . 433
+11.5 Force Control . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 434
+11.6 Hybrid Motion–Force Control . . . . . . . . . . . . . . . . . . . . 437
+11.6.1 Natural and Artiﬁcial Constraints . . . . . . . . . . . . . 437
+11.6.2 A Hybrid Motion–Force Controller . . . . . . . . . . . . . 439
+11.7 Impedance Control . . . . . . . . . . . . . . . . . . . . . . . . . . 441
+11.7.1 Impedance-Control Algorithm . . . . . . . . . . . . . . . . 443
+11.7.2 Admittance-Control Algorithm . . . . . . . . . . . . . . . 444
+11.8 Low-Level Joint Force/Torque Control . . . . . . . . . . . . . . . 445
+11.9 Other Topics . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 448
+May 2017 preprint of Modern Robotics, Lynch and Park, Cambridge U. Press, 2017. http://modernrobotics.org
+--- Page 8 ---
+vi Contents
+11.10Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 449
+11.11Software . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 451
+11.12Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . 452
+11.13Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 453
+12 Grasping and Manipulation 461
+12.1 Contact Kinematics . . . . . . . . . . . . . . . . . . . . . . . . . 463
+12.1.1 First-Order Analysis of a Single Contact . . . . . . . . . . 463
+12.1.2 Contact Types: Rolling, Sliding, and Breaking Free . . . . 465
+12.1.3 Multiple Contacts . . . . . . . . . . . . . . . . . . . . . . 468
+12.1.4 Collections of Bodies . . . . . . . . . . . . . . . . . . . . . 472
+12.1.5 Other Types of Contacts . . . . . . . . . . . . . . . . . . . 472
+12.1.6 Planar Graphical Methods . . . . . . . . . . . . . . . . . . 473
+12.1.7 Form Closure . . . . . . . . . . . . . . . . . . . . . . . . . 478
+12.2 Contact Forces and Friction . . . . . . . . . . . . . . . . . . . . . 484
+12.2.1 Friction . . . . . . . . . . . . . . . . . . . . . . . . . . . . 484
+12.2.2 Planar Graphical Methods . . . . . . . . . . . . . . . . . . 487
+12.2.3 Force Closure . . . . . . . . . . . . . . . . . . . . . . . . . 489
+12.2.4 Duality of Force and Motion Freedoms . . . . . . . . . . . 494
+12.3 Manipulation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 494
+12.4 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 501
+12.5 Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . 503
+12.6 Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 504
+13 Wheeled Mobile Robots 513
+13.1 Types of Wheeled Mobile Robots . . . . . . . . . . . . . . . . . . 514
+13.2 Omnidirectional Wheeled Mobile Robots . . . . . . . . . . . . . . 515
+13.2.1 Modeling . . . . . . . . . . . . . . . . . . . . . . . . . . . 515
+13.2.2 Motion Planning . . . . . . . . . . . . . . . . . . . . . . . 520
+13.2.3 Feedback Control . . . . . . . . . . . . . . . . . . . . . . . 520
+13.3 Nonholonomic Wheeled Mobile Robots . . . . . . . . . . . . . . . 520
+13.3.1 Modeling . . . . . . . . . . . . . . . . . . . . . . . . . . . 521
+13.3.2 Controllability . . . . . . . . . . . . . . . . . . . . . . . . 528
+13.3.3 Motion Planning . . . . . . . . . . . . . . . . . . . . . . . 537
+13.3.4 Feedback Control . . . . . . . . . . . . . . . . . . . . . . . 542
+13.4 Odometry . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 546
+13.5 Mobile Manipulation . . . . . . . . . . . . . . . . . . . . . . . . . 548
+13.6 Summary . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 552
+13.7 Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . 554
+13.8 Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 555
+May 2017 preprint of Modern Robotics, Lynch and Park, Cambridge U. Press, 2017. http://modernrobotics.org
+--- Page 9 ---
+Contents vii
+A Summary of Useful Formulas 565
+B Other Representations of Rotations 575
+B.1 Euler Angles . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 575
+B.1.1 Algorithm for Computing the ZYX Euler Angles . . . . . 577
+B.1.2 Other Euler Angle Representations . . . . . . . . . . . . . 577
+B.2 Roll–Pitch–Yaw Angles . . . . . . . . . . . . . . . . . . . . . . . 580
+B.3 Unit Quaternions . . . . . . . . . . . . . . . . . . . . . . . . . . . 581
+B.4 Cayley–Rodrigues Parameters . . . . . . . . . . . . . . . . . . . . 582
+C Denavit–Hartenberg Parameters 585
+C.1 Assigning Link Frames . . . . . . . . . . . . . . . . . . . . . . . . 585
+C.2 Why Four Parameters are Suﬃcient . . . . . . . . . . . . . . . . 589
+C.3 Manipulator Forward Kinematics . . . . . . . . . . . . . . . . . . 590
+C.4 Examples . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 591
+C.5 Relation Between the PoE and D–H Representations . . . . . . . 593
+C.6 A Final Comparison . . . . . . . . . . . . . . . . . . . . . . . . . 595
+D Optimization and Lagrange Multipliers 597
+Bibliography 599
+Index 617
+May 2017 preprint of Modern Robotics , Lynch and Park, Cambridge U. Press, 2017. http://modernrobotics.org
+--- Page 10 ---
+viii Contents
+May 2017 preprint of Modern Robotics , Lynch and Park, Cambridge U. Press, 2017. http://modernrobotics.org
+--- Page 11 ---
+Foreword by Roger
+Brockett
+In the 1870s, Felix Klein was developing his far-reaching Erlangen Program,
+which cemented the relationship between geometry and group theoretic ideas.
+With Sophus Lie’s nearly simultaneous development of a theory of continuous
+(Lie) groups, important new tools involving inﬁnitesimal analysis based on Lie
+algebraic ideas became available for the study of a very wide range of geomet-
+ric problems. Even today, the thinking behind these ideas continues to guide
+developments in important areas of mathematics. Kinematic mechanisms are,
+of course, more than just geometry; they need to accelerate, avoid collisions,
+etc., but ﬁrst of all they are geometrical objects and the ideas of Klein and Lie
+apply. The groups of rigid motions in two or three dimensions, as they appear
+in robotics, are important examples in the work of Klein and Lie.
+In the mathematics literature the representation of elements of a Lie group in
+terms of exponentials usually takes one of two diﬀerent forms. These are known
+as exponential coordinates of the ﬁrst kind and exponential coordinates of the
+second kind. For the ﬁrst kind one has X = e(A1x1+A2x2··· ). For the second kind
+this is replaced by X = eA1x1 eA2x2 · · ·. Up until now, the ﬁrst choice has found
+little utility in the study of kinematics whereas the second choice, a special case
+having already shown up in Euler parametrizations of the orthogonal group,
+turns out to be remarkably well-suited for the description of open kinematic
+chains consisting of the concatenation of single degree of freedom links. This
+is all nicely explained in Chapter 4 of this book. Together with the fact that
+P eAP−1 = eP AP−1
+, the second form allows one to express a wide variety of
+kinematic problems very succinctly. From a historical perspective, the use of
+the product of exponentials to represent robotic movement, as the authors have
+done here, can be seen as illustrating the practical utility of the 150-year-old
+ideas of the geometers Klein and Lie.
+In 1983 I was invited to speak at the triennial Mathematical Theory of Net-
+ix
+--- Page 16 ---
+xiv Preface
+simple and elegant geometric interpretation that lies at the heart of what they
+are calculating.
+The breakthrough that makes the techniques of classical screw theory ac-
+cessible to a more general audience arrived in the early 1980’s, when Roger
+Brockett showed how to mathematically describe kinematic chains in terms of
+the Lie group structure of the rigid-body motions [20]. This discovery allowed
+one, among other things, to re-invent screw theory simply by appealing to basic
+linear algebra and linear diﬀerential equations. With this “modern screw the-
+ory” the powerful tools of modern diﬀerential geometry can be brought to bear
+on a wide-ranging collection of robotics problems, some of which we explore
+here, others of which are covered in the excellent but more advanced graduate
+textbook by Murray, Li and Sastry [122].
+As the title indicates, this book covers what we feel to be the fundamentals
+of robot mechanics, together with the basics of planning and control. A thor-
+ough treatment of all the chapters would likely take two semesters, particularly
+when coupled with programming assignments or experiments with robots. The
+contents of Chapters 2-6 constitute the minimum essentials, and these topics
+should probably be covered in sequence.
+The instructor can then selectively choose content from the remaining chap-
+ters. At Seoul National University, the undergraduate course M2794.0027 Intro-
+duction to Robotics covers, in one semester, Chapters 2-7 and parts of Chapters
+10, 11, and 12. At Northwestern, ME 449 Robotic Manipulation covers, in an 11-
+week quarter, Chapters 2-6 and 8, then touches on diﬀerent topics in Chapters
+9-13 depending on the interests of the students and instructor. A course focus-
+ing on the kinematics of robot arms and wheeled vehicles could cover chapters
+2-7 and 13, while a course on kinematics and motion planning could addition-
+ally include Chapters 9 and 10. A course on the mechanics of manipulation
+would cover Chapters 2-6, 8, and 12, while a course on robot control would
+cover Chapters 2-6, 8, 9, and 11. If the instructor prefers to avoid dynamics
+(Chapter 8), the basics of robot control (Chapters 11 and 13) can be covered by
+assuming control of velocity at each actuator, not forces and torques. A course
+focusing only on motion planning could cover Chapters 2 and 3, Chapter 10 in
+depth (possibly supplemented by research papers or other references cited in
+that chapter), and Chapter 13.
+To help the instructor choose which topics to teach and to help the student
+keep track of what she has learned, we have included a summary at the end of
+each chapter and a summary of important notation and formulas used through-
+out the book (Appendix A). For those whose primary interest in this text is
+as an introductory reference, we have attempted to provide a reasonably com-
+prehensive, though by no means exhaustive, set of references and bibliographic
+May 2017 preprint of Modern Robotics , Lynch and Park, Cambridge U. Press, 2017. http://modernrobotics.org
