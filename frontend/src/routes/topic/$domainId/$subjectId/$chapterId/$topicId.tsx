@@ -2,11 +2,10 @@ import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import ProblemNav from '../../../../../components/ProblemNav'
 import LearningPanel from '../../../../../components/LearningPanel'
-import { useWorkspaceStore } from '../../../../../stores/workspaceStore'
+import WorkPanel from '../../../../../components/WorkPanel'
+import type { FlowTab } from '../../../../../types'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '../../../../../api/workspaceApi'
-
-import WorkPanel from '../../../../../components/WorkPanel'
 
 export const Route = createFileRoute('/topic/$domainId/$subjectId/$chapterId/$topicId')({
   component: TopicRoute,
@@ -15,35 +14,41 @@ export const Route = createFileRoute('/topic/$domainId/$subjectId/$chapterId/$to
 function TopicRoute() {
   const { domainId, subjectId, chapterId, topicId } = Route.useParams()
   const [practiceNavCollapsed, setPracticeNavCollapsed] = useState(false)
-  const [tab, setTab] = useState<'problem' | 'solution' | 'notebook' | 'debug'>('problem')
+  const [tab, setTab] = useState<FlowTab>('problem')
 
   const { data: topic, isLoading } = useQuery({
     queryKey: ['topic', domainId, subjectId, chapterId, topicId],
     queryFn: () => api.getTopic(domainId, subjectId, chapterId, topicId)
   })
 
-  // Temporary dummy state for practice until Phase 4
-  const store = { problems: [] }
+  const store = { chapters: [], problems: [] }
   const filtered: any[] = []
   const pid = ''
-  
+
   if (isLoading) {
-    return <div style={{ padding: 40, textAlign: 'center', color: "#71717a" }}>Loading topic...</div>
+    return <div style={{ padding: 40, textAlign: 'center', color: '#71717a' }}>Loading topic...</div>
   }
 
   if (!topic) {
-    return <div style={{ padding: 40, textAlign: 'center', color: "#71717a" }}>Topic not found.</div>
+    return <div style={{ padding: 40, textAlign: 'center', color: '#71717a' }}>Topic not found.</div>
   }
-  
+
+  // Build a stub Problem that satisfies the Problem type for LearningPanel
   const problem = {
     id: topic.id,
+    number: 0,
     title: topic.name,
-    body: `### Welcome to ${topic.name}\n\nStart your learning journey here.`,
-    examples: [],
+    chapter: chapterId,
+    difficulty: 'easy',
+    tags: [],
+    statement: `## ${topic.name}\n\nStart your learning journey here.`,
+    explanation: `## ${topic.name}\n\nStart your learning journey here.`,
     hints: [],
-    type: 'code',
-    difficulty: 'easy'
+    starterCode: '',
+    solutionCode: '',
+    examples: [],
   };
+
   return (
     <div className="ws-practice">
       <div className={`workspace-layout ${practiceNavCollapsed ? 'collapsed' : ''}`}>
@@ -66,37 +71,28 @@ function TopicRoute() {
           onSearchTrigger={() => {}}
         />
         <main className="workspace-main">
-          {problem ? (
-            <>
-              <LearningPanel problem={problem} tab={tab} onTab={setTab} />
-              <WorkPanel
-                needsFiles={false}
-                canSubmitProblem={false}
-                code=""
-                theme="light"
-                runningMode="run"
-                uploaded={[]}
-                proofReady={false}
-                solved={false}
-                verdict="None"
-                output=""
-                comparison={null}
-                onSaveDraft={() => {}}
-                onResetDraft={() => {}}
-                onAddFiles={() => {}}
-                onClearFiles={() => {}}
-                onRun={async () => {}}
-                onMarkComplete={() => {}}
-              />
-            </>
-          ) : (
-            <section className="learning-panel">
-              <div className="content-scroll markdown-body scrollbar">
-                <h3>Loading practice environment</h3>
-                <p>Migration to TanStack Query in progress...</p>
-              </div>
-            </section>
-          )}
+          <>
+            <LearningPanel problem={problem} tab={tab} onTab={setTab} />
+            <WorkPanel
+              needsFiles={false}
+              canSubmitProblem={false}
+              code=""
+              theme="light"
+              runningMode={null as any}
+              uploaded={[]}
+              proofReady={false}
+              solved={false}
+              verdict="None"
+              output=""
+              comparison={null}
+              onSaveDraft={() => {}}
+              onResetDraft={() => {}}
+              onAddFiles={() => {}}
+              onClearFiles={() => {}}
+              onRun={async () => {}}
+              onMarkComplete={() => {}}
+            />
+          </>
         </main>
       </div>
     </div>

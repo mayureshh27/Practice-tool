@@ -2,14 +2,12 @@ import { useUIStore } from '../stores/uiStore';
 import { useHotkey } from '@tanstack/react-hotkeys';
 import { Search } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from '@tanstack/react-router';
 
 export function SearchPalette() {
   const isOpen = useUIStore((s) => s.searchModalOpen);
   const setOpen = useUIStore((s) => s.setSearchModalOpen);
   const [query, setQuery] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const navigate = useNavigate();
 
   // Close on Escape
   useHotkey('Escape', () => {

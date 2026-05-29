@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate, useParams } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { DomainScreen } from '../../components/ExplorerScreens'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '../../api/workspaceApi'

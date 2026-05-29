@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import SubjectScreen from '../../../components/SubjectScreen'
 import { useQuery } from '@tanstack/react-query'
 import { api } from '../../../api/workspaceApi'

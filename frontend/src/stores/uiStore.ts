@@ -38,6 +38,7 @@ interface UIState {
   // Workspace Shell Layout
   leftCollapsed: boolean;
   setLeftCollapsed: (collapsed: boolean | ((prev: boolean) => boolean)) => void;
+  toggleLeftCollapsed: () => void;
   practiceNavCollapsed: boolean;
   setPracticeNavCollapsed: (collapsed: boolean | ((prev: boolean) => boolean)) => void;
   rightPanel: RightDockPanelType;
@@ -86,6 +87,7 @@ export const useUIStore = create<UIState>((set) => ({
   setLeftCollapsed: (collapsed) => set((state) => ({ 
     leftCollapsed: typeof collapsed === 'function' ? collapsed(state.leftCollapsed) : collapsed 
   })),
+  toggleLeftCollapsed: () => set((state) => ({ leftCollapsed: !state.leftCollapsed })),
   practiceNavCollapsed: false,
   setPracticeNavCollapsed: (collapsed) => set((state) => ({
     practiceNavCollapsed: typeof collapsed === 'function' ? collapsed(state.practiceNavCollapsed) : collapsed

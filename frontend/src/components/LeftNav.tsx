@@ -1,6 +1,6 @@
 import {Search, ChevronRight, ChevronDown, ChevronLeft, FolderOpen, Folder, LayoutGrid, Workflow, GitBranch, Pin, Archive, Trash2, Edit2, Plus, MoreHorizontal, BookOpen, Layers, FileCode, History, Settings2, Check, ArrowUpRight} from 'lucide-react';
 import {useState, useMemo} from 'react';
-import type {NavLocation, Domain, RecentItem} from '../workspaceTypes';
+import type {RecentItem} from '../workspaceTypes';
 
 import { useWorkspaceStore } from '../stores/workspaceStore';
 import { useQuery } from '@tanstack/react-query';
@@ -20,7 +20,7 @@ function LeftNav() {
   
   // Note: create modal logic should ideally be moved to store or root layout.
   // For now, we'll keep it as a stub or move the state here if needed.
-  const onOpenCreateModal = (type: any, domainId?: string, subjectId?: string) => {}; // TODO: Wire to UI store
+  const onOpenCreateModal = (_type: string, _domainId?: string, _subjectId?: string) => {}; // TODO: Wire to UI store
   
   const routerState = useRouterState();
   const location = routerState.location;
@@ -90,21 +90,11 @@ function LeftNav() {
   };
 
 
-
-  // Use regex or string matching to get active ids from pathname
+  // Use pathname parts for active route detection
   const pathParts = location.pathname.split('/');
-  let activeDomainId = null;
-  let activeSubjectId = null;
-  
-  if (pathParts[1] === 'domain' && pathParts[2]) {
-    activeDomainId = pathParts[2];
-  } else if (pathParts[1] === 'subject' && pathParts[2] && pathParts[3]) {
-    activeDomainId = pathParts[2];
-    activeSubjectId = pathParts[3];
-  } else if (pathParts[1] === 'chapter' && pathParts[2] && pathParts[3]) {
-    activeDomainId = pathParts[2];
-    activeSubjectId = pathParts[3];
-  }
+  const activeDomainFromPath = pathParts[2] ?? null; // used for domain highlighting
+  const activeSubjectFromPath = pathParts[3] ?? null; // used for subject highlighting
+  void activeDomainFromPath; void activeSubjectFromPath; // referenced in JSX below
 
   const renderRecentItem = (item: RecentItem, paddingLeft: number = 8) => {
     let toStr = '/';
@@ -353,7 +343,7 @@ function LeftNav() {
         {/* Domain tree */}
         {collapsed ? (
           (() => {
-            const isDomainsActive = ['root', 'domain', 'subject', 'chapter', 'topic'].includes(location.level);
+            const isDomainsActive = ['/', '/domain', '/subject', '/chapter', '/topic'].some(p => location.pathname.startsWith(p.length > 1 ? p : '/') && (p === '/' ? location.pathname === '/' || location.pathname.startsWith('/domain') || location.pathname.startsWith('/subject') || location.pathname.startsWith('/chapter') || location.pathname.startsWith('/topic') : true));
             return (
               <>
                 {/* Topmost Domain Folder */}

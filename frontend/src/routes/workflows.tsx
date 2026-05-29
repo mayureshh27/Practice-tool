@@ -14,7 +14,7 @@ function WorkflowsRoute() {
   return (
     <WorkflowManagerScreen
       workflows={workflows}
-      onNavigate={() => {}} // Navigation handled by Links soon
+      onNavigate={() => {}}
       onDelete={deleteWorkflow}
       onDuplicate={duplicateWorkflow}
     />

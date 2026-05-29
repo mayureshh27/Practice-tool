@@ -39,6 +39,16 @@ interface WorkspaceState {
   // Workflows
   saveWorkflow: (wf: WorkflowTemplate) => void;
   deleteWorkflow: (id: string) => void;
+  updateWorkflow: (wf: WorkflowTemplate) => void;
+  duplicateWorkflow: (id: string) => void;
+
+  // Artifacts
+  deleteArtifact: (id: string) => void;
+
+  // Notebooks (simple string-keyed stubs for notebook route)
+  notebooks: Record<string, string[]>;
+  createNotebook: (domainId: string, subjectId: string, name: string) => void;
+  deleteNotebook: (domainId: string, subjectId: string, id: string) => void;
 }
 
 export const useWorkspaceStore = create<WorkspaceState>((set) => ({
@@ -238,5 +248,35 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
 
   deleteWorkflow: (id) => set((state) => ({
     workflows: state.workflows.filter(w => w.id !== id)
-  }))
+  })),
+
+  updateWorkflow: (wf) => set((state) => {
+    const idx = state.workflows.findIndex(w => w.id === wf.id);
+    if (idx >= 0) {
+      const next = [...state.workflows];
+      next[idx] = wf;
+      return { workflows: next };
+    }
+    return { workflows: [...state.workflows, wf] };
+  }),
+
+  duplicateWorkflow: (id) => set((state) => {
+    const wf = state.workflows.find(w => w.id === id);
+    if (!wf) return state;
+    return { workflows: [...state.workflows, { ...wf, id: `wf-dup-${Date.now()}`, name: `${wf.name} (copy)` }] };
+  }),
+
+  deleteArtifact: (id) => set((state) => ({
+    artifacts: state.artifacts.filter(a => a.id !== id)
+  })),
+
+  notebooks: {},
+  createNotebook: (domainId, subjectId, name) => set((state) => {
+    const key = `${domainId}::${subjectId}`;
+    return { notebooks: { ...state.notebooks, [key]: [...(state.notebooks[key] ?? []), name] } };
+  }),
+  deleteNotebook: (domainId, subjectId, id) => set((state) => {
+    const key = `${domainId}::${subjectId}`;
+    return { notebooks: { ...state.notebooks, [key]: (state.notebooks[key] ?? []).filter(n => n !== id) } };
+  }),
 }));

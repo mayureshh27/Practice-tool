@@ -12,7 +12,7 @@ type Props = {
   onRemoveResource: (domainId: string, subjectId: string, resourceId: string) => void;
 };
 
-function ChapterScreen({domain, subject, chapter, onNavigate, onUpdateChapter, onRemoveResource}: Props) {
+function ChapterScreen({domain, subject, chapter, onNavigate: _onNavigate, onUpdateChapter, onRemoveResource}: Props) {
   const [starred, setStarred] = useState(false);
 
   const [isEditingMemory, setIsEditingMemory] = useState(false);

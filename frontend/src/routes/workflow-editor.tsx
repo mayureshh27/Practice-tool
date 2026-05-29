@@ -13,8 +13,8 @@ function WorkflowEditorRoute() {
   return (
     <WorkflowEditorScreen
       workflows={workflows}
-      onNavigate={() => {}} // Navigation handled by Links soon
-      onSave={updateWorkflow}
+      onNavigate={() => {}}
+      onSaveWorkflow={updateWorkflow}
     />
   )
 }

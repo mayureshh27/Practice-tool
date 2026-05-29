@@ -12,7 +12,7 @@ type Props = {
   onOpenCreateModal: (type: 'domain' | 'subject' | 'chapter' | 'topic', domainId?: string, subjectId?: string, chapterId?: string) => void;
 };
 
-function SubjectScreen({domain, subject, onNavigate, onUpdateSubject, onRemoveResource, onOpenCreateModal}: Props) {
+function SubjectScreen({domain, subject, onNavigate: _onNavigate, onUpdateSubject, onRemoveResource, onOpenCreateModal}: Props) {
   const [starred, setStarred] = useState(false);
 
   const [isEditingMemory, setIsEditingMemory] = useState(false);

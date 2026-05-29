@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { INITIAL_DOMAINS, INITIAL_WORKFLOWS, INITIAL_ARTIFACTS } from '../stores/mockData';
+import { INITIAL_DOMAINS } from '../stores/mockData';
 
 // --- Zod Schemas (Intent: Type safety for Python/Go backend migration) ---
 

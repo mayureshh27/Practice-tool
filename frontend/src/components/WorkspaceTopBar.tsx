@@ -1,53 +1,62 @@
 import { PanelLeftClose, PanelLeftOpen, Search, Settings, Moon, Sun, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link, useRouter, useMatches, useRouterState } from '@tanstack/react-router';
+import { Link, useRouter, useMatches } from '@tanstack/react-router';
 import { useUIStore } from '../stores/uiStore';
 import { useWorkspaceStore } from '../stores/workspaceStore';
 
 function WorkspaceTopBar() {
   const theme = useUIStore(s => s.theme);
-  const leftCollapsed = useUIStore(s => s.leftCollapsed);
   const toggleTheme = useUIStore(s => s.toggleTheme);
   const toggleLeftCollapsed = useUIStore(s => s.toggleLeftCollapsed);
+  const leftCollapsed = useUIStore(s => s.leftCollapsed);
   const setSearchModalOpen = useUIStore(s => s.setSearchModalOpen);
-
-  // Getting domains is needed if breadcrumbs need domain names, but TanStack Router's route loader can provide them in route context!
-  // For now, let's just grab domains from our Zustand store.
   const domains = useWorkspaceStore(s => s.domains);
-  
+
   const router = useRouter();
-  const routerState = useRouterState();
   const matches = useMatches();
 
-  // We can build breadcrumbs from `matches` since it's an array of active routes!
-  // We can define static titles in route `meta` or `staticData`, or dynamically.
-  // For now, let's fall back to parsing `routerState.location.pathname` or extracting from `matches`.
+  // Build human-readable breadcrumbs from matched routes + params
   const crumbs = matches
     .filter(match => match.routeId !== '__root__' && match.routeId !== '/')
     .map(match => {
-      // In a real TanStack Router app, we'd use `match.loaderData` or `match.staticData.title`.
-      // For this migration step, let's try to infer from params.
       const params = match.params as any;
-      let label = match.routeId;
+      const rId = match.routeId;
+      let label: string;
 
-      if (match.routeId === '/domain/$domainId' && params.domainId) {
-        label = domains.find(d => d.id === params.domainId)?.name || 'Domain';
-      } else if (match.routeId === '/domain/$domainId/subject/$subjectId' && params.subjectId) {
-        label = domains.find(d => d.id === params.domainId)?.subjects.find(s => s.id === params.subjectId)?.name || 'Subject';
-      } else if (label.includes('workflows')) {
+      if (rId.includes('$domainId') && !rId.includes('$subjectId')) {
+        label = domains.find(d => d.id === params.domainId)?.name ?? 'Domain';
+      } else if (rId.includes('$subjectId') && !rId.includes('$chapterId')) {
+        const domain = domains.find(d => d.id === params.domainId);
+        label = domain?.subjects.find(s => s.id === params.subjectId)?.name ?? 'Subject';
+      } else if (rId.includes('$chapterId') && !rId.includes('$topicId')) {
+        const domain = domains.find(d => d.id === params.domainId);
+        const subject = domain?.subjects.find(s => s.id === params.subjectId);
+        label = subject?.chapters.find(c => c.id === params.chapterId)?.name ?? 'Chapter';
+      } else if (rId.includes('$topicId')) {
+        const domain = domains.find(d => d.id === params.domainId);
+        const subject = domain?.subjects.find(s => s.id === params.subjectId);
+        const chapter = subject?.chapters.find(c => c.id === params.chapterId);
+        label = chapter?.topics.find(t => t.id === params.topicId)?.name ?? 'Topic';
+      } else if (rId.includes('notebook')) {
+        label = 'Notebooks';
+      } else if (rId.includes('workflow-editor')) {
+        label = 'Workflow Editor';
+      } else if (rId.includes('workflow')) {
         label = 'Workflows';
-      } else if (label.includes('artifacts')) {
+      } else if (rId.includes('artifact')) {
         label = 'Artifacts';
-      } else if (label.includes('graph')) {
+      } else if (rId.includes('graph')) {
         label = 'Knowledge Graph';
+      } else {
+        label = match.pathname;
       }
+
       return { label, to: match.pathname };
     });
 
-  // Always prepend Root
   const allCrumbs = [{ label: 'Domains', to: '/' }, ...crumbs];
 
   return (
-    <header className="flex items-center justify-between gap-4 h-11 px-4 bg-ws-bg border-b border-ws-line z-30 min-w-0">
+    <header className="flex items-center justify-between gap-4 h-11 px-4 bg-ws-bg border-b border-ws-line z-30 min-w-0 shrink-0">
       <div className="flex items-center gap-3 min-w-0 shrink-0">
         <button
           type="button"
@@ -81,12 +90,12 @@ function WorkspaceTopBar() {
         ))}
       </div>
 
-      <div className="flex items-center justify-end gap-1 min-w-0">
+      <div className="flex items-center justify-end gap-1 shrink-0">
         <button
           type="button"
           className="flex items-center justify-center w-7 h-7 text-ws-muted hover:text-ws-ink hover:bg-ws-surface-2 rounded transition-colors"
           onClick={() => setSearchModalOpen(true)}
-          title="Search or command (⌘K)"
+          title="Search (⌘K)"
         >
           <Search size={15} />
         </button>

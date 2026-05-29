@@ -11,27 +11,27 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Backgrounds / Surfaces — dark navy-slate scale */
-  --color-ws-bg:       hsl(210, 8%, 7%);
-  --color-ws-surface:  hsl(210, 7%, 10%);
+  --color-ws-bg:        hsl(210, 8%, 7%);
+  --color-ws-surface:   hsl(210, 7%, 10%);
   --color-ws-surface-2: hsl(210, 6%, 13%);
   --color-ws-surface-3: hsl(210, 5%, 16%);
 
   /* Ink / Text scale — warm off-white */
-  --color-ws-ink:    hsl(40, 10%, 88%);
-  --color-ws-soft:   hsl(40,  6%, 62%);
-  --color-ws-muted:  hsl(40,  4%, 45%);
-  --color-ws-faint:  hsl(40,  3%, 32%);
+  --color-ws-ink:   hsl(40, 10%, 88%);
+  --color-ws-soft:  hsl(40,  6%, 62%);
+  --color-ws-muted: hsl(40,  4%, 45%);
+  --color-ws-faint: hsl(40,  3%, 32%);
 
   /* Borders / Lines */
   --color-ws-line:        hsl(210, 6%, 18%);
   --color-ws-line-strong: hsl(210, 6%, 26%);
 
-  /* Accent — teal/cyan */
+  /* Primary accent — teal/cyan (original design --accent) */
   --color-ws-accent:   hsl(178, 55%, 48%);
   --color-ws-accent-2: hsl(255, 30%, 58%);
 
   /* Semantic signals */
-  --color-ws-success: hsl(145, 55%, 42%);
+  --color-ws-success: hsl(178, 55%, 48%);  /* same as accent — teal is the "good" highlight */
   --color-ws-danger:  hsl(0,   65%, 52%);
   --color-ws-warning: hsl(38,  92%, 50%);
 
@@ -66,23 +66,25 @@
   --ws-edge-soft:   hsl(210, 6%, 18%);
   --ws-edge-strong: hsl(210, 6%, 26%);
 
+  /* Primary accent = teal (the original --accent hsl(178,55%,48%)) */
   --ws-accent:   hsl(178, 55%, 48%);
   --ws-accent-2: hsl(255, 30%, 58%);
 
-  /* Legacy glow aliases */
+  /* Legacy glow aliases — teal, same as accent */
   --ws-glow:      hsl(178, 55%, 48%);
   --ws-glow-ring: hsla(178, 55%, 48%, 0.25);
   --ws-glow-dim:  hsl(178, 45%, 32%);
 
-  --ws-success: hsl(145, 55%, 42%);
+  /* success = teal (same visual as accent for this design) */
+  --ws-success: hsl(178, 55%, 48%);
   --ws-danger:  hsl(0,   65%, 52%);
   --ws-warning: hsl(38,  92%, 50%);
 
   /* Legacy signal aliases */
-  --ws-signal-pass: hsl(145, 55%, 42%);
+  --ws-signal-pass: hsl(178, 55%, 48%);
   --ws-signal-fail: hsl(0,   65%, 52%);
   --ws-signal-warn: hsl(38,  92%, 50%);
-  --ws-pass: hsl(145, 55%, 42%);
+  --ws-pass: hsl(178, 55%, 48%);
   --ws-fail: hsl(0,   65%, 52%);
   --ws-warn: hsl(38,  92%, 50%);
 
@@ -147,4 +149,35 @@ body {
 }
 .scrollbar-none::-webkit-scrollbar {
   display: none;
+}
+
+/* ─────────────────────────────────────────────
+   ws-nav-item — used by LeftNav tools section
+──────────────────────────────────────────────── */
+.ws-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  color: var(--ws-muted);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 100ms ease, color 100ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 1px;
+}
+
+.ws-nav-item:hover {
+  background: var(--ws-surface-2);
+  color: var(--ws-ink);
+}
+
+.ws-nav-item.active,
+.ws-nav-item[data-status="active"] {
+  background: hsla(178, 55%, 48%, 0.1);
+  color: var(--ws-accent);
 }
