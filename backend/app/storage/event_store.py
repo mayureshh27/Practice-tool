@@ -7,7 +7,6 @@ Per ADR-0020, memory events are stored in SQLite and retrieved via SQL
 joins — never via vector similarity search in Qdrant.
 """
 
-from datetime import datetime, timezone
 
 from sqlmodel import Session, select
 

@@ -43,15 +43,15 @@ Usage examples:
 """
 
 from __future__ import annotations
-import argparse, json, sys
+
+import argparse
+import json
+import sys
 from pathlib import Path
 
-from .pipeline import IngestionPipeline, ExerciseFirstPipeline
-from .generation.pipeline_stages import (
-    ReviewQueue, Validator, CatalogMerger, CATALOG_PATH
-)
-from .generation.generator import GeneratedProblem
-
+from .generator import GeneratedProblem
+from .pipeline import ExerciseFirstPipeline, IngestionPipeline
+from .pipeline_stages import CATALOG_PATH, CatalogMerger, ReviewQueue, Validator
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Helpers
@@ -127,8 +127,8 @@ def cmd_web(args):
 
 def cmd_text(args):
     """Ingest raw text from a file or stdin."""
-    from .sources.extractors import RawSource
-    from .processing.chunker import Strategy
+    from .chunker import Strategy
+    from .extractors import RawSource
 
     if args.source == "-":
         raw_text = sys.stdin.read()
@@ -273,7 +273,7 @@ Return JSON:
     out = Path(f"data/gaps_{args.chapter}.json")
     out.write_text(json.dumps(result, indent=2))
     print(f"  Gap report written to {out}")
-    print(f"\n  To fill a gap, run:")
+    print("\n  To fill a gap, run:")
     print(f"    echo '<description>' | python -m ingestion.cli text - "
           f"--chapter {args.chapter} --model {args.model}")
 

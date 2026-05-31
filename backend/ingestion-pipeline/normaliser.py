@@ -13,9 +13,10 @@ Handles:
 """
 
 from __future__ import annotations
-import re, unicodedata
-from dataclasses import dataclass, field
 
+import re
+import unicodedata
+from dataclasses import dataclass, field
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Tag constants — used throughout the pipeline to protect content
@@ -160,12 +161,11 @@ class Normaliser:
 
         # Inline math (only if not already tagged)
         for pat in _MATH_INLINE_PATTERNS:
-            def replace_inline(m: re.Match) -> str:
+            def replace_inline(m: re.Match, _text: str = text) -> str:
                 nonlocal found
-                # Skip if already inside a display math tag
                 start = m.start()
-                if text[:start].count(TAG_MATH_DISPLAY[0]) > \
-                   text[:start].count(TAG_MATH_DISPLAY[1]):
+                if _text[:start].count(TAG_MATH_DISPLAY[0]) > \
+                   _text[:start].count(TAG_MATH_DISPLAY[1]):
                     return m.group(0)
                 found = True
                 return f"{TAG_MATH_INLINE[0]}{m.group(0)}{TAG_MATH_INLINE[1]}"
@@ -256,7 +256,6 @@ class Normaliser:
         lines   = text.splitlines(keepends=True)
         result  = []
         in_block= False
-        block_kw= ""
 
         for line in lines:
             m = pattern.match(line)
@@ -265,7 +264,6 @@ class Normaliser:
                     result.append(tag[1] + "\n")
                 found[0] = True
                 in_block = True
-                block_kw = m.group(1)
                 result.append(tag[0] + "\n" + line)
             elif in_block:
                 # Block ends at next empty line or next keyword

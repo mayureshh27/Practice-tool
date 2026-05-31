@@ -6,6 +6,7 @@ ConceptMasteryUpdated events before the Event Emitter writes it. The agent
 never has access to the MemoryStore directly.
 """
 
+import os
 from dataclasses import dataclass
 
 from pydantic import BaseModel
@@ -26,8 +27,6 @@ class SessionSummaryOutput(BaseModel):
     concepts_covered: list[str] = []
     mastery_deltas: dict[str, float] = {}  # concept_id → delta
 
-
-import os
 
 def _select_model() -> str:
     """Pick the model based on available API keys."""

@@ -1,25 +1,19 @@
 import { Brain, AlertTriangle, CheckCircle, X, Plus, Send, RefreshCw } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { useWorkspaceStore } from '../../stores/workspaceStore';
+import { useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { masteryQueries } from '../../api/queries';
 
 type MemoryEvent = { id: string; type: 'blind-spot' | 'mastery' | 'attempt' | 'note'; text: string; time: string; };
 
 function MemoryPanel() {
-  const masteryScores = useWorkspaceStore(s => s.masteryScores);
-  const blindSpots = useWorkspaceStore(s => s.blindSpots);
-  const fetchMastery = useWorkspaceStore(s => s.fetchMastery);
-  const fetchBlindSpots = useWorkspaceStore(s => s.fetchBlindSpots);
+  const queryClient = useQueryClient();
+  const { data: masteryScores = [] } = useQuery(masteryQueries.scores());
+  const { data: blindSpots = [] } = useQuery(masteryQueries.blindSpots());
 
   const [localNotes, setLocalNotes] = useState<MemoryEvent[]>([]);
   const [noteInput, setNoteInput] = useState('');
   const [showAdd, setShowAdd] = useState(false);
 
-  useEffect(() => {
-    fetchMastery();
-    fetchBlindSpots();
-  }, [fetchMastery, fetchBlindSpots]);
-
-  // Build combined event list from backend data + local notes
   const events: MemoryEvent[] = [
     ...blindSpots.map(bs => ({
       id: `bs-${bs.conceptId}`,
@@ -58,8 +52,7 @@ function MemoryPanel() {
   };
 
   const handleRefresh = () => {
-    fetchMastery();
-    fetchBlindSpots();
+    queryClient.invalidateQueries({ queryKey: ['mastery'] });
   };
 
   return (

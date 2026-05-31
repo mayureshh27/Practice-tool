@@ -2,7 +2,6 @@ import {Sparkles, Send, FileOutput, ArrowLeft, Plus, Headphones, Presentation, V
 import {useState, useRef, useEffect, useMemo} from 'react';
 import type {Domain, Subject, Artifact, NavLocation} from '../workspaceTypes';
 import { CustomSelect } from './ui/CustomSelect';
-import { useWorkspaceStore } from '../stores/workspaceStore';
 
 const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg viewBox="0 0 24 24" width="12" height="12" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }} {...props}>
@@ -11,6 +10,7 @@ const GithubIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 type Message = { id: string; role: 'user' | 'assistant'; content: string };
+type GeneratedArtifact = { id: string; name: string; type: string; time: string };
 
 type Props = {
   domain: Domain;
@@ -69,26 +69,9 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
 
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const globalArtifacts = useWorkspaceStore(s => s.artifacts);
-  const artifacts = useMemo(() => {
-    const list = globalArtifacts.filter(art => art.domainId === domain.id && art.subjectId === subject.id);
-    const hasWorkbook = list.some(art => art.type === 'Workbook');
-    if (!hasWorkbook) {
-      return [
-        {
-          id: 'art-init',
-          name: `Initial ${subject.name} Workbook`,
-          type: 'Workbook',
-          status: 'approved' as const,
-          domainId: domain.id,
-          subjectId: subject.id,
-          time: '2 hours ago'
-        },
-        ...list
-      ];
-    }
-    return list;
-  }, [globalArtifacts, domain.id, subject.id, subject.name]);
+  const [artifacts, setArtifacts] = useState<GeneratedArtifact[]>([
+    {id: 'art-init', name: `Initial ${subject.name} Workbook`, type: 'Workbook', time: '2 hours ago'}
+  ]);
   const [isGenerating, setIsGenerating] = useState<string | null>(null);
   const [alertMsg, setAlertMsg] = useState<string | null>(null);
   const [notes, setNotes] = useState<string[]>([]);
@@ -161,7 +144,11 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
         topicId: uniqueId
       });
 
-
+      // 3. Update local list
+      setArtifacts(prev => [
+        { id: uniqueId, name: `Generated ${targetType}`, type: targetType, time: 'Just now' },
+        ...prev
+      ]);
 
       // 4. Append chat completion
       setMessages(prev => [
@@ -301,24 +288,44 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
   const allChecked = useMemo(() => sources.length > 0 && sources.every(s => s.selected), [sources]);
 
   return (
-    <div className="flex w-full h-full bg-ws-floor overflow-hidden p-4 gap-4 text-ws-ink relative">
+    <div 
+      style={{
+        display: 'flex', 
+        width: '100%', 
+        height: '100%', 
+        background: '#08080a', // Darkened spaces separating sections
+        padding: 12,
+        gap: 12,
+        overflow: 'hidden', 
+        position: 'relative'
+      }}
+    >
       
-      {/* 1. Left Column: Sources panel */}
+      {/* 1. Left Column: Sources */}
       <div 
-        className="bg-ws-bench border border-ws-line rounded-xl shadow-md flex flex-col overflow-hidden shrink-0 transition-[width] duration-200"
-        style={{ width: sourcesCollapsed ? 50 : 280 }}
+        style={{
+          width: sourcesCollapsed ? 50 : 280,
+          border: '1px solid var(--ws-edge-soft)',
+          borderRadius: 12,
+          background: 'var(--ws-bench)',
+          display: 'flex',
+          flexDirection: 'column',
+          transition: 'width 200ms ease',
+          overflow: 'hidden',
+          height: '100%'
+        }}
       >
-        <div className="p-4 border-b border-ws-line flex items-center justify-between shrink-0 bg-ws-bench/50 h-11">
+        <div style={{padding: '16px 14px', borderBottom: '1px solid var(--ws-edge-soft)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0}}>
           {!sourcesCollapsed && (
-            <div className="flex flex-col gap-0.5">
-              <span className="text-[13px] font-extrabold text-ws-ink tracking-tight">Sources</span>
-              <span className="text-[10px] text-ws-muted">{sources.length} total sources loaded</span>
+            <div style={{display: 'flex', flexDirection: 'column', gap: 2}}>
+              <span style={{fontSize: 13, fontWeight: 700, color: 'var(--ws-ink)'}}>Sources</span>
+              <span style={{fontSize: 10, color: 'var(--ws-ink-muted)'}}>{sources.length} total sources loaded</span>
             </div>
           )}
           <button 
             type="button" 
             onClick={() => setSourcesCollapsed(!sourcesCollapsed)}
-            className="background-none border-none text-ws-muted hover:text-ws-ink cursor-pointer p-1 rounded"
+            style={{background: 'none', border: 'none', color: 'var(--ws-ink-muted)', cursor: 'pointer', padding: 4}}
             title={sourcesCollapsed ? "Expand Sources" : "Collapse Sources"}
           >
             <Columns size={14} />
@@ -326,59 +333,73 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
         </div>
 
         {!sourcesCollapsed && (
-          <div className="flex-1 flex flex-col overflow-hidden">
+          <div style={{flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden'}}>
             {/* Search web inputs */}
-            <div className="p-3.5 flex flex-col gap-2 border-b border-ws-line bg-ws-bench/30 shrink-0">
+            <div style={{padding: 12, display: 'flex', flexDirection: 'column', gap: 8, borderBottom: '1px solid var(--ws-edge-soft)', flexShrink: 0}}>
               <button 
                 type="button"
                 onClick={() => setShowAddSources(true)}
-                className="w-full py-2 bg-ws-bg border border-dashed border-ws-line rounded-md text-ws-glow font-bold text-xs flex items-center gap-1.5 justify-center cursor-pointer transition-all hover:border-ws-glow hover:bg-ws-glow/5"
+                style={{
+                  width: '100%', padding: '8px 12px', background: 'var(--ws-floor)', border: '1px dashed var(--ws-edge)',
+                  borderRadius: 'var(--ws-r-md)', color: 'var(--ws-glow)', fontWeight: 700, fontSize: 11,
+                  display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center', cursor: 'pointer',
+                  transition: 'all 150ms ease'
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--ws-glow)'; e.currentTarget.style.background = 'var(--ws-glow-wash)'; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--ws-edge)'; e.currentTarget.style.background = 'var(--ws-floor)'; }}
               >
                 <Plus size={12} /> Add sources
               </button>
 
-              <div className="flex gap-2 items-center pl-1">
-                <Globe size={11} className="text-ws-muted" />
-                <span className="text-[10px] text-ws-muted">Search the web for new sources</span>
+              <div style={{display: 'flex', gap: 4, alignItems: 'center', paddingLeft: 4}}>
+                <Globe size={11} style={{color: 'var(--ws-ink-muted)'}} />
+                <span style={{fontSize: 10, color: 'var(--ws-ink-muted)'}}>Search the web for new sources</span>
               </div>
             </div>
 
             {/* Selector list header */}
-            <div className="p-3 border-b border-ws-line flex justify-between items-center bg-ws-bench/20 shrink-0">
-              <span className="text-[11px] text-ws-muted font-bold">{totalChunks} chunks active</span>
+            <div style={{padding: '8px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--ws-edge-soft)', flexShrink: 0}}>
+              <span style={{fontSize: 11, color: 'var(--ws-ink-muted)'}}>{totalChunks} chunks active</span>
               <button 
                 type="button" 
                 onClick={handleSelectAll}
-                className="bg-transparent border-none text-ws-glow text-[10px] font-bold cursor-pointer flex items-center gap-1.5 hover:underline"
+                style={{background: 'none', border: 'none', color: 'var(--ws-glow)', fontSize: 10, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4}}
               >
                 <Check size={11} /> {allChecked ? 'Deselect all' : 'Select all'}
               </button>
             </div>
 
             {/* Checklist: Scrollable internally */}
-            <div className="flex-1 overflow-y-auto p-2 flex flex-col gap-1.5 scrollbar">
+            <div style={{flex: 1, overflowY: 'auto', padding: 8, display: 'flex', flexDirection: 'column', gap: 4}} className="scrollbar">
               {sources.map(s => (
                 <div 
                   key={s.id}
                   onClick={() => toggleSource(s.id)}
-                  className={`flex items-start gap-2.5 p-2.5 rounded-lg cursor-pointer border transition-all duration-150 ${s.selected ? "bg-ws-bg border-ws-line shadow-sm" : "border-transparent hover:bg-ws-bg/30"}`}
+                  style={{
+                    display: 'flex', alignItems: 'flex-start', gap: 8, padding: 8,
+                    borderRadius: 'var(--ws-r-md)', background: s.selected ? 'var(--ws-shelf)' : 'transparent',
+                    cursor: 'pointer', border: '1px solid transparent',
+                    borderColor: s.selected ? 'var(--ws-edge-soft)' : 'transparent',
+                    transition: 'all 100ms ease'
+                  }}
                 >
                   <input 
                     type="checkbox" 
                     checked={s.selected}
                     onChange={() => {}}
-                    className="accent-ws-glow mt-0.5 cursor-pointer w-3.5 h-3.5" 
+                    className="accent-ws-glow mt-0.5 cursor-pointer" 
+                    style={{width: 13, height: 13}} 
                   />
-                  <div className="min-w-0 flex-1">
-                    <div className={`text-xs ${s.selected ? "text-ws-ink font-bold" : "text-ws-muted"} truncate`}>
+                  <div style={{minWidth: 0, flex: 1}}>
+                    <div style={{fontSize: 11, fontWeight: s.selected ? 600 : 400, color: s.selected ? 'var(--ws-ink)' : 'var(--ws-ink-2)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                       {s.name}
                     </div>
-                    <div className="text-[9px] text-ws-muted mt-0.5">{s.chunks} chunks loaded</div>
+                    <div style={{fontSize: 9, color: 'var(--ws-ink-muted)', marginTop: 2}}>{s.chunks} chunks loaded</div>
                   </div>
                 </div>
               ))}
               {sources.length === 0 && (
-                <div className="p-6 text-center text-ws-muted text-xs italic">
+                <div style={{padding: 24, textAlign: 'center', color: 'var(--ws-ink-muted)', fontSize: 11, fontStyle: 'italic'}}>
                   No reference files linked to subject.
                 </div>
               )}
@@ -387,65 +408,101 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
         )}
       </div>
 
-      {/* 2. Middle Column: Analysis Chat panel */}
-      <div className="flex-1 bg-ws-bench border border-ws-line rounded-xl shadow-md flex flex-col overflow-hidden shrink-0">
-        <div className="p-4 border-b border-ws-line flex items-center gap-3 shrink-0 bg-ws-bench/50 h-11">
+      {/* 2. Middle Column: Analysis Chat */}
+      <div 
+        style={{
+          flex: 1, 
+          display: 'flex', 
+          flexDirection: 'column', 
+          overflow: 'hidden', 
+          background: 'var(--ws-bench)',
+          border: '1px solid var(--ws-edge-soft)',
+          borderRadius: 12,
+          height: '100%'
+        }}
+      >
+        <div style={{padding: '16px 24px', borderBottom: '1px solid var(--ws-edge-soft)', display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0}}>
           <button 
             type="button"
             onClick={() => onNavigate({level: 'subject', domainId: domain.id, subjectId: subject.id})}
-            className="bg-transparent border-none text-ws-muted hover:text-ws-ink flex cursor-pointer p-1 rounded"
+            style={{background: 'none', border: 'none', color: 'var(--ws-ink-muted)', display: 'flex', cursor: 'pointer', padding: 4}}
             title="Back to subject"
           >
             <ArrowLeft size={16} />
           </button>
           <div>
-            <h2 className="text-[13px] font-extrabold text-ws-ink m-0 tracking-tight">{subject.name} Notebook</h2>
-            <div className="text-[10px] text-ws-muted mt-0.5">{sources.filter(s => s.selected).length} sources selected</div>
+            <h2 style={{fontSize: 14, fontWeight: 700, color: 'var(--ws-ink)', margin: 0}}>{subject.name} Notebook</h2>
+            <div style={{fontSize: 10, color: 'var(--ws-ink-muted)', marginTop: 1}}>{sources.filter(s => s.selected).length} sources selected</div>
           </div>
         </div>
 
         {/* Dynamic Chat log: Scrollable internally */}
-        <div className="flex-1 overflow-y-auto p-6 scrollbar">
+        <div style={{flex: 1, overflowY: 'auto', padding: '24px 32px'}} className="scrollbar">
           {/* Avatar Robot Header Card */}
-          <div className="flex flex-col items-center text-center bg-ws-bg border border-ws-line rounded-xl p-6 mb-6 relative overflow-hidden shadow-sm">
-            <div className="w-12 h-12 rounded-full bg-ws-bench border border-ws-line flex items-center justify-center mb-3 shadow-inner">
-              <Sparkles size={20} className="text-ws-glow animate-pulse" />
+          <div style={{
+            display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
+            background: 'var(--ws-floor)', border: '1px solid var(--ws-edge-soft)', borderRadius: 'var(--ws-r-lg)',
+            padding: 24, marginBottom: 28, position: 'relative', overflow: 'hidden'
+          }}>
+            <div style={{
+              width: 48, height: 48, borderRadius: '50%', background: 'var(--ws-shelf)',
+              border: '1px solid var(--ws-edge-soft)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              marginBottom: 12
+            }}>
+              <Sparkles size={22} style={{color: 'var(--ws-ink-2)'}} />
             </div>
             
-            <h1 className="text-lg font-extrabold text-ws-ink m-0 mb-1 tracking-tight leading-tight">
+            <h1 style={{fontSize: 18, fontWeight: 800, color: 'var(--ws-ink)', margin: '0 0 4px', letterSpacing: '-0.02em'}}>
               {subject.name} Admissions & Study Roadmap
             </h1>
-            <p className="text-xs text-ws-muted m-0">
+            <p style={{fontSize: 12, color: 'var(--ws-ink-muted)', margin: 0}}>
               {sources.length} sources · Ingested context available for compilation
             </p>
 
-            <div className="mt-3.5 px-3 py-1 bg-ws-bench border border-ws-line rounded-md text-[10px] text-ws-muted font-bold">
+            <div style={{
+              marginTop: 12, padding: '4px 12px', background: 'var(--ws-shelf)', border: '1px solid var(--ws-edge)',
+              borderRadius: 'var(--ws-r-md)', fontSize: 10, color: 'var(--ws-ink-2)'
+            }}>
               💡 Add a cover image and custom note to personalize your notebook!
             </div>
           </div>
 
           {/* Chat Messages */}
-          <div className="flex flex-col gap-4">
+          <div style={{display: 'flex', flexDirection: 'column', gap: 16}}>
             {messages.map(m => (
-              <div key={m.id} className={`flex gap-3 ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div key={m.id} style={{display: 'flex', gap: 12, justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start'}}>
                 {m.role === 'assistant' && (
-                  <div className="w-7 h-7 rounded-full bg-ws-bench border border-ws-line flex items-center justify-center shrink-0 shadow-sm">
+                  <div style={{
+                    width: 28, height: 28, borderRadius: '50%', background: 'var(--ws-shelf)',
+                    border: '1px solid var(--ws-edge)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexShrink: 0
+                  }}>
                     <Sparkles size={13} className="text-ws-glow" />
                   </div>
                 )}
                 <div 
-                  className={`max-w-[80%] p-3.5 rounded-lg text-xs leading-relaxed whitespace-pre-line ${m.role === 'assistant' ? "bg-ws-bg border border-ws-line text-ws-ink shadow-sm" : "bg-ws-glow text-ws-floor font-medium shadow-md"}`}
+                  style={{
+                    maxWidth: '80%', padding: '12px 14px', borderRadius: 'var(--ws-r-md)',
+                    background: m.role === 'assistant' ? 'var(--ws-floor)' : 'var(--ws-glow)',
+                    border: m.role === 'assistant' ? '1px solid var(--ws-edge-soft)' : 'none',
+                    color: m.role === 'assistant' ? 'var(--ws-ink)' : 'var(--ws-floor)',
+                    fontSize: 12, lineHeight: 1.5, whiteSpace: 'pre-line'
+                  }}
                 >
                   {m.content}
                 </div>
               </div>
             ))}
             {isTyping && (
-              <div className="flex gap-3">
-                <div className="w-7 h-7 rounded-full bg-ws-bench border border-ws-line flex items-center justify-center shrink-0 shadow-sm">
+              <div style={{display: 'flex', gap: 12}}>
+                <div style={{
+                  width: 28, height: 28, borderRadius: '50%', background: 'var(--ws-shelf)',
+                  border: '1px solid var(--ws-edge)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0
+                }}>
                   <Sparkles size={13} className="text-ws-glow animate-pulse" />
                 </div>
-                <div className="bg-ws-bg border border-ws-line rounded-lg p-3 text-xs text-ws-muted italic shadow-sm">
+                <div style={{background: 'var(--ws-floor)', border: '1px solid var(--ws-edge-soft)', borderRadius: 'var(--ws-r-md)', padding: 12, fontSize: 12, color: 'var(--ws-ink-muted)', fontStyle: 'italic'}}>
                   Synthesizing selected chunks...
                 </div>
               </div>
@@ -455,24 +512,34 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
         </div>
 
         {/* Large Chat Input Prompt bar */}
-        <div className="p-4 border-t border-ws-line shrink-0 bg-ws-bench/20">
-          <div className="relative flex items-center w-full">
+        <div style={{padding: 16, borderTop: '1px solid var(--ws-edge-soft)', flexShrink: 0}}>
+          <div style={{position: 'relative', display: 'flex', alignItems: 'center'}}>
             <input 
               type="text"
               placeholder="Ask a question or create something..."
               value={input}
               onChange={e => setInput(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter') handleSend(); }}
-              className="w-full pl-4 pr-24 py-3 bg-ws-bg border border-ws-line rounded-lg text-ws-ink outline-none text-xs focus:border-ws-glow transition-all"
+              style={{
+                width: '100%', padding: '12px 90px 12px 16px', background: 'var(--ws-floor)',
+                border: '1px solid var(--ws-edge)', borderRadius: 'var(--ws-r-lg)',
+                color: 'var(--ws-ink)', fontSize: 12, outline: 'none'
+              }}
             />
-            <div className="absolute right-11 text-[10px] text-ws-muted user-select-none font-bold">
+            <div style={{position: 'absolute', right: 42, fontSize: 10, color: 'var(--ws-ink-muted)', userSelect: 'none'}}>
               {sources.filter(s => s.selected).length} sources
             </div>
             <button 
               type="button"
               onClick={handleSend}
               disabled={!input.trim()}
-              className={`absolute right-2 w-7 h-7 rounded-full flex items-center justify-center border-none transition-all duration-150 ${input.trim() ? "bg-ws-glow text-ws-floor cursor-pointer shadow-sm" : "bg-ws-bench text-ws-muted cursor-not-allowed"}`}
+              style={{
+                position: 'absolute', right: 8, width: 28, height: 28, borderRadius: '50%',
+                background: input.trim() ? 'var(--ws-glow)' : 'var(--ws-shelf)',
+                border: 'none', color: input.trim() ? 'var(--ws-floor)' : 'var(--ws-ink-muted)',
+                cursor: input.trim() ? 'pointer' : 'not-allowed', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                transition: 'all 100ms ease'
+              }}
             >
               <Send size={12} />
             </button>
@@ -480,19 +547,28 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
         </div>
       </div>
 
-      {/* 3. Right Column: Studio action panel */}
+      {/* 3. Right Column: Studio action dashboard */}
       <div 
-        className="bg-ws-bench border border-ws-line rounded-xl shadow-md flex flex-col overflow-hidden shrink-0 transition-[width] duration-200"
-        style={{ width: studioCollapsed ? 50 : 340 }}
+        style={{
+          width: studioCollapsed ? 50 : 340,
+          background: 'var(--ws-bench)',
+          border: '1px solid var(--ws-edge-soft)',
+          borderRadius: 12,
+          display: 'flex',
+          flexDirection: 'column',
+          transition: 'width 200ms ease',
+          overflow: 'hidden',
+          height: '100%'
+        }}
       >
-        <div className="p-4 border-b border-ws-line flex items-center justify-between shrink-0 bg-ws-bench/50 h-11">
+        <div style={{padding: '16px 14px', borderBottom: '1px solid var(--ws-edge-soft)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0}}>
           {!studioCollapsed && (
-            <span className="text-[13px] font-extrabold text-ws-ink tracking-tight">Notebook Studio</span>
+            <span style={{fontSize: 13, fontWeight: 700, color: 'var(--ws-ink)'}}>Notebook Studio</span>
           )}
           <button 
             type="button" 
             onClick={() => setStudioCollapsed(!studioCollapsed)}
-            className="bg-transparent border-none text-ws-muted hover:text-ws-ink cursor-pointer p-1 rounded"
+            style={{background: 'none', border: 'none', color: 'var(--ws-ink-muted)', cursor: 'pointer', padding: 4}}
             title={studioCollapsed ? "Expand Studio" : "Collapse Studio"}
           >
             <Columns size={14} />
@@ -500,23 +576,26 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
         </div>
 
         {!studioCollapsed && (
-          <div className="flex-1 flex flex-col overflow-y-auto p-4 gap-4 scrollbar">
+          <div style={{flex: 1, display: 'flex', flexDirection: 'column', overflowY: 'auto', padding: 16, gap: 16}} className="scrollbar">
             
             {/* Create overview wrapper */}
-            <div className="bg-ws-bg border border-ws-line rounded-xl p-4 shadow-sm">
-              <div className="text-xs font-bold text-ws-ink mb-1 tracking-tight">Compile Audio Overview</div>
-              <p className="text-[10px] text-ws-muted leading-relaxed margin-0">
+            <div style={{
+              background: 'var(--ws-floor)',
+              border: '1px solid var(--ws-edge-soft)', borderRadius: 'var(--ws-r-lg)', padding: 16
+            }}>
+              <div style={{fontSize: 12, fontWeight: 700, color: 'var(--ws-ink)', marginBottom: 4}}>Compile Audio Overview</div>
+              <p style={{fontSize: 10, color: 'var(--ws-ink-muted)', lineHeight: 1.4, margin: 0}}>
                 Create an Audio Overview to synthesize and explain core equations, coordinate derivations, and lessons.
               </p>
             </div>
 
             {/* Target actions grid */}
-            <div className="flex flex-col gap-2.5">
-              <div className="text-[10px] font-bold text-ws-muted uppercase tracking-wider px-1">
+            <div>
+              <div style={{fontSize: 10, fontWeight: 700, color: 'var(--ws-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10}}>
                 Create Overviews & Guides
               </div>
               
-              <div className="grid grid-cols-2 gap-2">
+              <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6}}>
                 {[
                   { label: 'Audio Overview', type: 'Podcast', icon: Headphones },
                   { label: 'Slide Deck', type: 'Presentation', icon: Presentation },
@@ -535,14 +614,24 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
                       type="button"
                       onClick={() => triggerStudioWorkflow(action.label, action.type)}
                       disabled={!!isGenerating}
-                      className="p-3 bg-ws-bg border border-ws-line rounded-lg flex flex-col gap-2.5 items-flex-start cursor-pointer text-left transition-all hover:border-ws-glow hover:bg-ws-bench shadow-sm"
+                      style={{
+                        padding: '10px 8px', background: 'var(--ws-floor)', border: '1px solid var(--ws-edge-soft)',
+                        borderRadius: 'var(--ws-r-md)', display: 'flex', flexDirection: 'column', gap: 6,
+                        alignItems: 'flex-start', cursor: 'pointer', textAlign: 'left',
+                        transition: 'all 150ms ease'
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--ws-glow)'; e.currentTarget.style.background = 'var(--ws-shelf)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--ws-edge-soft)'; e.currentTarget.style.background = 'var(--ws-floor)'; }}
                     >
-                      <div className="w-6 h-6 rounded bg-ws-bench border border-ws-line flex items-center justify-center text-ws-glow shrink-0 shadow-sm">
+                      <div style={{
+                        width: 24, height: 24, borderRadius: 'var(--ws-r-sm)', background: 'var(--ws-bench)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ws-glow)'
+                      }}>
                         <Icon size={12} />
                       </div>
                       <div>
-                        <div className="text-[11px] font-extrabold text-ws-ink leading-tight truncate">{action.label}</div>
-                        <div className="text-[9px] text-ws-muted mt-0.5 truncate">{action.type}</div>
+                        <div style={{fontSize: 11, fontWeight: 700, color: 'var(--ws-ink)'}}>{action.label}</div>
+                        <div style={{fontSize: 9, color: 'var(--ws-ink-muted)', marginTop: 1}}>{action.type}</div>
                       </div>
                     </button>
                   );
@@ -552,28 +641,34 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
 
             {/* Alert boxes */}
             {alertMsg && (
-              <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-3 flex items-center justify-between gap-3 shrink-0 shadow-sm">
-                <span className="text-[10px] text-red-400 leading-normal">{alertMsg}</span>
-                <button type="button" onClick={() => setAlertMsg(null)} className="bg-transparent border-none text-red-400 text-[10px] font-bold cursor-pointer hover:underline">
+              <div style={{
+                background: 'rgba(239,68,68,0.1)', border: '1px solid var(--ws-signal-fail)',
+                borderRadius: 'var(--ws-r-md)', padding: 10, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8
+              }}>
+                <span style={{fontSize: 10, color: 'var(--ws-signal-fail)', lineHeight: 1.4}}>{alertMsg}</span>
+                <button type="button" onClick={() => setAlertMsg(null)} style={{background: 'none', border: 'none', color: 'var(--ws-signal-fail)', fontSize: 10, fontWeight: 700, cursor: 'pointer'}}>
                   Dismiss
                 </button>
               </div>
             )}
 
             {/* Recents generated */}
-            <div className="flex flex-col gap-2.5">
-              <div className="text-[10px] font-bold text-ws-muted uppercase tracking-wider px-1">
+            <div>
+              <div style={{fontSize: 10, fontWeight: 700, color: 'var(--ws-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10}}>
                 Generated History
               </div>
-              <div className="flex flex-col gap-2">
+              <div style={{display: 'flex', flexDirection: 'column', gap: 6}}>
                 {artifacts.map(art => (
-                  <div key={art.id} className="p-3 border border-ws-line rounded-lg bg-ws-bg flex items-center gap-3 transition-colors hover:border-ws-glow/50 shadow-sm">
-                    <FileOutput size={13} className="text-ws-glow shrink-0" />
-                    <div className="min-w-0 flex-1">
-                      <div className="text-xs font-bold text-ws-ink truncate">
+                  <div key={art.id} style={{
+                    padding: '8px 10px', border: '1px solid var(--ws-edge-soft)', borderRadius: 'var(--ws-r-md)',
+                    background: 'var(--ws-floor)', display: 'flex', alignItems: 'center', gap: 8
+                  }}>
+                    <FileOutput size={13} style={{color: 'var(--ws-glow)', flexShrink: 0}} />
+                    <div style={{minWidth: 0, flex: 1}}>
+                      <div style={{fontSize: 11, fontWeight: 600, color: 'var(--ws-ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'}}>
                         {art.name}
                       </div>
-                      <div className="text-[9px] text-ws-muted mt-0.5">{art.time} · {art.type}</div>
+                      <div style={{fontSize: 9, color: 'var(--ws-ink-muted)', marginTop: 2}}>{art.time} · {art.type}</div>
                     </div>
                   </div>
                 ))}
@@ -582,13 +677,16 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
 
             {/* Notes list */}
             {notes.length > 0 && (
-              <div className="flex flex-col gap-2.5">
-                <div className="text-[10px] font-bold text-ws-muted uppercase tracking-wider px-1">
+              <div>
+                <div style={{fontSize: 10, fontWeight: 700, color: 'var(--ws-ink-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 10}}>
                   Personal Notes
                 </div>
-                <div className="flex flex-col gap-2">
+                <div style={{display: 'flex', flexDirection: 'column', gap: 6}}>
                   {notes.map((note, index) => (
-                    <div key={index} className="p-3 border border-ws-line rounded-lg bg-ws-bg text-xs text-ws-ink leading-relaxed shadow-sm">
+                    <div key={index} style={{
+                      padding: 10, border: '1px solid var(--ws-edge-soft)', borderRadius: 'var(--ws-r-md)',
+                      background: 'var(--ws-floor)', fontSize: 11, color: 'var(--ws-ink-2)', lineHeight: 1.4
+                    }}>
                       {note}
                     </div>
                   ))}
@@ -597,21 +695,28 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
             )}
 
             {/* Floating Notes button */}
-            <div className="mt-auto pt-3">
+            <div style={{marginTop: 'auto', paddingTop: 12}}>
               {showNotesForm ? (
-                <div className="bg-ws-bg border border-ws-line rounded-lg p-2.5 flex flex-col gap-2.5 shadow-sm">
+                <div style={{
+                  background: 'var(--ws-floor)', border: '1px solid var(--ws-edge)', borderRadius: 'var(--ws-r-md)',
+                  padding: 8, display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 8
+                }}>
                   <textarea 
                     value={newNoteText}
                     onChange={e => setNewNoteText(e.target.value)}
                     placeholder="Type note text..."
-                    className="w-full min-h-[60px] p-2 bg-ws-bg border border-ws-line rounded text-xs text-ws-ink outline-none resize-y"
+                    style={{
+                      width: '100%', minHeight: 60, padding: 6, background: 'var(--ws-bench)',
+                      border: '1px solid var(--ws-edge-soft)', borderRadius: 'var(--ws-r-sm)',
+                      color: 'var(--ws-ink)', fontSize: 11, outline: 'none', resize: 'vertical'
+                    }}
                     autoFocus
                   />
-                  <div className="flex gap-1.5 justify-end">
-                    <button type="button" onClick={handleAddNote} className="px-2.5 py-1 bg-ws-glow text-ws-floor font-bold border-none rounded text-[10px] cursor-pointer shadow-sm">
+                  <div style={{display: 'flex', gap: 4, justifyContent: 'flex-end'}}>
+                    <button type="button" onClick={handleAddNote} style={{padding: '3px 8px', background: 'var(--ws-glow)', color: 'var(--ws-floor)', border: 'none', borderRadius: 3, fontSize: 10, fontWeight: 700, cursor: 'pointer'}}>
                       Add
                     </button>
-                    <button type="button" onClick={() => setShowNotesForm(false)} className="px-2.5 py-1 bg-transparent border border-ws-line text-ws-muted rounded text-[10px] cursor-pointer">
+                    <button type="button" onClick={() => setShowNotesForm(false)} style={{padding: '3px 8px', background: 'none', border: '1px solid var(--ws-edge-soft)', color: 'var(--ws-ink-2)', borderRadius: 3, fontSize: 10, cursor: 'pointer'}}>
                       Cancel
                     </button>
                   </div>
@@ -620,7 +725,12 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
                 <button 
                   type="button"
                   onClick={() => setShowNotesForm(true)}
-                  className="w-full py-2 bg-ws-glow border-none rounded-md text-ws-floor font-bold text-xs flex items-center gap-1.5 justify-center cursor-pointer shadow-md transition-all hover:brightness-110"
+                  style={{
+                    width: '100%', padding: '8px 12px', background: 'var(--ws-glow)', border: 'none',
+                    borderRadius: 'var(--ws-r-md)', color: 'var(--ws-floor)', fontWeight: 700, fontSize: 11,
+                    display: 'flex', alignItems: 'center', gap: 6, justifyContent: 'center', cursor: 'pointer',
+                    boxShadow: '0 4px 10px rgba(0,0,0,0.15)'
+                  }}
                 >
                   <StickyNote size={12} /> Add note
                 </button>
@@ -634,19 +744,27 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
       {/* Center aligned subtle Ingestion Overlay Modal */}
       {showAddSources && (
         <div 
-          className="absolute inset-0 bg-black/60 z-[9999] flex items-center justify-center p-4"
+          style={{
+            position: 'absolute', 
+            inset: 0, 
+            background: 'rgba(0, 0, 0, 0.5)',
+            zIndex: 9999, 
+            display: 'flex',
+            alignItems: 'center', 
+            justifyContent: 'center'
+          }}
           onClick={() => setShowAddSources(false)}
         >
           <div 
             style={{
-              background: "var(--ws-bg)", 
+              background: 'var(--ws-bench)', 
               border: '1px solid var(--ws-edge)',
               borderRadius: 16, 
               width: '100%', 
               maxWidth: '560px',
               boxShadow: '0 25px 50px -12px rgba(0,0,0,0.6)', 
               overflow: 'hidden',
-              color: "var(--ws-ink)", 
+              color: 'var(--ws-ink)', 
               display: 'flex', 
               flexDirection: 'column',
               margin: 16, 
@@ -657,13 +775,13 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
             {/* Header */}
             <div style={{padding: '20px 24px 16px', borderBottom: '1px solid var(--ws-edge-soft)', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between'}}>
               <div>
-                <h2 style={{fontSize: 16, fontWeight: 700, color: "var(--ws-ink)", margin: '0 0 4px'}}>Add sources to Subject</h2>
-                <p style={{fontSize: 11, color: "var(--ws-muted)", margin: 0}}>Ingest PDFs, websites, GitHub repositories, or copied text directly to subject context.</p>
+                <h2 style={{fontSize: 16, fontWeight: 700, color: 'var(--ws-ink)', margin: '0 0 4px'}}>Add sources to Subject</h2>
+                <p style={{fontSize: 11, color: 'var(--ws-ink-muted)', margin: 0}}>Ingest PDFs, websites, GitHub repositories, or copied text directly to subject context.</p>
               </div>
               <button 
                 type="button" 
                 onClick={() => setShowAddSources(false)}
-                style={{background: 'none', border: 'none', color: "var(--ws-muted)", cursor: 'pointer', display: 'flex', padding: 4}}
+                style={{background: 'none', border: 'none', color: 'var(--ws-ink-muted)', cursor: 'pointer', display: 'flex', padding: 4}}
               >
                 <X size={16} />
               </button>
@@ -692,14 +810,14 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
                     }}
                     style={{
                       display: 'flex', alignItems: 'center', gap: 6, padding: '8px 12px',
-                      background: ingestType === tab.id ? "rgba(16,185,129,0.1)" : "var(--ws-bg)",
+                      background: ingestType === tab.id ? 'var(--ws-glow-wash)' : 'var(--ws-floor)',
                       border: '1px solid',
-                      borderColor: ingestType === tab.id ? "var(--ws-accent)" : "var(--ws-line)",
-                      borderRadius: 8, color: ingestType === tab.id ? "var(--ws-accent)" : "var(--ws-soft)",
+                      borderColor: ingestType === tab.id ? 'var(--ws-glow)' : 'var(--ws-edge-soft)',
+                      borderRadius: 8, color: ingestType === tab.id ? 'var(--ws-glow)' : 'var(--ws-ink-2)',
                       fontSize: 11, fontWeight: 600, cursor: 'pointer', transition: 'all 120ms ease'
                     }}
-                    onMouseEnter={e => { if (ingestType !== tab.id) e.currentTarget.style.borderColor = "var(--ws-muted)"; }}
-                    onMouseLeave={e => { if (ingestType !== tab.id) e.currentTarget.style.borderColor = "var(--ws-line)"; }}
+                    onMouseEnter={e => { if (ingestType !== tab.id) e.currentTarget.style.borderColor = 'var(--ws-ink-muted)'; }}
+                    onMouseLeave={e => { if (ingestType !== tab.id) e.currentTarget.style.borderColor = 'var(--ws-edge-soft)'; }}
                   >
                     <tab.icon size={12} />
                     <span>{tab.label}</span>
@@ -713,23 +831,23 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
                   <div 
                     style={{
                       border: '2px dashed var(--ws-edge)', borderRadius: 12, padding: '32px 16px',
-                      textAlign: 'center', background: "var(--ws-bg)", display: 'flex', flexDirection: 'column',
+                      textAlign: 'center', background: 'var(--ws-floor)', display: 'flex', flexDirection: 'column',
                       alignItems: 'center', justifyContent: 'center', gap: 10, cursor: 'pointer',
                       transition: 'border-color 150ms ease'
                     }}
-                    onMouseEnter={e => e.currentTarget.style.borderColor = "var(--ws-accent)"}
-                    onMouseLeave={e => e.currentTarget.style.borderColor = "var(--ws-surface-2)"}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--ws-glow)'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--ws-edge)'}
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    <Upload size={28} style={{color: "var(--ws-accent)"}} />
+                    <Upload size={28} style={{color: 'var(--ws-glow)'}} />
                     <div>
-                      <div style={{fontSize: 12, fontWeight: 700, color: "var(--ws-ink)"}}>or drop your files here</div>
-                      <div style={{fontSize: 10, color: "var(--ws-muted)", marginTop: 4}}>PDF, MD, Markdown, or TXT up to 10MB</div>
+                      <div style={{fontSize: 12, fontWeight: 700, color: 'var(--ws-ink)'}}>or drop your files here</div>
+                      <div style={{fontSize: 10, color: 'var(--ws-ink-muted)', marginTop: 4}}>PDF, MD, Markdown, or TXT up to 10MB</div>
                     </div>
                     <button 
                       type="button" 
                       style={{
-                        padding: '6px 14px', background: "var(--ws-accent)", color: "var(--ws-bg)",
+                        padding: '6px 14px', background: 'var(--ws-glow)', color: 'var(--ws-floor)',
                         border: 'none', borderRadius: 6, fontSize: 11, fontWeight: 700, cursor: 'pointer'
                       }}
                     >
@@ -749,20 +867,20 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
               {ingestType === 'github' && (
                 <div style={{display: 'flex', flexDirection: 'column', gap: 12}}>
                   <div style={{display: 'flex', flexDirection: 'column', gap: 6}}>
-                    <label style={{fontSize: 11.5, fontWeight: 600, color: "var(--ws-soft)"}}>GitHub Repository URL</label>
+                    <label style={{fontSize: 11.5, fontWeight: 600, color: 'var(--ws-ink-2)'}}>GitHub Repository URL</label>
                     <input 
                       type="url"
                       placeholder="e.g., https://github.com/username/project"
                       value={ingestUrl}
                       onChange={e => setIngestUrl(e.target.value)}
                       style={{
-                        width: '100%', padding: '10px 12px', background: "var(--ws-bg)",
+                        width: '100%', padding: '10px 12px', background: 'var(--ws-floor)',
                         border: '1px solid var(--ws-edge)', borderRadius: 8,
-                        color: "var(--ws-ink)", fontSize: 12, outline: 'none'
+                        color: 'var(--ws-ink)', fontSize: 12, outline: 'none'
                       }}
                     />
                   </div>
-                  <div style={{fontSize: 10, color: "var(--ws-muted)", lineHeight: 1.45}}>
+                  <div style={{fontSize: 10, color: 'var(--ws-ink-muted)', lineHeight: 1.45}}>
                     💡 We will parse the repository structure, ingest markdown files (README, docs, architecture guides), and build conceptual references directly inside the notebook.
                   </div>
                 </div>
@@ -772,9 +890,9 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
                 <div style={{display: 'flex', flexDirection: 'column', gap: 12}}>
                   <div style={{
                     display: 'flex', alignItems: 'center', gap: 8, padding: '8px 12px',
-                    background: "var(--ws-bg)", border: '1px solid var(--ws-edge)', borderRadius: 8
+                    background: 'var(--ws-floor)', border: '1px solid var(--ws-edge)', borderRadius: 8
                   }}>
-                    <Globe size={13} style={{color: "var(--ws-muted)"}} />
+                    <Globe size={13} style={{color: 'var(--ws-ink-muted)'}} />
                     <CustomSelect
                       value={ingestFilter}
                       onChange={val => setIngestFilter(val as any)}
@@ -783,20 +901,20 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
                         { value: 'github', label: 'GitHub' }
                       ]}
                       style={{
-                        background: 'none', border: 'none', color: "var(--ws-muted)",
+                        background: 'none', border: 'none', color: 'var(--ws-ink-muted)',
                         fontSize: 11, fontWeight: 600
                       }}
                     />
-                    <span style={{color: "var(--ws-line)", width: 1, height: 14, background: "var(--ws-surface-2)", alignSelf: 'stretch'}} />
+                    <span style={{color: 'var(--ws-edge-soft)', width: 1, height: 14, background: 'var(--ws-edge)', alignSelf: 'stretch'}} />
                     <input 
                       type="text" 
                       placeholder="Search the web for new sources or paste URL..."
                       value={ingestUrl}
                       onChange={e => setIngestUrl(e.target.value)}
-                      style={{flex: 1, background: 'none', border: 'none', color: "var(--ws-ink)", fontSize: 12, outline: 'none'}}
+                      style={{flex: 1, background: 'none', border: 'none', color: 'var(--ws-ink)', fontSize: 12, outline: 'none'}}
                     />
                   </div>
-                  <div style={{fontSize: 10, color: "var(--ws-muted)", lineHeight: 1.45}}>
+                  <div style={{fontSize: 10, color: 'var(--ws-ink-muted)', lineHeight: 1.45}}>
                     💡 Enter a search query to research concepts via web search summaries, or paste any direct URL page to ingest its full textbook text content.
                   </div>
                 </div>
@@ -805,20 +923,20 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
               {ingestType === 'drive' && (
                 <div style={{display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', padding: '20px 0'}}>
                   <div style={{
-                    width: 44, height: 44, borderRadius: '50%', background: "var(--ws-surface-2)",
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', color: "var(--ws-accent)", marginBottom: 8
+                    width: 44, height: 44, borderRadius: '50%', background: 'var(--ws-shelf)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--ws-glow)', marginBottom: 8
                   }}>
                     <Cloud size={20} />
                   </div>
-                  <div style={{fontSize: 13, fontWeight: 700, color: "var(--ws-ink)", textAlign: 'center'}}>Google Drive Integration</div>
-                  <p style={{fontSize: 11, color: "var(--ws-muted)", textAlign: 'center', maxWidth: 360, margin: '0 0 12px', lineHeight: 1.45}}>
+                  <div style={{fontSize: 13, fontWeight: 700, color: 'var(--ws-ink)', textAlign: 'center'}}>Google Drive Integration</div>
+                  <p style={{fontSize: 11, color: 'var(--ws-ink-muted)', textAlign: 'center', maxWidth: 360, margin: '0 0 12px', lineHeight: 1.45}}>
                     Seamlessly connect your Google Drive account to import study guides, slide decks, papers, or homework sheets.
                   </p>
                   <button 
                     type="button"
                     onClick={handleDriveConnectMock}
                     style={{
-                      padding: '8px 16px', background: "var(--ws-accent)", color: "var(--ws-bg)",
+                      padding: '8px 16px', background: 'var(--ws-glow)', color: 'var(--ws-floor)',
                       border: 'none', borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: 'pointer'
                     }}
                   >
@@ -830,29 +948,29 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
               {ingestType === 'text' && (
                 <div style={{display: 'flex', flexDirection: 'column', gap: 12}}>
                   <div style={{display: 'flex', flexDirection: 'column', gap: 6}}>
-                    <label style={{fontSize: 11.5, fontWeight: 600, color: "var(--ws-soft)"}}>Source Name</label>
+                    <label style={{fontSize: 11.5, fontWeight: 600, color: 'var(--ws-ink-2)'}}>Source Name</label>
                     <input 
                       type="text"
                       placeholder="Name this study note (e.g. Lecture 4 derivation notes)"
                       value={ingestName}
                       onChange={e => setIngestName(e.target.value)}
                       style={{
-                        width: '100%', padding: '10px 12px', background: "var(--ws-bg)",
+                        width: '100%', padding: '10px 12px', background: 'var(--ws-floor)',
                         border: '1px solid var(--ws-edge)', borderRadius: 8,
-                        color: "var(--ws-ink)", fontSize: 12, outline: 'none'
+                        color: 'var(--ws-ink)', fontSize: 12, outline: 'none'
                       }}
                     />
                   </div>
                   <div style={{display: 'flex', flexDirection: 'column', gap: 6}}>
-                    <label style={{fontSize: 11.5, fontWeight: 600, color: "var(--ws-soft)"}}>Copied Text Context</label>
+                    <label style={{fontSize: 11.5, fontWeight: 600, color: 'var(--ws-ink-2)'}}>Copied Text Context</label>
                     <textarea 
                       placeholder="Paste your copied textbook text, definitions, formulas, or homework descriptions..."
                       value={ingestText}
                       onChange={e => setIngestText(e.target.value)}
                       style={{
-                        width: '100%', minHeight: 90, padding: '10px 12px', background: "var(--ws-bg)",
+                        width: '100%', minHeight: 90, padding: '10px 12px', background: 'var(--ws-floor)',
                         border: '1px solid var(--ws-edge)', borderRadius: 8,
-                        color: "var(--ws-ink)", fontSize: 12, outline: 'none', resize: 'vertical',
+                        color: 'var(--ws-ink)', fontSize: 12, outline: 'none', resize: 'vertical',
                         fontFamily: 'inherit'
                       }}
                     />
@@ -862,25 +980,25 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
 
               {/* Progress bar at the bottom */}
               <div style={{borderTop: '1px solid var(--ws-edge-soft)', paddingTop: 16, display: 'flex', flexDirection: 'column', gap: 6}}>
-                <div style={{display: 'flex', justifyContent: 'space-between', fontSize: 10.5, color: "var(--ws-muted)"}}>
+                <div style={{display: 'flex', justifyContent: 'space-between', fontSize: 10.5, color: 'var(--ws-ink-muted)'}}>
                   <span>Reference Source Capacity</span>
                   <span>{sources.length} / 100 loaded</span>
                 </div>
-                <div style={{width: '100%', height: 6, background: "var(--ws-bg)", borderRadius: 3, overflow: 'hidden'}}>
-                  <div style={{width: `${Math.min(sources.length, 100)}%`, height: '100%', background: "var(--ws-accent)", borderRadius: 3}} />
+                <div style={{width: '100%', height: 6, background: 'var(--ws-floor)', borderRadius: 3, overflow: 'hidden'}}>
+                  <div style={{width: `${Math.min(sources.length, 100)}%`, height: '100%', background: 'var(--ws-glow)', borderRadius: 3}} />
                 </div>
               </div>
 
             </div>
 
             {/* Footer */}
-            <div style={{padding: '12px 24px', background: "var(--ws-surface-2)", borderTop: '1px solid var(--ws-edge-soft)', display: 'flex', gap: 8, justifyContent: 'flex-end'}}>
+            <div style={{padding: '12px 24px', background: 'var(--ws-shelf)', borderTop: '1px solid var(--ws-edge-soft)', display: 'flex', gap: 8, justifyContent: 'flex-end'}}>
               <button 
                 type="button" 
                 onClick={() => setShowAddSources(false)}
                 style={{
                   padding: '8px 14px', background: 'none', border: '1px solid var(--ws-edge-soft)',
-                  color: "var(--ws-soft)", borderRadius: 8, cursor: 'pointer', fontSize: 11.5, fontWeight: 600
+                  color: 'var(--ws-ink-2)', borderRadius: 8, cursor: 'pointer', fontSize: 11.5, fontWeight: 600
                 }}
               >
                 Cancel
@@ -892,8 +1010,8 @@ function SourceNotebookScreen({domain, subject, onNavigate, onAddTopic, onAddArt
                   onClick={handleIngestSubmit}
                   disabled={isIngesting || (!ingestUrl.trim() && !ingestText.trim())}
                   style={{
-                    padding: '8px 16px', background: isIngesting ? "var(--ws-surface-2)" : "var(--ws-accent)", 
-                    color: isIngesting ? "var(--ws-muted)" : "var(--ws-bg)",
+                    padding: '8px 16px', background: isIngesting ? 'var(--ws-shelf)' : 'var(--ws-glow)', 
+                    color: isIngesting ? 'var(--ws-ink-muted)' : 'var(--ws-floor)',
                     border: 'none', borderRadius: 8, fontSize: 11.5, fontWeight: 700, 
                     cursor: (isIngesting || (!ingestUrl.trim() && !ingestText.trim())) ? 'not-allowed' : 'pointer',
                     display: 'flex', alignItems: 'center', gap: 6

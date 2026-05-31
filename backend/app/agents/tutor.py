@@ -20,8 +20,6 @@ from dataclasses import dataclass
 from pydantic_ai import Agent
 from sqlmodel import Session
 
-from app.harness.retrieval_router import ChunkResult
-
 
 @dataclass
 class TutorDeps:

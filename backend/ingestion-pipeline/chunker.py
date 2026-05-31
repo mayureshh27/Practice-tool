@@ -30,12 +30,19 @@ Three chunking strategies, selected per source type:
 """
 
 from __future__ import annotations
+
 import re
 from dataclasses import dataclass, field
-from enum import Enum
-from .normaliser import NormalisedDoc, TAG_MATH_DISPLAY, TAG_CODE_BLOCK
-from .normaliser import TAG_THEOREM, TAG_EXERCISE, TAG_DEFINITION
+from enum import StrEnum
 
+from .normaliser import (
+    TAG_CODE_BLOCK,
+    TAG_DEFINITION,
+    TAG_EXERCISE,
+    TAG_MATH_DISPLAY,
+    TAG_THEOREM,
+    NormalisedDoc,
+)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Chunk dataclass — what the LLM generator receives
@@ -65,7 +72,7 @@ class Chunk:
         return code_chars >= 2 and self.word_count < 200
 
 
-class Strategy(str, Enum):
+class Strategy(StrEnum):
     HIERARCHICAL  = "hierarchical"
     FLAT_SEMANTIC = "flat_semantic"
     HYBRID        = "hybrid"

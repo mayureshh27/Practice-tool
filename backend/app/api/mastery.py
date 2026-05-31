@@ -14,7 +14,7 @@ from fastapi import APIRouter, HTTPException, Path
 from pydantic import BaseModel
 from sqlmodel import select
 
-from app.domain.events import ConceptMasteryUpdated, BlindSpotDetected
+from app.domain.events import ConceptMasteryUpdated
 from app.storage import event_store
 from app.storage.database import DatabaseDep
 

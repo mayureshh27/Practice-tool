@@ -1,7 +1,6 @@
 """Shared test fixtures for the PracDaGo backend test suite."""
 
 import os
-from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient

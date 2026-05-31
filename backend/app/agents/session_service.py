@@ -19,6 +19,7 @@ from app.agents.session_summary import SessionSummaryDeps, session_summary_agent
 from app.domain.events import (
     ConceptMasteryUpdated,
     SessionSummaryCreated,
+    event_as_dict,
 )
 from app.harness.event_emitter import emit_event
 from app.storage import event_store
@@ -53,25 +54,9 @@ async def end_session(db_session: Session, session_id: str) -> SessionSummaryCre
         return None
 
     # ── 2. Serialise to text (ADR-0022: agent receives only this) ──
-    serialised_lines = []
-    for event in events:
-        event_type = event.__class__.__name__
-        event_data = {
-            "type": event_type,
-            "id": event.id,
-            "timestamp": event.timestamp.isoformat() if event.timestamp else None,
-        }
-        # Add type-specific fields
-        if hasattr(event, "concept_id"):
-            event_data["concept_id"] = event.concept_id
-        if hasattr(event, "verdict"):
-            event_data["verdict"] = event.verdict
-        if hasattr(event, "new_mastery"):
-            event_data["new_mastery"] = event.new_mastery
-        if hasattr(event, "previous_mastery"):
-            event_data["previous_mastery"] = event.previous_mastery
-
-        serialised_lines.append(json.dumps(event_data))
+    serialised_lines = [
+        json.dumps(event_as_dict(event)) for event in events
+    ]
 
     serialised_text = "\n".join(serialised_lines)
 

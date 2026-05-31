@@ -1,11 +1,41 @@
 """ingestion — public API surface"""
-from .pipeline import IngestionPipeline, ExerciseFirstPipeline, RunSummary
-from .sources.extractors import (BookExtractor, GitHubExtractor,
-                                  YouTubeExtractor, WebExtractor, RawSource)
-from .processing.normaliser import Normaliser, NormalisedDoc
-from .processing.chunker    import Chunker, Chunk, Strategy
-from .processing.structure  import BookStructureDetector, StructuredBook
-from .generation.generator  import Generator, GeneratedProblem
-from .generation.pipeline_stages import (Validator, ValidationResult,
-                                          RetryOrchestrator, DedupChecker,
-                                          ReviewQueue, CatalogMerger)
+from .chunker import Chunk, Chunker, Strategy
+from .extractors import BookExtractor, GitHubExtractor, RawSource, WebExtractor, YouTubeExtractor
+from .generator import GeneratedProblem, Generator
+from .normaliser import NormalisedDoc, Normaliser
+from .pipeline import ExerciseFirstPipeline, IngestionPipeline, RunSummary
+from .pipeline_stages import (
+                          CatalogMerger,
+                          DedupChecker,
+                          RetryOrchestrator,
+                          ReviewQueue,
+                          ValidationResult,
+                          Validator,
+)
+from .structure import BookStructureDetector, StructuredBook
+
+__all__ = [
+    "BookExtractor",
+    "BookStructureDetector",
+    "CatalogMerger",
+    "Chunk",
+    "Chunker",
+    "DedupChecker",
+    "ExerciseFirstPipeline",
+    "GeneratedProblem",
+    "Generator",
+    "GitHubExtractor",
+    "IngestionPipeline",
+    "NormalisedDoc",
+    "Normaliser",
+    "RawSource",
+    "RetryOrchestrator",
+    "ReviewQueue",
+    "RunSummary",
+    "Strategy",
+    "StructuredBook",
+    "ValidationResult",
+    "Validator",
+    "WebExtractor",
+    "YouTubeExtractor",
+]

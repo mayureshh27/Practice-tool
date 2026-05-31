@@ -16,8 +16,6 @@ question get one appended.
 from __future__ import annotations
 
 from pathlib import Path
-from uuid import uuid4
-
 import logfire
 from sqlmodel import Session
 
@@ -58,7 +56,7 @@ async def handle_chat_turn(
     try:
         materialise_learner_state(db_session, _MEMORIES_DIR)
     except Exception as exc:
-        logfire.warn(
+        logfire.warning(
             "Memory seed materialisation failed: {error}",
             error=str(exc),
         )
@@ -74,7 +72,7 @@ async def handle_chat_turn(
             )
             memory_context = seed.memory_seed
         except Exception as exc:
-            logfire.warn(
+            logfire.warning(
                 "Context Gate assembly failed: {error}",
                 error=str(exc),
             )

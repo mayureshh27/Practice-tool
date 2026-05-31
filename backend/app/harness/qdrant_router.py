@@ -8,7 +8,7 @@ import os
 import logfire
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
-from app.harness.retrieval_router import RetrievalRouter, ChunkResult
+from app.harness.retrieval_router import ChunkResult
 
 class QdrantRetrievalRouter:
     """Concrete implementation of RetrievalRouter using Qdrant client."""
@@ -27,7 +27,7 @@ class QdrantRetrievalRouter:
                 logfire.info("Initialised embedded Qdrant database at {location}", location=self.location)
         except Exception as exc:
             self.client = QdrantClient(location=":memory:")
-            logfire.warn("Failed to initialise Qdrant, falling back to in-memory: {error}", error=str(exc))
+            logfire.warning("Failed to initialise Qdrant, falling back to in-memory: {error}", error=str(exc))
 
         self.collection_name = "source_chunks"
         self._ensure_collection()
@@ -54,7 +54,7 @@ class QdrantRetrievalRouter:
                 )
                 logfire.info("Created Qdrant collection: {name}", name=self.collection_name)
         except Exception as exc:
-            logfire.warn("Error checking/creating Qdrant collection: {error}", error=str(exc))
+            logfire.warning("Error checking/creating Qdrant collection: {error}", error=str(exc))
 
     def _get_embedding(self, text: str) -> list[float]:
         try:
@@ -115,7 +115,7 @@ class QdrantRetrievalRouter:
                 )
             return results
         except Exception as exc:
-            logfire.warn("Qdrant search failed: {error}", error=str(exc))
+            logfire.warning("Qdrant search failed: {error}", error=str(exc))
             return []
 
     def source_search_exact(
@@ -169,5 +169,5 @@ class QdrantRetrievalRouter:
                     )
             return results
         except Exception as exc:
-            logfire.warn("Qdrant exact search failed: {error}", error=str(exc))
+            logfire.warning("Qdrant exact search failed: {error}", error=str(exc))
             return []

@@ -15,8 +15,6 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 from app.agents import session_service, tutor_service
-from app.harness.context_gate import DefaultContextGate
-from app.harness.eval_gate import SocraticGate
 from app.storage.database import DatabaseDep
 
 router = APIRouter(prefix="/api/chat", tags=["chat"])

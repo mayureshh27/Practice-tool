@@ -1,14 +1,9 @@
 """Tests for the Event Emitter and Memory Seed Protocol primitives."""
 
-from datetime import datetime
-from pathlib import Path
 
 import pytest
-from sqlmodel import select
 
 from app.domain.events import (
-    BlindSpotDetected,
-    ConceptMasteryUpdated,
     PracticeAttempted,
 )
 from app.harness.event_emitter import emit_event

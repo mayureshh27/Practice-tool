@@ -32,21 +32,24 @@ Usage:
 """
 
 from __future__ import annotations
+
 import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from pathlib import Path
 
-from .sources.extractors    import (BookExtractor, GitHubExtractor,
-                                     YouTubeExtractor, WebExtractor,
-                                     RawSource)
-from .processing.normaliser import Normaliser
-from .processing.chunker    import Chunker, Strategy
-from .processing.structure  import BookStructureDetector, enrich_chunks_with_structure
-from .generation.generator  import Generator
-from .generation.pipeline_stages import (Validator, RetryOrchestrator,
-                                          DedupChecker, ReviewQueue,
-                                          CatalogMerger, CATALOG_PATH)
-
+from .chunker import Chunker, Strategy
+from .extractors import BookExtractor, GitHubExtractor, RawSource, WebExtractor, YouTubeExtractor
+from .generator import Generator
+from .normaliser import Normaliser
+from .pipeline_stages import (
+    CATALOG_PATH,
+    CatalogMerger,
+    DedupChecker,
+    RetryOrchestrator,
+    ReviewQueue,
+    Validator,
+)
+from .structure import BookStructureDetector, enrich_chunks_with_structure
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Run summary
@@ -265,7 +268,7 @@ class IngestionPipeline:
             problem, result = self._retry.run(chunk, self.chapter, n)
 
             if problem is None:
-                print(f"    ✗ Exhausted retries — skipping")
+                print("    ✗ Exhausted retries — skipping")
                 self._summary.rejected += 1
                 continue
 
@@ -356,7 +359,7 @@ class ExerciseFirstPipeline(IngestionPipeline):
     def _process_exercises(self, exercises, chapter_title: str,
                             difficulty: str):
         """Turn verbatim book exercises into GeneratedProblems."""
-        from .processing.chunker import Chunk
+        from .chunker import Chunk
 
         base_n = self._existing_count + self._summary.generated + 1
 
@@ -399,7 +402,7 @@ class ExerciseFirstPipeline(IngestionPipeline):
 
             is_dup, reason = self._dedup.is_duplicate(problem)
             if is_dup:
-                print(f"⊘ dup")
+                print("⊘ dup")
                 self._summary.duplicates += 1
                 continue
 

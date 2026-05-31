@@ -1,6 +1,5 @@
 import {Plus, Folder, FileText, ArrowLeft, Pin, Archive, Trash2, Edit2, MoreHorizontal, BookOpen, Layers} from 'lucide-react';
 import {useState, useMemo} from 'react';
-import { Link } from '@tanstack/react-router';
 import type {Domain, NavLocation} from '../workspaceTypes';
 
 /* ── ROOT SCREEN (All Domains) ────────────────────────────────────── */
@@ -41,144 +40,187 @@ export function RootScreen({
   };
 
   return (
-    <div className="p-4 h-full flex flex-col overflow-hidden bg-ws-floor text-ws-ink">
-      <div className="flex-1 flex flex-col overflow-hidden bg-ws-bench border border-ws-line rounded-xl shadow-md p-6 max-w-[1200px] mx-auto w-full">
-        <div className="flex justify-between items-center mb-6 shrink-0">
-          <div>
-            <h1 className="text-xl font-extrabold text-ws-ink m-0 mb-1.5 tracking-tight">
-              Learning Domains
-            </h1>
-            <p className="text-[13px] text-ws-muted m-0">
-              Explore your structured practice workspace hierarchy and coordinate resource notebook extraction.
-            </p>
-          </div>
-          <button
-            type="button"
-            className="bg-ws-glow text-ws-floor font-bold rounded-md py-2 px-4 flex items-center gap-2 hover:brightness-110 transition-all cursor-pointer shadow-md text-[13px]"
-            onClick={() => onOpenCreateModal('domain')}
-          >
-            <Plus size={14} /> New Domain
-          </button>
+    <div style={{padding: '32px 24px', maxWidth: 1000, margin: '0 auto', height: '100%', overflowY: 'auto'}}>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28}}>
+        <div>
+          <h1 style={{fontSize: 24, fontWeight: 800, color: 'var(--ws-ink)', margin: '0 0 6px', letterSpacing: '-0.02em'}}>
+            Learning Domains
+          </h1>
+          <p style={{fontSize: 13, color: 'var(--ws-ink-2)', margin: 0}}>
+            Explore your structured practice workspace hierarchy and coordinate resource notebook extraction.
+          </p>
         </div>
+        <button
+          type="button"
+          className="bg-ws-glow text-ws-floor font-semibold rounded-md py-2 px-4 flex items-center gap-2 hover:brightness-110 transition-all cursor-pointer shadow-md"
+          onClick={() => onOpenCreateModal('domain')}
+        >
+          <Plus size={16} /> New Domain
+        </button>
+      </div>
 
-        <div className="flex-1 overflow-y-auto pr-1 grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-4 scrollbar">
-          {activeDomains.map(domain => {
-            const totalSubjects = domain.subjects.length;
-            const totalChapters = domain.subjects.reduce((acc, s) => acc + s.chapters.length, 0);
+      <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 16}}>
+        {activeDomains.map(domain => {
+          const totalSubjects = domain.subjects.length;
+          const totalChapters = domain.subjects.reduce((acc, s) => acc + s.chapters.length, 0);
 
-            return (
-              <Link
-                key={domain.id}
-                to="/domain/$domainId"
-                params={{ domainId: domain.id }}
-                className="no-underline flex flex-col bg-ws-bg border border-ws-line rounded-lg p-5 cursor-pointer relative transition-all duration-200 shadow-sm hover:border-ws-glow hover:-translate-y-0.5 group"
-              >
-                <div className="flex items-center gap-2 mb-3 shrink-0">
-                  <Folder size={16} className="text-ws-glow" />
-                  {renamingId === domain.id ? (
-                    <input
-                      type="text"
-                      value={renameValue}
-                      onChange={e => setRenameValue(e.target.value)}
-                      onKeyDown={e => { if (e.key === 'Enter') handleRename(domain.id); if (e.key === 'Escape') setRenamingId(null); }}
-                      onClick={e => e.stopPropagation()}
-                      onBlur={() => handleRename(domain.id)}
-                      autoFocus
-                      className="flex-1 px-1.5 py-0.5 bg-ws-floor border border-ws-glow rounded text-ws-ink text-sm font-bold outline-none"
-                    />
-                  ) : (
-                    <h2 className="text-[14px] font-extrabold text-ws-ink m-0 overflow-hidden text-ellipsis whitespace-nowrap flex-1 tracking-tight">
-                      {domain.name}
-                    </h2>
-                  )}
-                  
-                  {domain.pinned && <Pin size={12} className="text-ws-glow" />}
-                  
-                  <button
-                    type="button"
-                    className="bg-transparent border-none text-ws-muted cursor-pointer p-1 rounded hover:text-ws-ink"
-                    onClick={e => {
-                      e.stopPropagation();
-                      setContextMenu({id: domain.id, x: e.clientX, y: e.clientY});
+          return (
+            <div
+              key={domain.id}
+              onClick={() => onNavigate({level: 'domain', domainId: domain.id})}
+              style={{
+                background: 'var(--ws-bench)', border: '1px solid var(--ws-edge-soft)',
+                borderRadius: 'var(--ws-r-lg)', padding: 20, cursor: 'pointer',
+                position: 'relative', display: 'flex', flexDirection: 'column',
+                transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = 'var(--ws-glow)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = 'var(--ws-edge-soft)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <div style={{display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8}}>
+                <Folder size={18} style={{color: 'var(--ws-glow)'}} />
+                {renamingId === domain.id ? (
+                  <input
+                    type="text"
+                    value={renameValue}
+                    onChange={e => setRenameValue(e.target.value)}
+                    onKeyDown={e => { if (e.key === 'Enter') handleRename(domain.id); if (e.key === 'Escape') setRenamingId(null); }}
+                    onClick={e => e.stopPropagation()}
+                    onBlur={() => handleRename(domain.id)}
+                    autoFocus
+                    style={{
+                      flex: 1, padding: '2px 6px', background: 'var(--ws-floor)',
+                      border: '1px solid var(--ws-glow)', borderRadius: 'var(--ws-r-sm)',
+                      color: 'var(--ws-ink)', fontSize: 16, fontWeight: 700, outline: 'none'
                     }}
-                  >
-                    <MoreHorizontal size={14} />
-                  </button>
-                </div>
+                  />
+                ) : (
+                  <h2 style={{
+                    fontSize: 16, fontWeight: 700, color: 'var(--ws-ink)', margin: 0,
+                    overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1
+                  }}>
+                    {domain.name}
+                  </h2>
+                )}
+                
+                {domain.pinned && <Pin size={12} style={{color: 'var(--ws-glow)'}} />}
+                
+                <button
+                  type="button"
+                  style={{background: 'none', border: 'none', color: 'var(--ws-ink-muted)', cursor: 'pointer', padding: 4}}
+                  onClick={e => {
+                    e.stopPropagation();
+                    setContextMenu({id: domain.id, x: e.clientX, y: e.clientY});
+                  }}
+                >
+                  <MoreHorizontal size={16} />
+                </button>
+              </div>
 
-                {/* Subjects Preview List inside Domain Card */}
-                <div className="flex-1 mb-4 flex flex-col gap-2" onClick={e => e.stopPropagation()}>
-                  {domain.subjects.slice(0, 3).map(sub => {
-                    const firstChId = sub.chapters[0]?.id;
-                    return (
-                      <div
-                        key={sub.id}
-                        className="flex items-center justify-between bg-ws-bench border border-ws-line px-2.5 py-1.5 rounded-md cursor-pointer transition-all duration-150 hover:border-ws-glow"
-                        onClick={() => onNavigate({level: 'subject', domainId: domain.id, subjectId: sub.id})}
-                      >
-                        <span className="text-[12px] font-semibold text-ws-ink flex items-center gap-1.5 overflow-hidden text-ellipsis whitespace-nowrap flex-1">
-                          <BookOpen size={12} className="text-ws-glow shrink-0" />
-                          {sub.name}
-                        </span>
-                        <div className="flex gap-1.5" onClick={e => e.stopPropagation()}>
-                          <button
-                            type="button"
-                            onClick={() => onOpenCreateModal('chapter', domain.id, sub.id)}
-                            title="Add Chapter to this subject"
-                            className="bg-transparent border-none cursor-pointer text-ws-muted text-[10px] p-0.5 flex items-center gap-0.5 hover:text-ws-glow transition-colors"
-                          >
-                            <Layers size={10} /> <span>+Ch</span>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => onOpenCreateModal('topic', domain.id, sub.id, firstChId)}
-                            title="Add Topic to this subject"
-                            className="bg-transparent border-none cursor-pointer text-ws-muted text-[10px] p-0.5 flex items-center gap-0.5 hover:text-ws-glow transition-colors"
-                          >
-                            <Plus size={10} /> <span>+Topic</span>
-                          </button>
-                        </div>
-                      </div>
-                    );
-                  })}
-                  {totalSubjects > 3 && (
+              {/* Subjects Preview List inside Domain Card */}
+              <div style={{flex: 1, marginBottom: 16, display: 'flex', flexDirection: 'column', gap: 8}} onClick={e => e.stopPropagation()}>
+                {domain.subjects.slice(0, 3).map(sub => {
+                  const firstChId = sub.chapters[0]?.id;
+                  return (
                     <div
-                      onClick={() => onNavigate({level: 'domain', domainId: domain.id})}
-                      className="text-[11px] text-ws-glow cursor-pointer font-semibold pl-1 hover:underline"
+                      key={sub.id}
+                      style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        background: 'var(--ws-floor)', border: '1px solid var(--ws-edge-soft)',
+                        padding: '6px 10px', borderRadius: 'var(--ws-r-md)',
+                        cursor: 'pointer',
+                        transition: 'all 150ms ease'
+                      }}
+                      onClick={() => onNavigate({level: 'subject', domainId: domain.id, subjectId: sub.id})}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--ws-glow)'; }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--ws-edge-soft)'; }}
                     >
-                      View all {totalSubjects} subjects ›
+                      <span style={{fontSize: 12, fontWeight: 600, color: 'var(--ws-ink)', display: 'flex', alignItems: 'center', gap: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1}}>
+                        <BookOpen size={12} style={{color: 'var(--ws-glow)', flexShrink: 0}} />
+                        {sub.name}
+                      </span>
+                      <div style={{display: 'flex', gap: 6}} onClick={e => e.stopPropagation()}>
+                        <button
+                          type="button"
+                          onClick={() => onOpenCreateModal('chapter', domain.id, sub.id)}
+                          title="Add Chapter to this subject"
+                          style={{
+                            background: 'none', border: 'none', cursor: 'pointer',
+                            color: 'var(--ws-ink-muted)', fontSize: 10, padding: 2, display: 'flex', alignItems: 'center', gap: 2
+                          }}
+                          onMouseEnter={e => e.currentTarget.style.color = 'var(--ws-glow)'}
+                          onMouseLeave={e => e.currentTarget.style.color = 'var(--ws-ink-muted)'}
+                        >
+                          <Layers size={10} /> <span>+Ch</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => onOpenCreateModal('topic', domain.id, sub.id, firstChId)}
+                          title="Add Topic to this subject"
+                          style={{
+                            background: 'none', border: 'none', cursor: 'pointer',
+                            color: 'var(--ws-ink-muted)', fontSize: 10, padding: 2, display: 'flex', alignItems: 'center', gap: 2
+                          }}
+                          onMouseEnter={e => e.currentTarget.style.color = 'var(--ws-glow)'}
+                          onMouseLeave={e => e.currentTarget.style.color = 'var(--ws-ink-muted)'}
+                        >
+                          <Plus size={10} /> <span>+Topic</span>
+                        </button>
+                      </div>
                     </div>
-                  )}
-                  {totalSubjects === 0 && (
-                    <span className="text-[12px] text-ws-muted italic pl-1">No subjects inside yet.</span>
-                  )}
-                </div>
+                  );
+                })}
+                {totalSubjects > 3 && (
+                  <div
+                    onClick={() => onNavigate({level: 'domain', domainId: domain.id})}
+                    style={{fontSize: 11, color: 'var(--ws-glow)', cursor: 'pointer', fontWeight: 600, paddingLeft: 4}}
+                    onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
+                    onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}
+                  >
+                    View all {totalSubjects} subjects ›
+                  </div>
+                )}
+                {totalSubjects === 0 && (
+                  <span style={{fontSize: 12, color: 'var(--ws-ink-muted)', fontStyle: 'italic', paddingLeft: 4}}>No subjects inside yet.</span>
+                )}
+              </div>
 
-                {/* Stats footer */}
-                <div className="flex justify-between text-[11px] text-ws-muted border-t border-ws-line pt-3 mt-auto">
-                  <span className="flex items-center gap-1">
-                    <Layers size={11} /> {totalSubjects} Subject{totalSubjects !== 1 ? 's' : ''}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <BookOpen size={11} /> {totalChapters} Chapter{totalChapters !== 1 ? 's' : ''}
-                  </span>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+              {/* Stats footer */}
+              <div style={{
+                display: 'flex', justifyContent: 'space-between', fontSize: 11,
+                color: 'var(--ws-ink-muted)', borderTop: '1px solid var(--ws-edge-soft)', paddingTop: 12
+              }}>
+                <span style={{display: 'flex', alignItems: 'center', gap: 4}}>
+                  <Layers size={11} /> {totalSubjects} Subject{totalSubjects !== 1 ? 's' : ''}
+                </span>
+                <span style={{display: 'flex', alignItems: 'center', gap: 4}}>
+                  <BookOpen size={11} /> {totalChapters} Chapter{totalChapters !== 1 ? 's' : ''}
+                </span>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {contextMenu && (
         <>
           <div
-            className="fixed inset-0 z-[999]"
+            style={{position: 'fixed', inset: 0, zIndex: 999}}
             onClick={() => setContextMenu(null)}
           />
-          <div 
-            className="fixed z-[1000] bg-ws-bg border border-ws-line rounded-md p-1 min-w-[145px] shadow-[0_8px_24px_rgba(0,0,0,0.5)]"
-            style={{left: contextMenu.x, top: contextMenu.y}}
-          >
+          <div style={{
+            position: 'fixed', left: contextMenu.x, top: contextMenu.y, zIndex: 1000,
+            background: 'var(--ws-bench)', border: '1px solid var(--ws-edge)',
+            borderRadius: 'var(--ws-r-md)', padding: 4, minWidth: 145,
+            boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+          }}>
             {[
               {
                 icon: Pin,
@@ -215,7 +257,14 @@ export function RootScreen({
                 key={item.label}
                 type="button"
                 onClick={item.action}
-                className={`w-full flex items-center gap-2 px-2.5 py-1.5 bg-transparent border-none rounded text-xs cursor-pointer text-left transition-colors hover:bg-ws-surface-2 ${(item as {danger?: boolean}).danger ? 'text-red-500' : 'text-ws-muted'}`}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8, width: '100%',
+                  padding: '6px 10px', background: 'none', border: 'none', borderRadius: 'var(--ws-r-sm)',
+                  color: (item as {danger?: boolean}).danger ? 'var(--ws-signal-fail)' : 'var(--ws-ink-2)',
+                  fontSize: 12, cursor: 'pointer', textAlign: 'left',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'var(--ws-shelf)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'none')}
               >
                 <item.icon size={12} /> {item.label}
               </button>
@@ -252,6 +301,8 @@ export function DomainScreen({
     return domain.subjects.filter(s => !s.archived).sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
   }, [domain]);
 
+
+
   const handleRename = (id: string) => {
     if (renameValue.trim()) {
       onRenameSubject(domain.id, id, renameValue.trim());
@@ -260,147 +311,203 @@ export function DomainScreen({
   };
 
   return (
-    <div className="p-4 h-full flex flex-col overflow-hidden bg-ws-floor text-ws-ink">
-      <div className="flex-1 flex flex-col overflow-hidden bg-ws-bench border border-ws-line rounded-xl shadow-md p-6 max-w-[1200px] mx-auto w-full">
-        <Link
-          to="/"
-          className="flex items-center gap-1.5 bg-transparent border-none text-ws-muted text-xs cursor-pointer p-0 mb-4 no-underline hover:text-ws-ink transition-colors shrink-0"
-        >
-          <ArrowLeft size={14} /> Back to Domains
-        </Link>
+    <div style={{padding: '32px 24px', maxWidth: 1000, margin: '0 auto', height: '100%', overflowY: 'auto'}}>
+      <button
+        type="button"
+        onClick={() => onNavigate({level: 'root'})}
+        style={{
+          display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none',
+          color: 'var(--ws-ink-muted)', fontSize: 12, cursor: 'pointer', padding: 0, marginBottom: 16
+        }}
+      >
+        <ArrowLeft size={14} /> Back to Domains
+      </button>
 
-        <div className="flex justify-between items-center mb-6 shrink-0">
-          <div>
-            <h1 className="text-xl font-extrabold text-ws-ink m-0 mb-1.5 tracking-tight">
-              {domain.name} Subjects
-            </h1>
-            <p className="text-[13px] text-ws-muted m-0">
-              Select a subject to open the workspace study dashboard, practice tests, and workflows.
-            </p>
-          </div>
-          <button
-            type="button"
-            className="bg-ws-glow text-ws-floor font-bold rounded-md py-2 px-4 flex items-center gap-2 hover:brightness-110 transition-all cursor-pointer shadow-md text-[13px]"
-            onClick={() => onOpenCreateModal('subject', domain.id)}
-          >
-            <Plus size={14} /> New Subject
-          </button>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 28}}>
+        <div>
+          <h1 style={{fontSize: 24, fontWeight: 800, color: 'var(--ws-ink)', margin: '0 0 6px', letterSpacing: '-0.02em'}}>
+            {domain.name} Subjects
+          </h1>
+          <p style={{fontSize: 13, color: 'var(--ws-ink-2)', margin: 0}}>
+            Select a subject to open the workspace study dashboard, practice tests, and workflows.
+          </p>
         </div>
+        <button
+          type="button"
+          className="bg-ws-glow text-ws-floor font-semibold rounded-md py-2 px-4 flex items-center gap-2 hover:brightness-110 transition-all cursor-pointer shadow-md"
+          onClick={() => onOpenCreateModal('subject', domain.id)}
+        >
+          <Plus size={16} /> New Subject
+        </button>
+      </div>
 
-        <div className="flex-1 overflow-y-auto pr-1 grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4 scrollbar">
-          {activeSubjects.map(subject => {
-            return (
-              <Link
-                key={subject.id}
-                to="/subject/$domainId/$subjectId"
-                params={{ domainId: domain.id, subjectId: subject.id }}
-                className="no-underline bg-ws-bg border border-ws-line rounded-lg p-5 cursor-pointer relative flex flex-col gap-2 transition-all duration-200 shadow-sm hover:border-ws-glow hover:-translate-y-0.5 group"
-              >
-                <div className="flex items-center gap-2">
-                  <FileText size={16} className="text-ws-glow" />
-                  {renamingId === subject.id ? (
-                    <input
-                      type="text"
-                      value={renameValue}
-                      onChange={e => setRenameValue(e.target.value)}
-                      onKeyDown={e => { if (e.key === 'Enter') handleRename(subject.id); if (e.key === 'Escape') setRenamingId(null); }}
-                      onClick={e => e.stopPropagation()}
-                      onBlur={() => handleRename(subject.id)}
-                      autoFocus
-                      className="flex-1 px-1.5 py-0.5 bg-ws-floor border border-ws-glow rounded text-ws-ink text-sm font-bold outline-none"
-                    />
-                  ) : (
-                    <h2 className="text-[14px] font-extrabold text-ws-ink m-0 overflow-hidden text-ellipsis whitespace-nowrap flex-1 tracking-tight">
-                      {subject.name}
-                    </h2>
-                  )}
-
-                  <button
-                    type="button"
-                    className="bg-transparent border-none text-ws-muted cursor-pointer p-1 rounded hover:text-ws-ink"
-                    onClick={e => {
-                      e.stopPropagation();
-                      setContextMenu({id: subject.id, x: e.clientX, y: e.clientY});
+      <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16}}>
+        {activeSubjects.map(subject => {
+          return (
+            <div
+              key={subject.id}
+              onClick={() => onNavigate({level: 'subject', domainId: domain.id, subjectId: subject.id})}
+              style={{
+                background: 'var(--ws-bench)', border: '1px solid var(--ws-edge-soft)',
+                borderRadius: 'var(--ws-r-lg)', padding: 20, cursor: 'pointer',
+                position: 'relative', display: 'flex', flexDirection: 'column', gap: 8,
+                transition: 'all 200ms cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = 'var(--ws-glow)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = 'var(--ws-edge-soft)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <div style={{display: 'flex', alignItems: 'center', gap: 8}}>
+                <FileText size={18} style={{color: 'var(--ws-glow)'}} />
+                {renamingId === subject.id ? (
+                  <input
+                    type="text"
+                    value={renameValue}
+                    onChange={e => setRenameValue(e.target.value)}
+                    onKeyDown={e => { if (e.key === 'Enter') handleRename(subject.id); if (e.key === 'Escape') setRenamingId(null); }}
+                    onClick={e => e.stopPropagation()}
+                    onBlur={() => handleRename(subject.id)}
+                    autoFocus
+                    style={{
+                      flex: 1, padding: '2px 6px', background: 'var(--ws-floor)',
+                      border: '1px solid var(--ws-glow)', borderRadius: 'var(--ws-r-sm)',
+                      color: 'var(--ws-ink)', fontSize: 15, fontWeight: 700, outline: 'none'
                     }}
-                  >
-                    <MoreHorizontal size={14} />
-                  </button>
-                </div>
-
-                {subject.description && (
-                  <p className="text-xs text-ws-muted my-1 mb-3 leading-[1.5] overflow-hidden line-clamp-2">
-                    {subject.description}
-                  </p>
+                  />
+                ) : (
+                  <h2 style={{
+                    fontSize: 15, fontWeight: 700, color: 'var(--ws-ink)', margin: 0,
+                    overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1
+                  }}>
+                    {subject.name}
+                  </h2>
                 )}
 
-                {/* Chapters Preview vertical list inside Subject Card */}
-                <div className="flex-1 mb-3 flex flex-col gap-1.5" onClick={e => e.stopPropagation()}>
-                  {subject.chapters.slice(0, 3).map(ch => (
-                    <div
-                      key={ch.id}
-                      className="flex items-center justify-between bg-ws-bench border border-ws-line px-2.5 py-1.5 rounded-md cursor-pointer transition-all duration-150 hover:border-ws-glow"
-                      onClick={() => onNavigate({level: 'chapter', domainId: domain.id, subjectId: subject.id, chapterId: ch.id})}
-                    >
-                      <span className="text-[11px] font-semibold text-ws-ink flex items-center gap-1 overflow-hidden text-ellipsis whitespace-nowrap flex-1">
-                        <Layers size={11} className="text-ws-glow shrink-0" />
-                        {ch.name}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => onOpenCreateModal('topic', domain.id, subject.id, ch.id)}
-                        title="Add topic/concept directly inside this chapter"
-                        className="bg-transparent border-none cursor-pointer text-ws-muted text-[10px] p-0.5 flex items-center gap-0.5 hover:text-ws-glow transition-colors"
-                      >
-                        <Plus size={10} /> <span>Topic</span>
-                      </button>
-                    </div>
-                  ))}
-                  {subject.chapters.length > 3 && (
-                    <div
-                      onClick={() => onNavigate({level: 'subject', domainId: domain.id, subjectId: subject.id})}
-                      className="text-[10.5px] text-ws-glow font-semibold cursor-pointer pl-1 hover:underline"
-                    >
-                      +{subject.chapters.length - 3} more chapters ›
-                    </div>
-                  )}
-                </div>
+                <button
+                  type="button"
+                  style={{background: 'none', border: 'none', color: 'var(--ws-ink-muted)', cursor: 'pointer', padding: 4}}
+                  onClick={e => {
+                    e.stopPropagation();
+                    setContextMenu({id: subject.id, x: e.clientX, y: e.clientY});
+                  }}
+                >
+                  <MoreHorizontal size={16} />
+                </button>
+              </div>
 
-                {/* Subject card footer with quick creation triggers */}
-                <div className="flex gap-1.5 border-t border-ws-line pt-2.5 mt-auto" onClick={e => e.stopPropagation()}>
-                  <button
-                    type="button"
-                    onClick={() => onOpenCreateModal('chapter', domain.id, subject.id)}
-                    className="flex-1 flex items-center justify-center gap-1 bg-transparent border border-dashed border-ws-line rounded text-ws-glow px-2 py-1 text-[11px] font-bold cursor-pointer transition-all duration-150 hover:border-ws-glow hover:bg-ws-glow/5"
-                  >
-                    <Plus size={11} /> Chapter
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const firstChId = subject.chapters[0]?.id;
-                      onOpenCreateModal('topic', domain.id, subject.id, firstChId);
+              {subject.description && (
+                <p style={{
+                  fontSize: 12, color: 'var(--ws-ink-2)', margin: '4px 0 12px', lineHeight: 1.5,
+                  overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical'
+                }}>
+                  {subject.description}
+                </p>
+              )}
+
+              {/* Chapters Preview vertical list inside Subject Card */}
+              <div style={{flex: 1, marginBottom: 12, display: 'flex', flexDirection: 'column', gap: 6}} onClick={e => e.stopPropagation()}>
+                {subject.chapters.slice(0, 3).map(ch => (
+                  <div
+                    key={ch.id}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      background: 'var(--ws-floor)', border: '1px solid var(--ws-edge-soft)',
+                      padding: '5px 8px', borderRadius: 'var(--ws-r-md)',
+                      cursor: 'pointer',
+                      transition: 'all 150ms ease'
                     }}
-                    className="flex-1 flex items-center justify-center gap-1 bg-transparent border border-dashed border-ws-line rounded text-ws-glow px-2 py-1 text-[11px] font-bold cursor-pointer transition-all duration-150 hover:border-ws-glow hover:bg-ws-glow/5"
+                    onClick={() => onNavigate({level: 'chapter', domainId: domain.id, subjectId: subject.id, chapterId: ch.id})}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--ws-glow)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--ws-edge-soft)'; }}
                   >
-                    <Plus size={11} /> Topic
-                  </button>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+                    <span style={{fontSize: 11, fontWeight: 600, color: 'var(--ws-ink-2)', display: 'flex', alignItems: 'center', gap: 4, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1}}>
+                      <Layers size={11} style={{color: 'var(--ws-glow)', flexShrink: 0}} />
+                      {ch.name}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => onOpenCreateModal('topic', domain.id, subject.id, ch.id)}
+                      title="Add topic/concept directly inside this chapter"
+                      style={{
+                        background: 'none', border: 'none', cursor: 'pointer',
+                        color: 'var(--ws-ink-muted)', fontSize: 10, padding: 2, display: 'flex', alignItems: 'center', gap: 2
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.color = 'var(--ws-glow)'}
+                      onMouseLeave={e => e.currentTarget.style.color = 'var(--ws-ink-muted)'}
+                    >
+                      <Plus size={10} /> <span>Topic</span>
+                    </button>
+                  </div>
+                ))}
+                {subject.chapters.length > 3 && (
+                  <div
+                    onClick={() => onNavigate({level: 'subject', domainId: domain.id, subjectId: subject.id})}
+                    style={{fontSize: 10.5, color: 'var(--ws-glow)', fontWeight: 600, cursor: 'pointer', paddingLeft: 4}}
+                    onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
+                    onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}
+                  >
+                    +{subject.chapters.length - 3} more chapters ›
+                  </div>
+                )}
+              </div>
+
+              {/* Subject card footer with quick creation triggers */}
+              <div style={{display: 'flex', gap: 6, borderTop: '1px solid var(--ws-edge-soft)', paddingTop: 10, marginTop: 'auto'}} onClick={e => e.stopPropagation()}>
+                <button
+                  type="button"
+                  onClick={() => onOpenCreateModal('chapter', domain.id, subject.id)}
+                  style={{
+                    flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4,
+                    background: 'none', border: '1px dashed var(--ws-edge)', borderRadius: 'var(--ws-r-sm)',
+                    color: 'var(--ws-glow)', padding: '5px 8px', fontSize: 11, fontWeight: 600, cursor: 'pointer',
+                    transition: 'all 150ms ease'
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--ws-glow)'; e.currentTarget.style.background = 'var(--ws-glow-wash)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--ws-edge)'; e.currentTarget.style.background = 'none'; }}
+                >
+                  <Plus size={11} /> Chapter
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const firstChId = subject.chapters[0]?.id;
+                    onOpenCreateModal('topic', domain.id, subject.id, firstChId);
+                  }}
+                  style={{
+                    flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4,
+                    background: 'none', border: '1px dashed var(--ws-edge)', borderRadius: 'var(--ws-r-sm)',
+                    color: 'var(--ws-glow)', padding: '5px 8px', fontSize: 11, fontWeight: 600, cursor: 'pointer',
+                    transition: 'all 150ms ease'
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--ws-glow)'; e.currentTarget.style.background = 'var(--ws-glow-wash)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--ws-edge)'; e.currentTarget.style.background = 'none'; }}
+                >
+                  <Plus size={11} /> Topic
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {contextMenu && (
         <>
           <div
-            className="fixed inset-0 z-[999]"
+            style={{position: 'fixed', inset: 0, zIndex: 999}}
             onClick={() => setContextMenu(null)}
           />
-          <div 
-            className="fixed z-[1000] bg-ws-bg border border-ws-line rounded-md p-1 min-w-[120px] shadow-[0_8px_24px_rgba(0,0,0,0.5)]"
-            style={{left: contextMenu.x, top: contextMenu.y}}
-          >
+          <div style={{
+            position: 'fixed', left: contextMenu.x, top: contextMenu.y, zIndex: 1000,
+            background: 'var(--ws-bench)', border: '1px solid var(--ws-edge)',
+            borderRadius: 'var(--ws-r-md)', padding: 4, minWidth: 120,
+            boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+          }}>
             {[
               {
                 icon: Edit2,
@@ -427,7 +534,14 @@ export function DomainScreen({
                 key={item.label}
                 type="button"
                 onClick={item.action}
-                className={`w-full flex items-center gap-2 px-2.5 py-1.5 bg-transparent border-none rounded text-xs cursor-pointer text-left transition-colors hover:bg-ws-surface-2 ${(item as {danger?: boolean}).danger ? 'text-red-500' : 'text-ws-muted'}`}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8, width: '100%',
+                  padding: '6px 10px', background: 'none', border: 'none', borderRadius: 'var(--ws-r-sm)',
+                  color: (item as {danger?: boolean}).danger ? 'var(--ws-signal-fail)' : 'var(--ws-ink-2)',
+                  fontSize: 12, cursor: 'pointer', textAlign: 'left',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'var(--ws-shelf)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'none')}
               >
                 <item.icon size={12} /> {item.label}
               </button>

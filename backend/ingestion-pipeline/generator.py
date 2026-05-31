@@ -25,15 +25,16 @@ Math-heavy chunks get additional prompt augmentation:
 """
 
 from __future__ import annotations
-import ast, json, re, time
-from dataclasses import dataclass, field
-from typing import Any
+
+import re
+from dataclasses import field
+from typing import Self
+
 import instructor
 import litellm
 from pydantic import BaseModel, field_validator, model_validator
 
-from ..processing.chunker import Chunk
-
+from .chunker import Chunk
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Output schema — Pydantic enforced via Instructor
@@ -102,7 +103,7 @@ class GeneratedProblem(BaseModel):
         return v
 
     @model_validator(mode="after")
-    def starter_has_solve(self) -> "GeneratedProblem":
+    def starter_has_solve(self) -> Self:
         assert "def solve" in self.starterCode, \
             "starterCode must contain a def solve() function"
         return self

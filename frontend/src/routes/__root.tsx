@@ -1,10 +1,10 @@
-import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { HotkeysProvider } from '@tanstack/react-hotkeys'
-import { useEffect } from 'react'
+import type { QueryClient } from '@tanstack/react-query'
 
+import { domainQueries, masteryQueries } from '../api/queries'
 import { useUIStore } from '../stores/uiStore'
-import { useWorkspaceStore } from '../stores/workspaceStore'
 
 import WorkspaceTopBar from '../components/WorkspaceTopBar'
 import LeftNav from '../components/LeftNav'
@@ -16,28 +16,21 @@ import { CreationModal } from '../components/CreationModal'
 
 import '../styles.css'
 
-export const Route = createRootRoute({
+interface RouterContext {
+  queryClient: QueryClient
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
+  loader: ({ context: { queryClient } }) => {
+    queryClient.ensureQueryData(domainQueries.list())
+    queryClient.ensureQueryData(masteryQueries.scores())
+    queryClient.ensureQueryData(masteryQueries.blindSpots())
+  },
   component: RootComponent,
 })
 
 function RootComponent() {
   const setSearchModalOpen = useUIStore(s => s.setSearchModalOpen);
-  const fetchGoProblems = useWorkspaceStore(s => s.fetchGoProblems);
-  const syncDomainsFromBackend = useWorkspaceStore(s => s.syncDomainsFromBackend);
-  const fetchMastery = useWorkspaceStore(s => s.fetchMastery);
-  const fetchBlindSpots = useWorkspaceStore(s => s.fetchBlindSpots);
-
-  useEffect(() => {
-    fetchGoProblems();
-    syncDomainsFromBackend();
-    fetchMastery();
-    fetchBlindSpots();
-  }, [fetchGoProblems, syncDomainsFromBackend, fetchMastery, fetchBlindSpots]);
-
-  // Global keyboard shortcuts via native listeners (avoids TanStack hotkey type constraints)
-  if (typeof window !== 'undefined') {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-  }
 
   return (
     <HotkeysProvider>

@@ -12,7 +12,7 @@ from typing import Annotated
 from fastapi import APIRouter, HTTPException, Path
 from pydantic import BaseModel
 
-from app.domain.events import EventBase, HintRequested, PracticeAttempted
+from app.domain.events import HintRequested, PracticeAttempted, event_as_dict
 from app.harness import event_emitter
 from app.storage import event_store
 from app.storage.database import DatabaseDep
@@ -66,18 +66,14 @@ def list_session_events(
     events = event_store.get_events_by_session(session, session_id)
     results: list[EventSummary] = []
     for event in events:
-        summary = EventSummary(
-            id=event.id,
-            event_type=event.__class__.__name__,
-            timestamp=event.timestamp.isoformat() if event.timestamp else None,
-            session_id=event.session_id,
-        )
-        # Add type-specific fields
-        if hasattr(event, "concept_id"):
-            summary.concept_id = event.concept_id
-        if hasattr(event, "verdict"):
-            summary.verdict = event.verdict
-        if hasattr(event, "new_mastery"):
-            summary.new_mastery = event.new_mastery
-        results.append(summary)
+        flat = event_as_dict(event)
+        results.append(EventSummary(
+            id=flat["id"],
+            event_type=flat["type"],
+            timestamp=flat["timestamp"],
+            session_id=flat.get("session_id"),
+            concept_id=flat.get("concept_id"),
+            verdict=flat.get("verdict"),
+            new_mastery=flat.get("new_mastery"),
+        ))
     return results

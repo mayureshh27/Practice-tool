@@ -13,10 +13,13 @@ They do not clean, chunk, or generate. The pipeline handles that.
 """
 
 from __future__ import annotations
-import json, re, subprocess, tempfile
+
+import json
+import re
+import subprocess
+import tempfile
 from dataclasses import dataclass
 from pathlib import Path
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Return type
@@ -115,9 +118,10 @@ class BookExtractor:
 
     @staticmethod
     def _from_epub(path: str) -> str:
+        from html.parser import HTMLParser
+
         import ebooklib
         from ebooklib import epub
-        from html.parser import HTMLParser
 
         class TextExtractor(HTMLParser):
             def __init__(self):
@@ -540,6 +544,7 @@ class WebExtractor:
         """Crawl4AI handles JavaScript-heavy sites (Next.js, React blogs)."""
         try:
             import asyncio
+
             from crawl4ai import AsyncWebCrawler
 
             async def _crawl():
@@ -554,7 +559,8 @@ class WebExtractor:
     @staticmethod
     def _from_arxiv(url: str) -> RawSource:
         """ArXiv: download the abstract + full paper via arXiv API."""
-        import urllib.request, urllib.parse
+        import urllib.parse
+        import urllib.request
         import xml.etree.ElementTree as ET
 
         # Extract arXiv ID from URL

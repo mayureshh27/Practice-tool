@@ -23,12 +23,12 @@ End-to-end tests (require API key in env):
 """
 
 from __future__ import annotations
-import json, re, textwrap
-from pathlib import Path
-from unittest.mock import MagicMock, patch
 
-import numpy as np
+import json
+import textwrap
+
 import pytest
+from pydantic import ValidationError
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Fixtures
@@ -182,39 +182,39 @@ MINIMAL_VALID_PROBLEM = {
 class TestNormaliser:
 
     def test_math_display_tagged(self):
-        from ingestion.processing.normaliser import Normaliser
+        from ingestion.normaliser import Normaliser
         doc = Normaliser.normalise("Here is $$Av = \\lambda v$$", "book")
         assert doc.has_math
         assert "⟨MATH_DISPLAY⟩" in doc.text
 
     def test_math_inline_tagged(self):
-        from ingestion.processing.normaliser import Normaliser
+        from ingestion.normaliser import Normaliser
         doc = Normaliser.normalise("The value $\\lambda$ is real.", "book")
         assert doc.has_math
         assert "⟨MATH_INLINE⟩" in doc.text
 
     def test_code_fence_tagged(self):
-        from ingestion.processing.normaliser import Normaliser
+        from ingestion.normaliser import Normaliser
         doc = Normaliser.normalise("```python\nimport numpy\n```", "book")
         assert doc.has_code
         assert "⟨CODE_BLOCK lang=python⟩" in doc.text
 
     def test_ligature_repair(self):
-        from ingestion.processing.normaliser import Normaliser
+        from ingestion.normaliser import Normaliser
         doc = Normaliser.normalise("efficient ﬁnally ﬂow", "book")
         assert "ﬁ" not in doc.text
         assert "fi" in doc.text
         assert "fl" in doc.text
 
     def test_page_numbers_removed(self):
-        from ingestion.processing.normaliser import Normaliser
+        from ingestion.normaliser import Normaliser
         text = "Some content\n\n42\n\nMore content"
         doc  = Normaliser.normalise(text, "book")
-        lines = [l for l in doc.text.splitlines() if l.strip() == "42"]
+        lines = [line for line in doc.text.splitlines() if line.strip() == "42"]
         assert not lines, "Page number 42 should be removed"
 
     def test_running_headers_removed(self):
-        from ingestion.processing.normaliser import Normaliser
+        from ingestion.normaliser import Normaliser
         # Line appearing 4 times — should be stripped
         repeated = "Introduction to Linear Algebra"
         text = "\n\n".join([
@@ -226,7 +226,7 @@ class TestNormaliser:
         assert occurrences < 4, "Running header should be reduced"
 
     def test_theorem_tagged(self):
-        from ingestion.processing.normaliser import Normaliser
+        from ingestion.normaliser import Normaliser
         doc = Normaliser.normalise(
             "Theorem 3.1: Every symmetric matrix has real eigenvalues.\n\n",
             "book"
@@ -234,7 +234,7 @@ class TestNormaliser:
         assert doc.has_theorems
 
     def test_exercise_tagged(self):
-        from ingestion.processing.normaliser import Normaliser
+        from ingestion.normaliser import Normaliser
         doc = Normaliser.normalise(
             "Exercise 1: Find the dot product of u and v.\n\n",
             "book"
@@ -242,12 +242,12 @@ class TestNormaliser:
         assert doc.has_exercises
 
     def test_heading_normalised(self):
-        from ingestion.processing.normaliser import Normaliser
+        from ingestion.normaliser import Normaliser
         doc = Normaliser.normalise("3.2 Eigenvalue Decomposition\n\nContent.", "book")
         assert "## Eigenvalue Decomposition" in doc.text
 
     def test_youtube_no_math_tags(self):
-        from ingestion.processing.normaliser import Normaliser
+        from ingestion.normaliser import Normaliser
         transcript = "So today we talk about vectors and how they scale"
         doc = Normaliser.normalise(transcript, "youtube")
         assert not doc.has_math
@@ -260,29 +260,29 @@ class TestNormaliser:
 class TestStructureDetector:
 
     def test_chapter_detection(self):
-        from ingestion.processing.normaliser import Normaliser
-        from ingestion.processing.structure  import BookStructureDetector
+        from ingestion.normaliser import Normaliser
+        from ingestion.structure import BookStructureDetector
         doc  = Normaliser.normalise(SAMPLE_MATH_TEXT, "book")
         book = BookStructureDetector.detect(doc.text, title="Test")
         assert len(book.chapters) >= 1
 
     def test_exercise_extraction(self):
-        from ingestion.processing.normaliser import Normaliser
-        from ingestion.processing.structure  import BookStructureDetector
+        from ingestion.normaliser import Normaliser
+        from ingestion.structure import BookStructureDetector
         doc  = Normaliser.normalise(SAMPLE_MATH_TEXT, "book")
         book = BookStructureDetector.detect(doc.text, title="Test")
         total = book.total_exercises
         assert total >= 1, f"Expected ≥1 exercise, found {total}"
 
     def test_theorem_extraction(self):
-        from ingestion.processing.normaliser import Normaliser
-        from ingestion.processing.structure  import BookStructureDetector
+        from ingestion.normaliser import Normaliser
+        from ingestion.structure import BookStructureDetector
         doc  = Normaliser.normalise(SAMPLE_MATH_TEXT, "book")
         book = BookStructureDetector.detect(doc.text, title="Test")
         assert book.total_theorems >= 1
 
     def test_hint_extracted_from_exercise(self):
-        from ingestion.processing.structure import BookStructureDetector
+        from ingestion.structure import BookStructureDetector
         text = """
 ## Exercises
 
@@ -294,7 +294,7 @@ Exercise 1: Find eigenvalues of A. (Hint: use characteristic polynomial)
         assert hints, "Should extract hint from exercise"
 
     def test_difficulty_gradient(self):
-        from ingestion.processing.structure import BookStructureDetector
+        from ingestion.structure import BookStructureDetector
         text = "\n\n".join([
             f"# Chapter {i}\n\nContent for chapter {i} with enough words."
             for i in range(6)
@@ -312,15 +312,15 @@ Exercise 1: Find eigenvalues of A. (Hint: use characteristic polynomial)
 class TestChunker:
 
     def test_hierarchical_produces_chunks(self):
-        from ingestion.processing.normaliser import Normaliser
-        from ingestion.processing.chunker    import Chunker, Strategy
+        from ingestion.chunker import Chunker, Strategy
+        from ingestion.normaliser import Normaliser
         doc    = Normaliser.normalise(SAMPLE_MATH_TEXT, "book")
         chunks = Chunker().chunk(doc, Strategy.HIERARCHICAL)
         assert len(chunks) >= 1
 
     def test_no_split_inside_math_display(self):
-        from ingestion.processing.normaliser import Normaliser
-        from ingestion.processing.chunker    import Chunker, Strategy
+        from ingestion.chunker import Chunker, Strategy
+        from ingestion.normaliser import Normaliser
         # One huge display math block that exceeds max_words
         big_math = "⟨MATH_DISPLAY⟩\n" + "word " * 1200 + "\n⟨/MATH_DISPLAY⟩"
         doc  = Normaliser.normalise(big_math, "book")
@@ -337,8 +337,8 @@ class TestChunker:
             )
 
     def test_thin_chunks_filtered(self):
-        from ingestion.processing.normaliser import Normaliser
-        from ingestion.processing.chunker    import Chunker, Strategy
+        from ingestion.chunker import Chunker, Strategy
+        from ingestion.normaliser import Normaliser
         text   = "## Short\n\nFew words.\n\n## Long\n\n" + "word " * 100
         doc    = Normaliser.normalise(text, "book")
         chunks = Chunker(min_words=40).chunk(doc, Strategy.HIERARCHICAL)
@@ -346,7 +346,7 @@ class TestChunker:
             assert not c.is_thin(40), f"Thin chunk made it through: {c.word_count} words"
 
     def test_overlap_continuity(self):
-        from ingestion.processing.chunker import Chunker
+        from ingestion.chunker import Chunker
         # Create text that will be split across two windows
         text   = "word " * 2000
         c      = Chunker(max_words=400, overlap_words=50)
@@ -360,24 +360,24 @@ class TestChunker:
             assert len(overlap_set) > 0, "No overlap between consecutive windows"
 
     def test_chapter_metadata_attached(self):
-        from ingestion.processing.normaliser import Normaliser
-        from ingestion.processing.chunker    import Chunker, Strategy
+        from ingestion.chunker import Chunker, Strategy
+        from ingestion.normaliser import Normaliser
         doc    = Normaliser.normalise(SAMPLE_MATH_TEXT, "book")
         chunks = Chunker().chunk(doc, Strategy.HIERARCHICAL)
         chaptered = [c for c in chunks if c.chapter_title]
         assert chaptered, "Some chunks should have chapter_title set"
 
     def test_code_chunk_detected(self):
-        from ingestion.processing.normaliser import Normaliser
-        from ingestion.processing.chunker    import Chunker, Strategy
+        from ingestion.chunker import Chunker, Strategy
+        from ingestion.normaliser import Normaliser
         doc    = Normaliser.normalise(SAMPLE_CODE_TEXT, "book")
         chunks = Chunker().chunk(doc, Strategy.HIERARCHICAL)
         code_chunks = [c for c in chunks if c.has_code]
         assert code_chunks, "Expected at least one chunk with has_code=True"
 
     def test_flat_semantic_for_transcript(self):
-        from ingestion.processing.normaliser import Normaliser
-        from ingestion.processing.chunker    import Chunker, Strategy
+        from ingestion.chunker import Chunker, Strategy
+        from ingestion.normaliser import Normaliser
         transcript = "[00:00] " + "word " * 300 + "\n\n[05:00] " + "word " * 300
         doc        = Normaliser.normalise(transcript, "youtube")
         chunks     = Chunker(max_words=200).chunk(doc, Strategy.FLAT_SEMANTIC)
@@ -391,17 +391,16 @@ class TestChunker:
 class TestValidator:
 
     def test_valid_problem_passes(self):
-        from ingestion.generation.generator       import GeneratedProblem
-        from ingestion.generation.pipeline_stages import Validator
+        from ingestion.generator import GeneratedProblem
+        from ingestion.pipeline_stages import Validator
         p      = GeneratedProblem(**MINIMAL_VALID_PROBLEM)
         result = Validator().validate(p)
         assert result.passed
         assert result.quality_score >= 0.7
 
     def test_syntax_error_caught(self):
-        from ingestion.generation.generator       import GeneratedProblem
-        from ingestion.generation.pipeline_stages import Validator
-        bad = {**MINIMAL_VALID_PROBLEM, "starterCode": "def solve(\n    pass"}
+        from ingestion.generator import GeneratedProblem
+        from ingestion.pipeline_stages import Validator
         # Pydantic will accept it (no syntax check at schema level)
         # But Validator should catch it
         p      = GeneratedProblem(**{**MINIMAL_VALID_PROBLEM})
@@ -411,18 +410,17 @@ class TestValidator:
         assert any("syntax" in e.lower() for e in result.errors)
 
     def test_missing_print_statement_caught(self):
-        from ingestion.generation.generator       import GeneratedProblem
-        from ingestion.generation.pipeline_stages import Validator
+        from ingestion.generator import GeneratedProblem
         # testCode without print('All tests passed.')
-        with pytest.raises(Exception):  # Pydantic should raise
+        with pytest.raises((AssertionError, ValidationError)):  # Pydantic should raise
             GeneratedProblem(**{
                 **MINIMAL_VALID_PROBLEM,
                 "testCode": "from solution import solve\nassert solve(1) == 1"
             })
 
     def test_thin_explanation_penalised(self):
-        from ingestion.generation.generator       import GeneratedProblem
-        from ingestion.generation.pipeline_stages import Validator
+        from ingestion.generator import GeneratedProblem
+        from ingestion.pipeline_stages import Validator
         thin = {**MINIMAL_VALID_PROBLEM,
                 "explanation": (
                     "### What you are learning\nShort.\n"
@@ -436,7 +434,7 @@ class TestValidator:
 
     def test_inline_sandbox_execution(self):
         """Test the inline (non-Docker) sandbox path."""
-        from ingestion.generation.pipeline_stages import Validator
+        from ingestion.pipeline_stages import Validator
         solution = "def solve(x):\n    return x * 2\n"
         tests    = ("from solution import solve\n"
                     "assert solve(3) == 6\n"
@@ -445,7 +443,7 @@ class TestValidator:
         assert ok, f"Inline sandbox failed: {msg}"
 
     def test_inline_sandbox_failure_detected(self):
-        from ingestion.generation.pipeline_stages import Validator
+        from ingestion.pipeline_stages import Validator
         solution = "def solve(x):\n    return x * 3\n"  # wrong
         tests    = ("from solution import solve\n"
                     "assert solve(3) == 6, 'wrong'\n"
@@ -469,8 +467,8 @@ class TestDedupChecker:
         }
 
     def test_slug_collision_detected(self, catalog_with_one):
-        from ingestion.generation.generator       import GeneratedProblem
-        from ingestion.generation.pipeline_stages import DedupChecker
+        from ingestion.generator import GeneratedProblem
+        from ingestion.pipeline_stages import DedupChecker
         checker = DedupChecker(catalog_with_one)
         p       = GeneratedProblem(**MINIMAL_VALID_PROBLEM)
         is_dup, reason = checker.is_duplicate(p)
@@ -478,8 +476,8 @@ class TestDedupChecker:
         assert "slug collision" in reason
 
     def test_unique_problem_passes(self, catalog_with_one):
-        from ingestion.generation.generator       import GeneratedProblem
-        from ingestion.generation.pipeline_stages import DedupChecker
+        from ingestion.generator import GeneratedProblem
+        from ingestion.pipeline_stages import DedupChecker
         checker = DedupChecker(catalog_with_one)
         different = {**MINIMAL_VALID_PROBLEM,
                      "id": "completely-different-topic-xyz",
@@ -489,8 +487,8 @@ class TestDedupChecker:
         assert not is_dup
 
     def test_register_updates_index(self, catalog_with_one):
-        from ingestion.generation.generator       import GeneratedProblem
-        from ingestion.generation.pipeline_stages import DedupChecker
+        from ingestion.generator import GeneratedProblem
+        from ingestion.pipeline_stages import DedupChecker
         checker = DedupChecker({"chapters": [], "problems": []})
         p       = GeneratedProblem(**MINIMAL_VALID_PROBLEM)
         # Before register: not a dup
@@ -510,37 +508,37 @@ class TestDedupChecker:
 class TestGeneratedProblemSchema:
 
     def test_valid_problem_parses(self):
-        from ingestion.generation.generator import GeneratedProblem
+        from ingestion.generator import GeneratedProblem
         p = GeneratedProblem(**MINIMAL_VALID_PROBLEM)
         assert p.id == "test-eigenvalue-basic"
         assert p.difficulty == "medium"
 
     def test_uppercase_id_rejected(self):
-        from ingestion.generation.generator import GeneratedProblem
-        with pytest.raises(Exception):
+        from ingestion.generator import GeneratedProblem
+        with pytest.raises((AssertionError, ValidationError)):
             GeneratedProblem(**{**MINIMAL_VALID_PROBLEM, "id": "UPPERCASE-ID"})
 
     def test_bad_difficulty_rejected(self):
-        from ingestion.generation.generator import GeneratedProblem
-        with pytest.raises(Exception):
+        from ingestion.generator import GeneratedProblem
+        with pytest.raises((AssertionError, ValidationError)):
             GeneratedProblem(**{**MINIMAL_VALID_PROBLEM, "difficulty": "extreme"})
 
     def test_too_few_sections_rejected(self):
-        from ingestion.generation.generator import GeneratedProblem
-        with pytest.raises(Exception):
+        from ingestion.generator import GeneratedProblem
+        with pytest.raises((AssertionError, ValidationError)):
             GeneratedProblem(**{
                 **MINIMAL_VALID_PROBLEM,
                 "explanation": "### One section\nOnly one section here."
             })
 
     def test_too_few_hints_rejected(self):
-        from ingestion.generation.generator import GeneratedProblem
-        with pytest.raises(Exception):
+        from ingestion.generator import GeneratedProblem
+        with pytest.raises((AssertionError, ValidationError)):
             GeneratedProblem(**{**MINIMAL_VALID_PROBLEM, "hints": ["only one hint"]})
 
     def test_missing_solve_fn_rejected(self):
-        from ingestion.generation.generator import GeneratedProblem
-        with pytest.raises(Exception):
+        from ingestion.generator import GeneratedProblem
+        with pytest.raises((AssertionError, ValidationError)):
             GeneratedProblem(**{
                 **MINIMAL_VALID_PROBLEM,
                 "starterCode": "import numpy as np\n# no solve function"
@@ -555,7 +553,7 @@ class TestYouTubeExtractor:
 
     def test_vtt_timestamp_parsing(self):
         """Test that timestamp paragraphs are generated correctly."""
-        from ingestion.sources.extractors import YouTubeExtractor
+        from ingestion.extractors import YouTubeExtractor
 
         segments = [
             {"start":  0.0, "end":  5.0, "text": "Welcome to the lecture."},
@@ -571,13 +569,13 @@ class TestYouTubeExtractor:
 class TestWebExtractor:
 
     def test_title_extraction(self):
-        from ingestion.sources.extractors import WebExtractor
+        from ingestion.extractors import WebExtractor
         text  = "# My Article Title\n\nSome content."
         title = WebExtractor._extract_title("https://example.com/post", text)
         assert title == "My Article Title"
 
     def test_title_fallback_from_url(self):
-        from ingestion.sources.extractors import WebExtractor
+        from ingestion.extractors import WebExtractor
         title = WebExtractor._extract_title(
             "https://example.com/understanding-transformers", ""
         )
@@ -587,7 +585,7 @@ class TestWebExtractor:
 class TestGitHubExtractor:
 
     def test_notebook_extraction(self, tmp_path):
-        from ingestion.sources.extractors import GitHubExtractor
+        from ingestion.extractors import GitHubExtractor
         nb = {
             "cells": [
                 {"cell_type": "markdown", "source": ["# Introduction\n", "Linear algebra."]},
@@ -611,15 +609,15 @@ class TestGitHubExtractor:
 class TestValidatorSandbox:
 
     def test_sandbox_correct_code_passes(self):
-        from ingestion.generation.generator       import GeneratedProblem
-        from ingestion.generation.pipeline_stages import Validator
+        from ingestion.generator import GeneratedProblem
+        from ingestion.pipeline_stages import Validator
         p      = GeneratedProblem(**MINIMAL_VALID_PROBLEM)
         result = Validator().validate(p)
         assert result.passed, f"Expected pass, errors: {result.errors}"
 
     def test_sandbox_wrong_code_fails(self):
-        from ingestion.generation.generator       import GeneratedProblem
-        from ingestion.generation.pipeline_stages import Validator
+        from ingestion.generator import GeneratedProblem
+        from ingestion.pipeline_stages import Validator
         wrong = {**MINIMAL_VALID_PROBLEM,
                  "solutionCode": "import numpy as np\ndef solve(A):\n    return np.zeros(2)"}
         p      = GeneratedProblem(**wrong)

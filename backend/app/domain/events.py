@@ -34,6 +34,19 @@ class EventBase(SQLModel):
     session_id: str | None = Field(default=None, index=True)
 
 
+def event_as_dict(event: EventBase) -> dict:
+    d: dict = {
+        "type": event.__class__.__name__,
+        "id": event.id,
+        "timestamp": event.timestamp.isoformat() if event.timestamp else None,
+    }
+    extras = event.model_dump(exclude={"id", "timestamp", "session_id"})
+    d.update(extras)
+    if event.session_id is not None:
+        d["session_id"] = event.session_id
+    return d
+
+
 # ── Seven typed events ──────────────────────────────────────────────
 
 

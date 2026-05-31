@@ -39,7 +39,7 @@ class FileToolRegistry:
     def _load(self) -> None:
         self._schemas.clear()
         if not self._dir.is_dir():
-            logfire.warn(
+            logfire.warning(
                 "Tool registry directory not found: {path}",
                 path=str(self._dir),
             )

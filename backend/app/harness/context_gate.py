@@ -16,14 +16,15 @@ Deep-source mode (ADR-0007):
 
 from __future__ import annotations
 
+from typing import Protocol
 from pathlib import Path
-from typing import TYPE_CHECKING, Protocol
+from typing import TYPE_CHECKING
 
 import logfire
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 if TYPE_CHECKING:
-    from app.harness.tool_registry import FileToolRegistry
+    from app.harness.tool_registry import ToolRegistry
 
 
 class BudgetError(Exception):
@@ -31,11 +32,7 @@ class BudgetError(Exception):
 
 
 class SeedContext(BaseModel):
-    """The bounded context assembled by the Context Gate.
-
-    Approximately 9,400 tokens. The agent discovers additional context
-    at runtime via tool calls (ADR-0015: seed-and-discover pattern).
-    """
+    model_config = ConfigDict(frozen=True)
 
     system_slot: str = ""
     task_intent: str = ""
@@ -115,7 +112,7 @@ class DefaultContextGate:
     def __init__(
         self,
         *,
-        tool_registry: FileToolRegistry | None = None,
+        tool_registry: ToolRegistry | None = None,
         memories_dir: Path | None = None,
         system_prompt: str = "",
         deep_source: bool = False,

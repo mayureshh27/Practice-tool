@@ -10,7 +10,7 @@ from typing import Annotated
 from fastapi import Depends
 from sqlmodel import Session, SQLModel, create_engine
 
-from app.config import Settings, get_settings
+from app.config import Settings
 
 # Module-level engine — set by ``init_db`` at application startup.
 _engine = None

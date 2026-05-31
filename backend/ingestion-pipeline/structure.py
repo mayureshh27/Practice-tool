@@ -24,9 +24,9 @@ We detect exercises and worked examples explicitly because:
 """
 
 from __future__ import annotations
+
 import re
 from dataclasses import dataclass, field
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Data model

@@ -1,10 +1,12 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useState, useEffect, useMemo } from 'react'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import ProblemNav from '../../../../../components/ProblemNav'
 import LearningPanel from '../../../../../components/LearningPanel'
 import WorkPanel from '../../../../../components/WorkPanel'
 import type { FlowTab, Problem, ProblemFilterMode, RunMode, RunResp, Store, Theme, UploadedFile, OutputComparison } from '../../../../../types'
 import { useWorkspaceStore } from '../../../../../stores/workspaceStore'
+import { problemsQueries } from '../../../../../api/queries'
 import { getBrowserStorage, readJsonStorage, readTextStorage, writeJsonStorage, writeTextStorage, removeStorageItem, errorMessage } from '../../../../../appState'
 import { API, canSubmit, problemNeedsFiles, buildRunMarkdown, buildOutputComparison } from '../../../../../problemContent'
 
@@ -18,9 +20,8 @@ function TopicRoute() {
   const [practiceNavCollapsed, setPracticeNavCollapsed] = useState(false)
   const [tab, setTab] = useState<FlowTab>('explanation')
 
-  const goProblems = useWorkspaceStore(s => s.goProblems)
+  const { data: catalogProblems } = useSuspenseQuery(problemsQueries.catalog())
   const domains = useWorkspaceStore(s => s.domains)
-  const isLoading = useWorkspaceStore(s => s.isLoadingProblems)
   const submitPracticeAttempt = useWorkspaceStore(s => s.submitPracticeAttempt)
   const chatSessionId = useWorkspaceStore(s => s.chatSessionId)
 
@@ -30,9 +31,9 @@ function TopicRoute() {
     if (!goSubject) return null
     return {
       chapters: goSubject.chapters.map(ch => ({ id: ch.id, title: ch.name })),
-      problems: goProblems
+      problems: catalogProblems.problems
     }
-  }, [goProblems, domains])
+  }, [catalogProblems, domains])
 
   const [pid, setPid] = useState('')
   const [query, setQuery] = useState('')
@@ -233,14 +234,6 @@ function TopicRoute() {
   const canSubmitProblem = activeProblem ? canSubmit(activeProblem) : false
   const needsFiles = activeProblem ? problemNeedsFiles(activeProblem) : false
   const judgeCount = store ? store.problems.filter(p => p.exerciseMode === 'judge').length : 0
-
-  if (isLoading) {
-    return (
-      <div className="flex items-center justify-center p-10 h-full w-full bg-ws-floor text-ws-ink-3 font-medium">
-        Loading problem catalog...
-      </div>
-    )
-  }
 
   if (!store) {
     return (

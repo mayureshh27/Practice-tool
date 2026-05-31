@@ -16,7 +16,8 @@ defines both the Protocol interface and the concrete SocraticGate.
 from __future__ import annotations
 
 import re
-from typing import Any, Protocol
+from typing import Protocol
+from typing import Any
 
 import logfire
 from pydantic import BaseModel
@@ -113,7 +114,7 @@ class SocraticGate:
         for pattern in _DIRECT_ANSWER_PATTERNS:
             if pattern.search(stripped):
                 failures.append(
-                    f"answer_leak: Response starts with direct answer pattern"
+                    "answer_leak: Response starts with direct answer pattern"
                 )
                 logfire.warning(
                     "Socratic Gate: answer_leak detected in tutor response"

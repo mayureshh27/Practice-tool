@@ -1,9 +1,7 @@
 import { create } from 'zustand';
 import type { Domain, WorkflowTemplate, Artifact, RecentItem, Subject, Chapter } from '../workspaceTypes';
 import { INITIAL_DOMAINS, INITIAL_WORKFLOWS, INITIAL_ARTIFACTS } from './mockData';
-import type { Problem, Store } from '../types';
-import { API } from '../problemContent';
-import { api, type ConceptMasteryDTO, type BlindSpotDTO } from '../api/workspaceApi';
+import { api } from '../api/workspaceApi';
 
 // ── Chat types ─────────────────────────────────────────────────────
 export type ChatMessage = {
@@ -35,19 +33,20 @@ const setLocalStorageItem = (key: string, value: any) => {
   }
 };
 
+type SetState = (partial: WorkspaceState | Partial<WorkspaceState> | ((state: WorkspaceState) => WorkspaceState | Partial<WorkspaceState>)) => void
+
+const mutateDomains = (set: SetState, mapper: (domains: Domain[]) => Domain[]) =>
+  set((state: WorkspaceState) => {
+    const next = mapper(state.domains);
+    setLocalStorageItem('domains', next);
+    return { domains: next };
+  });
+
 interface WorkspaceState {
   domains: Domain[];
   workflows: WorkflowTemplate[];
   artifacts: Artifact[];
   recentItems: RecentItem[];
-
-  // Go Problems API integration
-  goProblems: Problem[];
-  isLoadingProblems: boolean;
-  fetchGoProblems: () => Promise<any>;
-
-  // Backend sync
-  syncDomainsFromBackend: () => Promise<void>;
 
   // ── Chat state ───────────────────────────────────────────────────
   chatSessionId: string | null;
@@ -57,11 +56,7 @@ interface WorkspaceState {
   endChatSession: () => Promise<void>;
   sendChatMessage: (text: string, conceptIds?: string[], sourceIds?: string[]) => Promise<void>;
 
-  // ── Mastery state ────────────────────────────────────────────────
-  masteryScores: ConceptMasteryDTO[];
-  blindSpots: BlindSpotDTO[];
-  fetchMastery: () => Promise<void>;
-  fetchBlindSpots: () => Promise<void>;
+  // ── Practice attempt submission (delegated to backend event store) ─
   submitPracticeAttempt: (attempt: {
     sessionId?: string;
     artifactId?: string;
@@ -135,9 +130,6 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
       time: '3 hours ago'
     }
   ]),
-  goProblems: [],
-  isLoadingProblems: false,
-
   // ── Chat state ───────────────────────────────────────────────────
   chatSessionId: null,
   chatMessages: [],
@@ -214,296 +206,95 @@ export const useWorkspaceStore = create<WorkspaceState>((set) => ({
     }
   },
 
-  // ── Mastery state ────────────────────────────────────────────────
-  masteryScores: [],
-  blindSpots: [],
-
-  fetchMastery: async () => {
-    try {
-      const scores = await api.getMasteryScores();
-      set({ masteryScores: scores });
-    } catch (err) {
-      console.error('Failed to fetch mastery scores:', err);
-    }
-  },
-
-  fetchBlindSpots: async () => {
-    try {
-      const spots = await api.getBlindSpots();
-      set({ blindSpots: spots });
-    } catch (err) {
-      console.error('Failed to fetch blind spots:', err);
-    }
-  },
-
   submitPracticeAttempt: async (attempt) => {
     try {
       await api.submitAttempt(attempt);
-      // Refresh mastery scores after submission
-      const scores = await api.getMasteryScores();
-      const spots = await api.getBlindSpots();
-      set({ masteryScores: scores, blindSpots: spots });
     } catch (err) {
       console.error('Failed to submit practice attempt:', err);
     }
   },
 
-  // ── Backend sync ─────────────────────────────────────────────────
-  syncDomainsFromBackend: async () => {
-    try {
-      const domains = await api.getDomains();
-      setLocalStorageItem('domains', domains);
-      set({ domains });
-    } catch (err) {
-      console.warn('Backend domain sync failed, using localStorage fallback:', err);
-      // Keep existing localStorage data
-    }
-  },
+  setDomains: (domains) => mutateDomains(set, () => domains),
 
-  fetchGoProblems: async () => {
-    set({ isLoadingProblems: true });
-    try {
-      const response = await fetch(`${API}/api/problems`);
-      if (!response.ok) throw new Error('API failure');
-      const data: Store = await response.json();
-      set((state) => {
-        const nextDomains = state.domains.map(d => {
-          if (d.id !== 'go-programming') return d;
-          return {
-            ...d,
-            subjects: d.subjects.map(sub => {
-              if (sub.id !== 'go-fundamentals') return sub;
-              
-              const newChapters = data.chapters.map(ch => {
-                const chProblems = data.problems.filter(p => p.chapter === ch.id);
-                return {
-                  id: ch.id,
-                  name: ch.title,
-                  description: ch.title,
-                  topics: chProblems.map(p => ({
-                    id: p.id,
-                    name: p.title,
-                    lastMessage: 'Not started'
-                  }))
-                };
-              });
-              
-              return {
-                ...sub,
-                chapters: newChapters
-              };
-            })
-          };
-        });
-        setLocalStorageItem('domains', nextDomains);
-        return {
-          goProblems: data.problems,
-          isLoadingProblems: false,
-          domains: nextDomains
-        };
-      });
-    } catch (err) {
-      console.error('Error fetching Go problems:', err);
-      set({ isLoadingProblems: false });
-    }
-  },
+  renameDomain: (id, name) => mutateDomains(set,
+    ds => ds.map(d => d.id === id ? { ...d, name } : d)),
 
-  setDomains: (domains) => set(() => {
-    setLocalStorageItem('domains', domains);
-    return { domains };
-  }),
+  deleteDomain: (id) => mutateDomains(set,
+    ds => ds.filter(d => d.id !== id)),
 
-  renameDomain: (id, name) => set((state) => {
-    const next = state.domains.map(d => d.id === id ? { ...d, name } : d);
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
+  togglePinDomain: (id) => mutateDomains(set,
+    ds => ds.map(d => d.id === id ? { ...d, pinned: !d.pinned } : d)),
 
-  deleteDomain: (id) => set((state) => {
-    const next = state.domains.filter(d => d.id !== id);
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
+  toggleArchiveDomain: (id) => mutateDomains(set,
+    ds => ds.map(d => d.id === id ? { ...d, archived: !d.archived } : d)),
 
-  togglePinDomain: (id) => set((state) => {
-    const next = state.domains.map(d => d.id === id ? { ...d, pinned: !d.pinned } : d);
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
+  addDomain: (name) => mutateDomains(set, ds => [...ds, {
+    id: `domain-${Date.now()}`, name, subjects: []
+  }]),
 
-  toggleArchiveDomain: (id) => set((state) => {
-    const next = state.domains.map(d => d.id === id ? { ...d, archived: !d.archived } : d);
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
-
-  addDomain: (name) => set((state) => {
-    const newDomain: Domain = {
-      id: `domain-${Date.now()}`,
-      name,
-      subjects: []
-    };
-    const next = [...state.domains, newDomain];
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
-
-  addSubject: (domainId, name, description) => set((state) => {
-    const next = state.domains.map(d => {
-      if (d.id !== domainId) return d;
-      const newSubject: Subject = {
-        id: `subject-${Date.now()}`,
-        name,
-        description,
-        chapters: [
-          {
-            id: `c-init-${Date.now()}`,
-            name: 'Chapter 1: Foundations',
-            topics: []
-          }
-        ],
+  addSubject: (domainId, name, description) => mutateDomains(set,
+    ds => ds.map(d => d.id !== domainId ? d : {
+      ...d, subjects: [...d.subjects, {
+        id: `subject-${Date.now()}`, name, description,
+        chapters: [{ id: `c-init-${Date.now()}`, name: 'Chapter 1: Foundations', topics: [] }],
         resources: []
-      };
-      return { ...d, subjects: [...d.subjects, newSubject] };
-    });
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
+      }]
+    })),
 
-  renameSubject: (domainId, subjectId, name) => set((state) => {
-    const next = state.domains.map(d => {
-      if (d.id !== domainId) return d;
-      return {
-        ...d,
-        subjects: d.subjects.map(s => s.id === subjectId ? { ...s, name } : s)
-      };
-    });
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
+  renameSubject: (domainId, subjectId, name) => mutateDomains(set,
+    ds => ds.map(d => d.id !== domainId ? d : {
+      ...d, subjects: d.subjects.map(s => s.id === subjectId ? { ...s, name } : s)
+    })),
 
-  deleteSubject: (domainId, subjectId) => set((state) => {
-    const next = state.domains.map(d => {
-      if (d.id !== domainId) return d;
-      return {
-        ...d,
-        subjects: d.subjects.filter(s => s.id !== subjectId)
-      };
-    });
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
+  deleteSubject: (domainId, subjectId) => mutateDomains(set,
+    ds => ds.map(d => d.id !== domainId ? d : {
+      ...d, subjects: d.subjects.filter(s => s.id !== subjectId)
+    })),
 
-  updateSubject: (domainId, subjectId, fields) => set((state) => {
-    const next = state.domains.map(d => {
-      if (d.id !== domainId) return d;
-      return {
-        ...d,
-        subjects: d.subjects.map(s => s.id === subjectId ? { ...s, ...fields } : s)
-      };
-    });
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
+  updateSubject: (domainId, subjectId, fields) => mutateDomains(set,
+    ds => ds.map(d => d.id !== domainId ? d : {
+      ...d, subjects: d.subjects.map(s => s.id === subjectId ? { ...s, ...fields } : s)
+    })),
 
-  addChapter: (domainId, subjectId, name, description) => set((state) => {
-    const next = state.domains.map(d => {
-      if (d.id !== domainId) return d;
-      return {
-        ...d,
-        subjects: d.subjects.map(s => {
-          if (s.id !== subjectId) return s;
-          const newChapter: Chapter = {
-            id: `chapter-${Date.now()}`,
-            name,
-            description: description || `Learning modules for ${name}.`,
-            topics: []
-          };
-          return { ...s, chapters: [...s.chapters, newChapter] };
+  addChapter: (domainId, subjectId, name, description) => mutateDomains(set,
+    ds => ds.map(d => d.id !== domainId ? d : {
+      ...d, subjects: d.subjects.map(s => s.id !== subjectId ? s : {
+        ...s, chapters: [...s.chapters, {
+          id: `chapter-${Date.now()}`, name,
+          description: description || `Learning modules for ${name}.`, topics: []
+        }]
+      })
+    })),
+
+  updateChapter: (domainId, subjectId, chapterId, fields) => mutateDomains(set,
+    ds => ds.map(d => d.id !== domainId ? d : {
+      ...d, subjects: d.subjects.map(s => s.id !== subjectId ? s : {
+        ...s, chapters: s.chapters.map(c => c.id === chapterId ? { ...c, ...fields } : c)
+      })
+    })),
+
+  addTopic: (domainId, subjectId, chapterId, name) => mutateDomains(set,
+    ds => ds.map(d => d.id !== domainId ? d : {
+      ...d, subjects: d.subjects.map(s => s.id !== subjectId ? s : {
+        ...s, chapters: s.chapters.map(c => c.id !== chapterId ? c : {
+          ...c, topics: [...c.topics, { id: `topic-${Date.now()}`, name, lastMessage: 'Not started' }]
         })
-      };
-    });
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
+      })
+    })),
 
-  updateChapter: (domainId, subjectId, chapterId, fields) => set((state) => {
-    const next = state.domains.map(d => {
-      if (d.id !== domainId) return d;
-      return {
-        ...d,
-        subjects: d.subjects.map(s => {
-          if (s.id !== subjectId) return s;
-          return {
-            ...s,
-            chapters: s.chapters.map(c => c.id === chapterId ? { ...c, ...fields } : c)
-          };
-        })
-      };
-    });
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
+  addResource: (domainId, subjectId, name, fileType, linesCount) => mutateDomains(set,
+    ds => ds.map(d => d.id !== domainId ? d : {
+      ...d, subjects: d.subjects.map(s => s.id !== subjectId ? s : {
+        ...s, resources: [...s.resources, { id: `res-${Date.now()}`, name, fileType, lines: linesCount }]
+      })
+    })),
 
-  addTopic: (domainId, subjectId, chapterId, name) => set((state) => {
-    const next = state.domains.map(d => {
-      if (d.id !== domainId) return d;
-      return {
-        ...d,
-        subjects: d.subjects.map(s => {
-          if (s.id !== subjectId) return s;
-          return {
-            ...s,
-            chapters: s.chapters.map(c => {
-              if (c.id !== chapterId) return c;
-              return {
-                ...c,
-                topics: [...c.topics, { id: `topic-${Date.now()}`, name, lastMessage: 'Not started' }]
-              };
-            })
-          };
-        })
-      };
-    });
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
-
-  addResource: (domainId, subjectId, name, fileType, linesCount) => set((state) => {
-    const next = state.domains.map(d => {
-      if (d.id !== domainId) return d;
-      return {
-        ...d,
-        subjects: d.subjects.map(s => {
-          if (s.id !== subjectId) return s;
-          return {
-            ...s,
-            resources: [...s.resources, { id: `res-${Date.now()}`, name, fileType, lines: linesCount }]
-          };
-        })
-      };
-    });
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
-
-  removeResource: (domainId, subjectId, resourceId) => set((state) => {
-    const next = state.domains.map(d => {
-      if (d.id !== domainId) return d;
-      return {
-        ...d,
-        subjects: d.subjects.map(s => {
-          if (s.id !== subjectId) return s;
-          return {
-            ...s,
-            resources: s.resources.filter(r => r.id !== resourceId)
-          };
-        })
-      };
-    });
-    setLocalStorageItem('domains', next);
-    return { domains: next };
-  }),
+  removeResource: (domainId, subjectId, resourceId) => mutateDomains(set,
+    ds => ds.map(d => d.id !== domainId ? d : {
+      ...d, subjects: d.subjects.map(s => s.id !== subjectId ? s : {
+        ...s, resources: s.resources.filter(r => r.id !== resourceId)
+      })
+    })),
 
   addToRecents: (label, type, loc) => set((state) => {
     const filtered = state.recentItems.filter(r => JSON.stringify(r.loc) !== JSON.stringify(loc));
